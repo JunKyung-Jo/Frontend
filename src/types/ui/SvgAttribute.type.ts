@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 
 export interface SvgAttribute {
-  width: CSSProperties["width"];
-  height: CSSProperties["height"];
+  width?: CSSProperties["width"];
+  height?: CSSProperties["height"];
 }
