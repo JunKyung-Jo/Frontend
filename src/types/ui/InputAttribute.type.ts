@@ -6,4 +6,5 @@ export interface InputAttribute {
   borderRadius?: CSSProperties["borderRadius"];
   label?: string;
   placeholder?: string;
+  type?: string;
 }
