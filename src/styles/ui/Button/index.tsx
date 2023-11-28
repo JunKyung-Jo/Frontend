@@ -9,6 +9,7 @@ const Button = ({
   width = 45,
   height = 6,
   borderRadius = 1,
+  border = `1px solid ${Color.primary}`,
   backgroundColor = Color.primary,
   color = Color.white,
   onClick,
@@ -20,6 +21,7 @@ const Button = ({
         height: `${height}rem`,
         color,
         backgroundColor,
+        border,
         borderRadius: `${borderRadius}rem`,
       }}
       onClick={onClick}
@@ -32,6 +34,7 @@ const Button = ({
 export default Button;
 
 const Container = styled.div`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
