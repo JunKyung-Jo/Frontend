@@ -10,6 +10,7 @@ const Input = ({
   borderRadius = 1,
   placeholder,
   label,
+  type = "text",
 }: InputAttribute) => {
   return (
     <Container>
@@ -23,6 +24,7 @@ const Input = ({
           height: `${height}rem`,
           borderRadius: `${borderRadius}rem`,
         }}
+        type={type}
       />
     </Container>
   );
@@ -48,5 +50,11 @@ const StyledInput = styled.input`
   align-items: center;
   border: 1px solid ${Color.gray200};
 
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 2.5);
+
   ${font.$p1}
+
+  &:focus {
+    transform: scale(1.02);
+  }
 `;
