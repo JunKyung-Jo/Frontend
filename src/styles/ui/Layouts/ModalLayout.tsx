@@ -8,8 +8,8 @@ const ModalLayout = ({ children }: ModalLayoutAttribute) => {
 export default ModalLayout;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 
   position: relative;
 
@@ -17,5 +17,5 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  backdrop-filter: blur(0.5rem);
+  backdrop-filter: brightness(80%);
 `;
