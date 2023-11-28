@@ -25,6 +25,10 @@ const Text = ({
 export default Text;
 
 const Container = styled.div<{ fontType: Font; ellipsis: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   ${({ fontType }) => Font[fontType]};
   text-overflow: ${({ ellipsis }) => (ellipsis ? "ellipsis" : "clip")};
 `;

@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -9,6 +9,11 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
   }
 
   input {

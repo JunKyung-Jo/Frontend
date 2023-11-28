@@ -37,4 +37,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   ${font.$Button3}
+
+  cursor: pointer;
+  transition: 0.25s cubic-bezier(0.175, 0.885, 0.32, 1);
+
+  &:hover {
+    opacity: 0.9;
+  }
 `;
