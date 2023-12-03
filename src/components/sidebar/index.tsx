@@ -18,6 +18,10 @@ const Sidebar = () => {
           onClick={() => {}}
         />
       </Column>
+      <div>
+        <ColumnType>이름</ColumnType>
+        <ColumnInfo>설명</ColumnInfo>
+      </div>
     </SideBarBox>
   );
 };
@@ -30,3 +34,7 @@ const SideBarBox = styled.div`
   border: 1px solid ${Color.gray200};
   background: ${Color.gray50};
 `;
+
+const ColumnType = styled.div``;
+
+const ColumnInfo = styled.div``;
