@@ -1,1 +1,2 @@
-export { default as LoginModal } from "@/components/loginModal";
+export { default as LoginModalForm } from "@/components/loginModalForm";
+export { default as FriendSidebar } from "@/components/friendSidebar";

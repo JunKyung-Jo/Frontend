@@ -31,6 +31,7 @@ const font = {
   $Button1: fontGenerator(Medium, 2.4, 120),
   $Button2: fontGenerator(Medium, 2.0, 120),
   $Button3: fontGenerator(Medium, 1.6, 120),
+  $Button4: fontGenerator(Medium, 1.4, 120),
   $Navigation: fontGenerator(Regular, 1.2, 130),
 };
 
