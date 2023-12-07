@@ -1,12 +1,20 @@
 "use client";
 
-import Image from "next/image";
-import { RightSidebar } from "@/components";
+import { FriendSidebar, RightSidebar, UserChat } from "@/components";
+import styled from "styled-components";
 
 export default function Home() {
   return (
-    <div>
+    <Container>
+      <FriendSidebar />
+      <UserChat />
       <RightSidebar />
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
