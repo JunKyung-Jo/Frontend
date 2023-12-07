@@ -3,8 +3,11 @@ import { LeftIcon, SendIcon, SettingIcon } from "@/styles/svg";
 import * as S from "./style";
 import { Column, Row, Text } from "@/styles/ui";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useModal } from "@/hooks/useRightSidebarModal";
 
 const UserChat = () => {
+  const { openModal } = useModal();
+
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const chatSettingRef = useRef<HTMLDivElement | null>(null);
 
@@ -39,7 +42,7 @@ const UserChat = () => {
   return (
     <S.Container>
       <S.ChatAiInfoContainer>
-        <S.ChatAiInfo>
+        <S.ChatAiInfo onClick={openModal}>
           <S.SettingButton
             onClick={() => setIsOpen(!isOpen)}
             ref={chatSettingRef}
