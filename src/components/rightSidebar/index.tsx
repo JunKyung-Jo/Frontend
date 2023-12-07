@@ -1,14 +1,19 @@
-import color from "@/styles/theme/color";
 import { Button, Column, Row, Text } from "@/styles/ui";
 import styled from "styled-components";
 import { Color, Font } from "@/styles/theme";
-import font from "@/styles/theme/font";
-import { Bluebadge } from "@/styles/svg";
+import { Bluebadge, CrossIcon } from "@/styles/svg";
+import { useModal } from "@/hooks/useRightSidebarModal";
 
 const RightSideBar = () => {
+  const { closeModal } = useModal();
   return (
     <SideBarPage>
       <RightSidebarHeader>
+        <div onClick={closeModal}>
+          <Row justifyContent="end">
+            <CrossIcon width={2} height={2} />
+          </Row>
+        </div>
         <Row alignItems="center" gap={4.5}>
           <BotProfile />
           <div>
@@ -45,7 +50,7 @@ const SideBarPage = styled.div`
 
 const RightSidebarHeader = styled.div`
   width: 100%;
-  padding-top: 4.5rem;
+  padding-top: 2.5rem;
   padding-left: 5.8rem;
   padding-right: 2.5rem;
 `;
@@ -61,13 +66,13 @@ const BotProfile = styled.div`
 const BotName = styled.div`
   color: ${Color.black};
 
-  ${font.$H4}
+  ${Font.$H4}
 `;
 
 const BotInfo = styled.div`
   color: ${Color.black};
 
-  ${font.$Body3}
+  ${Font.$Body3}
 `;
 
 const PostCount = styled.div`
@@ -75,7 +80,7 @@ const PostCount = styled.div`
   text-align: end;
   margin-top: 10rem;
 
-  ${font.$Body3}
+  ${Font.$Body3}
 `;
 
 const PostContainer = styled.div`
