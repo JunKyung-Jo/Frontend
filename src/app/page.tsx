@@ -5,12 +5,11 @@ import { useModal } from "@/hooks/useRightSidebarModal";
 import styled from "styled-components";
 
 export default function Home() {
-  const { openModal, modalState } = useModal();
+  const { modalState } = useModal();
   return (
     <Container>
       <FriendSidebar />
       <UserChat />
-      {/* <button onClick={openModal}>test</button> */}
       {modalState.show && <RightSidebar />}
     </Container>
   );
