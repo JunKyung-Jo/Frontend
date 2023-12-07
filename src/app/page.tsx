@@ -5,11 +5,13 @@ import { useModal } from "@/hooks/useModal";
 import styled from "styled-components";
 
 export default function Home() {
+  const { openModal, modalState } = useModal();
   return (
     <Container>
       <FriendSidebar />
       <UserChat />
-      <RightSidebar />
+      {/* <button onClick={openModal}>test</button> */}
+      {modalState.show && <RightSidebar />}
     </Container>
   );
 }
