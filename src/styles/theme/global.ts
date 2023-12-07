@@ -23,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
   button {
     outline: none;
   }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default GlobalStyle;
