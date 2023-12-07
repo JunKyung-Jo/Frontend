@@ -5,8 +5,8 @@ import { InputAttribute } from "@/types/ui/InputAttribute.type";
 import font from "@/styles/theme/font";
 
 const Input = ({
-  width = 45,
-  height = 6,
+  width = 35,
+  height = 5,
   borderRadius = 1,
   placeholder,
   label,
@@ -14,7 +14,7 @@ const Input = ({
 }: InputAttribute) => {
   return (
     <Container>
-      <Text fontType="$p2" color={Color.black}>
+      <Text fontType="$p3" color={Color.black}>
         {label}
       </Text>
       <StyledInput
@@ -48,13 +48,15 @@ const StyledInput = styled.input`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${Color.gray200};
 
-  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 2.5);
+  border: none;
+  box-shadow: 0px 0px 0px 1px ${Color.gray200};
+
+  transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
 
   ${font.$p1}
 
   &:focus {
-    transform: scale(1.02);
+    box-shadow: 0px 0px 0px 2px ${Color.primary};
   }
 `;

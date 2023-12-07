@@ -1,13 +1,25 @@
-import { GoogleIcon, KakaoIcon, Logo, NaverIcon } from "@/styles/svg";
+import { useModal } from "@/hooks/useModal";
+import {
+  GoogleIcon,
+  KakaoIcon,
+  Logo,
+  NaverIcon,
+  CrossIcon,
+} from "@/styles/svg";
 import { Color } from "@/styles/theme";
 import { Column, Input, Button, Text, Row, ModalLayout } from "@/styles/ui";
 import Link from "next/link";
 import styled from "styled-components";
 
-const LoginModal = () => {
+const LoginModalForm = () => {
+  const { closeModal } = useModal();
+
   return (
     <ModalLayout>
       <Container>
+        <CloseModalBtn onClick={closeModal}>
+          <CrossIcon width={2} height={2} />
+        </CloseModalBtn>
         <Logo width={40} height={6} />
         <Column gap={2}>
           <Input placeholder="이메일을 입력해주세요" label="이메일" />
@@ -19,7 +31,7 @@ const LoginModal = () => {
           <Button content="로그인" onClick={() => {}} />
         </Column>
         <Column gap={1}>
-          <Text fontType="$p1" color={Color.gray500}>
+          <Text fontType="$p2" color={Color.gray500}>
             소셜 계정으로 로그인
           </Text>
           <Row gap={1.5}>
@@ -37,10 +49,10 @@ const LoginModal = () => {
             </a>
           </Row>
         </Column>
-        <Text fontType="$p1">
+        <Text fontType="$p2">
           파인드 프렌드가 처음이신가요? &ensp;
           <Link href="/signup">
-            <Text fontType="$Button3" color={Color.primary}>
+            <Text fontType="$Button4" color={Color.primary}>
               회원가입 하기
             </Text>
           </Link>
@@ -50,11 +62,12 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default LoginModalForm;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   align-items: center;
 
@@ -64,10 +77,31 @@ const Container = styled.div`
   background-color: ${Color.white};
   border-radius: 2rem;
 
-  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.03),
-    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 10px ${Color.gray200};
 
   padding: 2.6rem;
 
   gap: 3.5rem;
+`;
+
+const CloseModalBtn = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  padding: 0.5rem;
+  color: ${Color.gray200};
+  transition: 0.25s cubic-bezier(0.3, 0.49, 0.5, 1);
+
+  &:hover {
+    background-color: ${Color.gray50};
+  }
+
+  &:active {
+    transition: 0.1s cubic-bezier(0.3, 0.49, 0.5, 1);
+    background-color: ${Color.gray50};
+  }
 `;

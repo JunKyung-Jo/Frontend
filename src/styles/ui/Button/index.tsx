@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 const Button = ({
   content,
-  width = 45,
-  height = 6,
+  width = 35,
+  height = 5,
   borderRadius = 1,
   backgroundColor = Color.primary,
   color = Color.white,

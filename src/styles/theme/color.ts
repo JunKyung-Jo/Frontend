@@ -14,6 +14,7 @@ const color = {
   white: "#FFFFFF",
   black: "#000000",
   primary: "#0064FF",
+  primary2: "#CBDEFB",
 };
 
 export default color;
