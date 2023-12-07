@@ -51,6 +51,7 @@ const FriendSidebarFooter = styled.div`
   right: 0;
 
   width: 100%;
+  height: 10%;
 
   display: flex;
   justify-content: space-between;
