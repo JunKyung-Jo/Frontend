@@ -1,3 +1,4 @@
+import { Color } from "@/styles/theme";
 import { Column, Text } from "@/styles/ui";
 import { FriendContainerAttribute } from "@/types/components/FriendContainerAttribute.type";
 import React from "react";
@@ -22,6 +23,12 @@ const Container = styled.div`
   gap: 2rem;
 
   padding: 2rem 3rem;
+  transition: 0.15s cubic-bezier(0.3, 0.49, 0.5, 1);
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${Color.gray100};
+  }
 `;
 
 const ProfileImg = styled.div`
