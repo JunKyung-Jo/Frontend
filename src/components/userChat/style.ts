@@ -1,9 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import color from "../../styles/theme/color";
 import font from "@/styles/theme/font";
 
-export const Container = styled.div`
-  flex: 1;
+const ShowChatBox = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(50%) translateX(50%);
+  } to {
+    opacity: 1;
+    transform: scale(1) translateY(0%) translateX(0%);
+  }
 `;
 
 export const ChatBox = styled.div<{ isMyChat: boolean }>`
@@ -17,7 +23,35 @@ export const ChatBox = styled.div<{ isMyChat: boolean }>`
   padding: 10px 15px;
   box-sizing: border-box;
   word-break: break-all;
+
+  animation: ${ShowChatBox} 0.4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
   ${font.$p2}
+`;
+
+export const Send = styled.button`
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  background-color: ${color.primary};
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+export const ProfileImg = styled.div`
+  width: 100px;
+  height: 100px;
+
+  border-radius: 999rem;
+
+  background-color: black;
+`;
+export const Container = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ChatContainer = styled.div<{ isMyChat: boolean }>`
@@ -26,22 +60,79 @@ export const ChatContainer = styled.div<{ isMyChat: boolean }>`
   justify-content: ${({ isMyChat }) => (isMyChat ? "right" : "left")};
 `;
 
+export const ChatAiInfoContainer = styled.div`
+  width: 100%;
+  flex: 1;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  box-shadow: 0px 10px 10px ${color.white};
+`;
+
+export const ChatAiInfo = styled.div`
+  width: 50%;
+  height: 80%;
+
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 45px;
+
+  background-color: ${color.gray100};
+
+  border-radius: 20px;
+`;
+
+export const ChatAiOption = styled.div`
+  width: fit-content;
+  height: fit-content;
+  background-color: ${color.white};
+
+  position: absolute;
+  right: 6px;
+  top: 32px;
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: nowrap;
+
+  ${font.$p2}
+  color: ${color.warn};
+`;
+
+export const SettingButton = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  padding: 0.5rem;
+  color: ${color.gray200};
+  transition: 0.25s cubic-bezier(0.3, 0.49, 0.5, 1);
+`;
+
 export const ChatArea = styled.div`
   width: 100%;
-  height: 90%;
+  height: 500px;
 
   position: relative;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
   gap: 15px;
 
   padding: 20px 62px;
   box-sizing: border-box;
-
-  overflow-y: auto;
+  overflow-y: scroll;
 `;
 
 export const UserInfo = styled.div`
@@ -73,16 +164,4 @@ export const Input = styled.input`
   &:focus {
     border: 1px solid ${color.primary};
   }
-`;
-
-export const Send = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 100px;
-  background-color: ${color.primary};
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 `;
