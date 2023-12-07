@@ -1,7 +1,7 @@
 "use client";
 
 import { FriendSidebar, RightSidebar, UserChat } from "@/components";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@/hooks/useRightSidebarModal";
 import styled from "styled-components";
 
 export default function Home() {

@@ -2,7 +2,7 @@ import { Button, Column, Row, Text } from "@/styles/ui";
 import styled from "styled-components";
 import { Color, Font } from "@/styles/theme";
 import { Bluebadge, CrossIcon } from "@/styles/svg";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@/hooks/useRightSidebarModal";
 
 const RightSideBar = () => {
   const { closeModal } = useModal();
