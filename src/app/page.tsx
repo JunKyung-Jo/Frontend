@@ -1,6 +1,6 @@
 "use client";
 
-import { FriendSidebar, UserChat } from "@/components";
+import { FriendSidebar, RightSidebar, UserChat } from "@/components";
 import styled from "styled-components";
 
 export default function Home() {
@@ -8,6 +8,7 @@ export default function Home() {
     <Container>
       <FriendSidebar />
       <UserChat />
+      <RightSidebar />
     </Container>
   );
 }
