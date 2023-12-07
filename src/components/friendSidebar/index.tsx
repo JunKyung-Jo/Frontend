@@ -43,6 +43,7 @@ const Container = styled.div`
   flex-direction: column;
 
   background-color: ${Color.gray50};
+  z-index: 2;
 `;
 
 const FriendSidebarFooter = styled.div`
