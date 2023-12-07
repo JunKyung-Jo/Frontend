@@ -1,4 +1,4 @@
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@/hooks/useLoginModal";
 import { ModalLayoutAttribute } from "@/types/ui/ModalLayoutAttribute.type";
 import styled, { keyframes } from "styled-components";
 
