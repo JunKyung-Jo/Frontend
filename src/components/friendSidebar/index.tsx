@@ -5,11 +5,11 @@ import FriendListContainer from "./friendListContainer";
 import { Color } from "@/styles/theme";
 import { Logo } from "@/styles/svg";
 import { Button } from "@/styles/ui";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@/hooks/useLoginModal";
 import { LoginModalForm } from "..";
 
 const FriendSidebar = () => {
-  const { openModal, closeModal, modalState } = useModal();
+  const { openModal, modalState } = useModal();
 
   return (
     <Container>

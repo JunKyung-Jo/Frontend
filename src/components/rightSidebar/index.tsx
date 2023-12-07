@@ -60,7 +60,7 @@ const BotProfile = styled.div`
 `;
 
 const BotName = styled.div`
-  color: $H4{Color.black};
+  color: ${Color.black};
 
   ${Font.$H4}
 `;

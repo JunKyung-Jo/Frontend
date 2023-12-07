@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { SendIcon } from "@/styles/svg";
 import * as S from "./style";
-
 const UserChat = () => {
-  const [inputValue, setInputValue] = useState<string>("");
-  const [messages, setMessages] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState({ text: "", isMyChat: true });
+  const [messages, setMessages] = useState<any[]>([
+    { text: "", isMyChat: true },
+  ]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    setInputValue({ ...inputValue, text: e.target.value });
   };
 
   const sendMessage = () => {
-    if (inputValue.trim()) {
+    if (inputValue.text.trim()) {
       setMessages([...messages, inputValue]);
-      setInputValue("");
+      setInputValue({ ...inputValue, text: "" });
     }
   };
 
@@ -26,15 +27,26 @@ const UserChat = () => {
   return (
     <S.Container>
       <S.ChatArea>
-        {messages.map((message, index) => (
-          <S.ChatBox key={`chatbox${index}`}>{message}</S.ChatBox>
-        ))}
+        {messages.map((message, index) => {
+          if (message.text)
+            return (
+              <S.ChatContainer
+                key={`chatbox${index}`}
+                isMyChat={message.isMyChat}
+              >
+                <S.ChatBox isMyChat={message.isMyChat}>
+                  {message.text}
+                </S.ChatBox>
+              </S.ChatContainer>
+            );
+        })}
       </S.ChatArea>
       <S.InputArea>
         <S.Input
-          value={inputValue}
+          value={inputValue.text}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
+          placeholder="하고 싶은 말을 적어보세요!"
         />
         <S.Send onClick={sendMessage}>
           <SendIcon width={25} height={25} />
