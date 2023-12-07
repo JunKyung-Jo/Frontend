@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { useModalStateAtom } from "@/store/modal/useModalState";
+import { useModalStateAtom } from "@/store/modal/rightSidebarModalState";
 
 export const useModal = () => {
   const [modalState, setModalState] = useRecoilState(useModalStateAtom);
