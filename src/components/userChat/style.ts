@@ -41,8 +41,8 @@ export const Send = styled.button`
 `;
 
 export const ProfileImg = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 7rem;
+  height: 7rem;
 
   border-radius: 999rem;
 
@@ -75,8 +75,8 @@ export const ChatAiInfoContainer = styled.div`
 `;
 
 export const ChatAiInfo = styled.div`
-  width: 50%;
-  height: 80%;
+  width: 70rem;
+  height: 15rem;
 
   position: relative;
 
@@ -84,7 +84,7 @@ export const ChatAiInfo = styled.div`
   justify-content: space-between;
   padding: 45px;
 
-  background-color: ${color.gray100};
+  box-shadow: 0px 0px 6px ${color.gray200};
 
   border-radius: 20px;
 `;
@@ -164,4 +164,12 @@ export const Input = styled.input`
   &:focus {
     border: 1px solid ${color.primary};
   }
+`;
+
+export const ChatAiName = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  cursor: pointer;
 `;

@@ -22,7 +22,7 @@ const Container = styled.div`
   display: flex;
   gap: 2rem;
 
-  padding: 2rem 3rem;
+  padding: 1.5rem 7rem 1.5rem 2rem;
   transition: 0.15s cubic-bezier(0.3, 0.49, 0.5, 1);
   cursor: pointer;
 
@@ -32,8 +32,8 @@ const Container = styled.div`
 `;
 
 const ProfileImg = styled.div`
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
 
   border-radius: 999rem;
 

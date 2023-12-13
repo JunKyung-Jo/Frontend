@@ -5,27 +5,26 @@ import FriendListContainer from "./friendListContainer";
 import { Color } from "@/styles/theme";
 import { Logo } from "@/styles/svg";
 import { Button } from "@/styles/ui";
-import { useModal } from "@/hooks/useLoginModal";
+import { useLoginModal } from "@/hooks/useLoginModal";
 import { LoginModalForm } from "..";
 
 const FriendSidebar = () => {
-  const { openModal, modalState } = useModal();
+  const { openModal, modalState } = useLoginModal();
 
   return (
     <Container>
-      {modalState.show && <LoginModalForm />}
       <FriendContainer name="HeeSung" statusMsg="이것은 상태 메세지 입니다." />
       <FriendListContainer listName="공지 봇" type="공지" />
       <FriendListContainer listName="AI 채팅 봇" type="채팅" />
       <FriendSidebarFooter>
-        <Logo width={13} height={3} />
-        <Button
+        <Logo width={16} height={4} />
+        {/* <Button
           width={8}
           height={3.5}
           backgroundColor={Color.primary}
           content="로그인"
           onClick={openModal}
-        />
+        /> */}
       </FriendSidebarFooter>
     </Container>
   );
@@ -41,8 +40,8 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+  box-shadow: 1px 0px 0px ${Color.gray200};
 
-  background-color: ${Color.gray50};
   z-index: 2;
 `;
 
@@ -55,10 +54,7 @@ const FriendSidebarFooter = styled.div`
   height: 10%;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
-  border-top: 1px solid ${Color.gray200};
-
-  background-color: ${Color.gray100};
 `;

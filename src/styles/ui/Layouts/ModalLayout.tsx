@@ -1,9 +1,9 @@
-import { useModal } from "@/hooks/useLoginModal";
+import { useLoginModal } from "@/hooks/useLoginModal";
 import { ModalLayoutAttribute } from "@/types/ui/ModalLayoutAttribute.type";
 import styled, { keyframes } from "styled-components";
 
 const ModalLayout = ({ children }: ModalLayoutAttribute) => {
-  const { modalState } = useModal();
+  const { modalState } = useLoginModal();
 
   return (
     <Container modalState={modalState.animationState}>{children}</Container>
@@ -43,7 +43,7 @@ const Container = styled.div<{ modalState: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
 
   backdrop-filter: blur(0.2rem);
   animation: ${({ modalState }) =>
