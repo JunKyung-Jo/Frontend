@@ -3,10 +3,10 @@ import { LeftIcon, SendIcon, SettingIcon } from "@/styles/svg";
 import * as S from "./style";
 import { Column, Row, Text } from "@/styles/ui";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { useModal } from "@/hooks/useRightSidebarModal";
+import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 
 const UserChat = () => {
-  const { openModal } = useModal();
+  const { openModal } = useRightbarSideModal();
 
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const chatSettingRef = useRef<HTMLDivElement | null>(null);
@@ -42,7 +42,7 @@ const UserChat = () => {
   return (
     <S.Container>
       <S.ChatAiInfoContainer>
-        <S.ChatAiInfo onClick={openModal}>
+        <S.ChatAiInfo>
           <S.SettingButton
             onClick={() => setIsOpen(!isOpen)}
             ref={chatSettingRef}
@@ -55,13 +55,13 @@ const UserChat = () => {
               </S.ChatAiOption>
             )}
           </S.SettingButton>
-          <Row gap={3}>
+          <S.ChatAiName onClick={openModal}>
             <S.ProfileImg />
             <Column alignItems="flex-start" justifyContent="space-evenly">
               <Text fontType="$H5">공지봇</Text>
               <Text fontType="$p1">이것은 상태 메세지 입니다.</Text>
             </Column>
-          </Row>
+          </S.ChatAiName>
         </S.ChatAiInfo>
       </S.ChatAiInfoContainer>
       <S.ChatArea>

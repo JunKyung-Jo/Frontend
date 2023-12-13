@@ -1,11 +1,11 @@
 "use client";
 
 import { FriendSidebar, RightSidebar, UserChat } from "@/components";
-import { useModal } from "@/hooks/useRightSidebarModal";
+import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 import styled from "styled-components";
 
 export default function Home() {
-  const { modalState } = useModal();
+  const { modalState } = useRightbarSideModal();
   return (
     <Container>
       <FriendSidebar />

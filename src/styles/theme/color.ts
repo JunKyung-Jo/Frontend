@@ -1,4 +1,5 @@
 const color = {
+  gray25: "#FCFCFC",
   gray50: "#FAFAFA",
   gray100: "#EDEDED",
   gray200: "#D4D4D4",
@@ -13,7 +14,7 @@ const color = {
 
   white: "#FFFFFF",
   black: "#000000",
-  primary: "#0064FF",
+  primary: "#4d004d",
   primary2: "#CBDEFB",
   warn: "#FF543A",
 };

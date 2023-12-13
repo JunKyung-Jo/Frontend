@@ -1,4 +1,4 @@
-import { useModal } from "@/hooks/useLoginModal";
+import { useLoginModal } from "@/hooks/useLoginModal";
 import {
   GoogleIcon,
   KakaoIcon,
@@ -12,7 +12,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const LoginModalForm = () => {
-  const { closeModal } = useModal();
+  const { closeModal } = useLoginModal();
 
   return (
     <ModalLayout>

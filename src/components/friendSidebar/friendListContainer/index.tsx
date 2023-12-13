@@ -39,12 +39,6 @@ const FriendListContainer = ({ listName }: FriendListContainerAttribute) => {
 
 export default FriendListContainer;
 
-const OpenAnimation = keyframes`
-    from {
-
-    }
-`;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;

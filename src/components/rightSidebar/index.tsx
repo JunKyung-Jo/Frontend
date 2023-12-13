@@ -1,25 +1,25 @@
 import { Button, Column, Row, Text } from "@/styles/ui";
 import styled from "styled-components";
 import { Color, Font } from "@/styles/theme";
-import { Bluebadge, CrossIcon } from "@/styles/svg";
-import { useModal } from "@/hooks/useRightSidebarModal";
+import { Purplebadge, CrossIcon } from "@/styles/svg";
+import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 
 const RightSideBar = () => {
-  const { closeModal } = useModal();
+  const { closeModal } = useRightbarSideModal();
   return (
     <SideBarPage>
       <RightSidebarHeader>
-        <div onClick={closeModal}>
+        <div style={{ cursor: "pointer" }} onClick={closeModal}>
           <Row justifyContent="end">
             <CrossIcon width={2} height={2} />
           </Row>
         </div>
-        <Row alignItems="center" gap={4.5}>
+        <Row alignItems="center" gap={3}>
           <BotProfile />
           <div>
             <Row gap={0.3} alignItems="center">
               <BotName>공지봇</BotName>
-              <Bluebadge width={3} height={3} />
+              <Purplebadge width={3} height={3} />
             </Row>
             <BotInfo>이것은 상태 메세지입니다.</BotInfo>
           </div>
@@ -39,13 +39,14 @@ const RightSideBar = () => {
 export default RightSideBar;
 
 const SideBarPage = styled.div`
-  position: fixed;
-  right: 0px;
-  width: 54rem;
-  height: 108rem;
-  flex-shrink: 0;
-  border-left: 1px solid ${Color.gray200};
-  background: ${Color.gray50};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 42rem;
+  height: 100vh;
+  /* box-shadow: -1px 0px 0px ${Color.gray200}; */
+  background-color: ${Color.gray25};
+  z-index: 2;
 `;
 
 const RightSidebarHeader = styled.div`
@@ -56,8 +57,8 @@ const RightSidebarHeader = styled.div`
 `;
 
 const BotProfile = styled.div`
-  width: 12.5rem;
-  height: 12.5rem;
+  width: 10rem;
+  height: 10rem;
   flex-shrink: 0;
   border-radius: 50%;
   background: ${Color.black};
@@ -66,36 +67,38 @@ const BotProfile = styled.div`
 const BotName = styled.div`
   color: ${Color.black};
 
-  ${Font.$H4}
+  ${Font.$H5}
 `;
 
 const BotInfo = styled.div`
   color: ${Color.black};
 
-  ${Font.$Body3}
+  ${Font.$p1}
 `;
 
 const PostCount = styled.div`
   color: ${Color.black};
   text-align: end;
-  margin-top: 10rem;
+  margin-top: 8rem;
 
-  ${Font.$Body3}
+  ${Font.$p1}
 `;
 
 const PostContainer = styled.div`
-  width: 100%;
+  width: 39rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2px;
 `;
 
 const PostContent = styled.div`
-  width: 18rem;
-  height: 18rem;
+  width: 13rem;
+  height: 13rem;
   background: ${Color.black};
   display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
   color: ${Color.white};
+  border-radius: 3px;
 `;
