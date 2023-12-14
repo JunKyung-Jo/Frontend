@@ -11,6 +11,7 @@ const Button = ({
   borderRadius = 1,
   backgroundColor = Color.primary,
   color = Color.white,
+  border = `2px solid ${Color.primary}`,
   onClick,
 }: ButtonAttribute) => {
   return (
@@ -21,6 +22,7 @@ const Button = ({
         color,
         backgroundColor,
         borderRadius: `${borderRadius}rem`,
+        border,
       }}
       onClick={onClick}
     >
@@ -42,6 +44,6 @@ const Container = styled.div`
   transition: 0.25s cubic-bezier(0.175, 0.885, 0.32, 1);
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.8;
   }
 `;

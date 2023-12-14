@@ -7,5 +7,6 @@ export interface ButtonAttribute {
   borderRadius?: CSSProperties["borderRadius"];
   backgroundColor?: CSSProperties["backgroundColor"];
   color?: CSSProperties["color"];
+  border?: CSSProperties["border"];
   onClick: React.MouseEventHandler<HTMLDivElement>;
 }

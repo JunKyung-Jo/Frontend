@@ -1,19 +1,19 @@
 import { useRecoilState } from "recoil";
-import { useModalStateAtom } from "@/store/modal/rightSidebarModalState";
+import { rightModalStateAtom } from "@/store/modal/rightSidebarModalState";
 
 export const useRightbarSideModal = () => {
-  const [modalState, setModalState] = useRecoilState(useModalStateAtom);
+  const [rightModalState, setModalState] = useRecoilState(rightModalStateAtom);
 
   const openModal = () => {
     setModalState({ show: true, animationState: true });
   };
 
   const closeModal = () => {
-    setModalState({ ...modalState, animationState: false });
+    setModalState({ ...rightModalState, animationState: false });
     setTimeout(() => {
-      setModalState({ ...modalState, show: false });
+      setModalState({ ...rightModalState, show: false });
     }, 175);
   };
 
-  return { openModal, closeModal, modalState };
+  return { openModal, closeModal, rightModalState };
 };

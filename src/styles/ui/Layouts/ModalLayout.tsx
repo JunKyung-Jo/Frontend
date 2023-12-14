@@ -43,7 +43,7 @@ const Container = styled.div<{ modalState: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 3;
+  z-index: 6;
 
   backdrop-filter: blur(0.2rem);
   animation: ${({ modalState }) =>

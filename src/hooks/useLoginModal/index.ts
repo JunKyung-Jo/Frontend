@@ -6,6 +6,7 @@ export const useLoginModal = () => {
 
   const openModal = () => {
     setModalState({ show: true, animationState: true });
+    console.log(modalState);
   };
 
   const closeModal = () => {

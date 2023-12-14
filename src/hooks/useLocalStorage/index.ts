@@ -1,0 +1,33 @@
+export const useLocalStorage = () => {
+  const getStorageItem = (key: string) => {
+    if (window) {
+      return window.localStorage.getItem(key);
+    }
+  };
+
+  const setStorageItem = (key: string, value: any) => {
+    if (window) {
+      window.localStorage.setItem(key, value);
+      return;
+    }
+  };
+
+  const removeStorageItem = (key: string) => {
+    if (window) {
+      window.localStorage.removeItem(key);
+    }
+  };
+
+  const clearStorageItem = () => {
+    if (window) {
+      window.localStorage.clear();
+    }
+  };
+
+  return {
+    getStorageItem,
+    setStorageItem,
+    removeStorageItem,
+    clearStorageItem,
+  };
+};
