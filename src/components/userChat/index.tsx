@@ -25,11 +25,13 @@ const UserChat = () => {
     if (inputValue.text.trim()) {
       setMessages([...messages, inputValue]);
       setInputValue({ ...inputValue, text: "" });
-      messageEndRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
+      setTimeout(() => {
+        messageEndRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+          inline: "nearest",
+        });
+      }, 0);
     }
   };
 
