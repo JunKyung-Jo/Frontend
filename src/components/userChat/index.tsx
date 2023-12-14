@@ -59,7 +59,7 @@ const UserChat = () => {
             <S.ProfileImg />
             <Column alignItems="flex-start" justifyContent="space-evenly">
               <Text fontType="$H5">공지봇</Text>
-              <Text fontType="$p1">이것은 상태 메세지 입니다.</Text>
+              <Text fontType="$p1">이것은 상태 메세지 입니다. </Text>
             </Column>
           </S.ChatAiName>
         </S.ChatAiInfo>
