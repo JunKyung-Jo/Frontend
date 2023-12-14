@@ -1,16 +1,24 @@
 "use client";
 
-import { FriendSidebar, RightSidebar, UserChat } from "@/components";
+import {
+  FriendSidebar,
+  RightSidebar,
+  UserChat,
+  LoginModalForm,
+} from "@/components";
+import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 import styled from "styled-components";
 
 export default function Home() {
-  const { modalState } = useRightbarSideModal();
+  const { rightModalState } = useRightbarSideModal();
+  const { modalState } = useLoginModal();
   return (
     <Container>
+      {modalState.show && <LoginModalForm />}
       <FriendSidebar />
       <UserChat />
-      {modalState.show && <RightSidebar />}
+      {rightModalState.show && <RightSidebar />}
     </Container>
   );
 }

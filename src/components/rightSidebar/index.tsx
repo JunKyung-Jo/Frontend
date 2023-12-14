@@ -1,13 +1,13 @@
 import { Button, Column, Row, Text } from "@/styles/ui";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Color, Font } from "@/styles/theme";
 import { Purplebadge, CrossIcon } from "@/styles/svg";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 
 const RightSideBar = () => {
-  const { closeModal } = useRightbarSideModal();
+  const { closeModal, rightModalState } = useRightbarSideModal();
   return (
-    <SideBarPage>
+    <SideBarPage rightModalState={rightModalState.animationState}>
       <RightSidebarHeader>
         <div style={{ cursor: "pointer" }} onClick={closeModal}>
           <Row justifyContent="end">
@@ -38,7 +38,27 @@ const RightSideBar = () => {
 
 export default RightSideBar;
 
-const SideBarPage = styled.div`
+const ShowSidebarAnimation = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+`;
+
+const CloseSidebarAnimation = keyframes`
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+`;
+
+const SideBarPage = styled.div<{ rightModalState: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,6 +67,10 @@ const SideBarPage = styled.div`
   /* box-shadow: -1px 0px 0px ${Color.gray200}; */
   background-color: ${Color.gray25};
   z-index: 2;
+
+  animation: ${({ rightModalState }) =>
+      rightModalState ? ShowSidebarAnimation : CloseSidebarAnimation}
+    0.65s cubic-bezier(0.23, 1, 0.12, 1) forwards;
 `;
 
 const RightSidebarHeader = styled.div`

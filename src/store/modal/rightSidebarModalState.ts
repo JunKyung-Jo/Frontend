@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
-export const useModalStateAtom = atom({
-  key: "useModalStateAtom",
+export const rightModalStateAtom = atom({
+  key: "rightModalStateAtom",
   default: {
     show: false,
     animationState: false,

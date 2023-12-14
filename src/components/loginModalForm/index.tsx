@@ -35,16 +35,21 @@ const LoginModalForm = () => {
             소셜 계정으로 로그인
           </Text>
           <Row gap={1.5}>
-            <a href="https://google.com" target="blank_">
+            <a
+              href={
+                "https://accounts.google.com/o/oauth2/v2/auth?client_id=89793238958-tkn3joi9p5kc0erlhaq3rbub46gbjmut.apps.googleusercontent.com&redirect_uri=http://localhost:3000/auth/google&response_type=code&scope=email"
+              }
+            >
               <GoogleIcon />
             </a>
-            <a
-              href="https://www.kakaocorp.com/page/service/service/KakaoTalk"
-              target="blank_"
-            >
+            <a href={process.env.KAKAO_AUTH_URL}>
               <KakaoIcon />
             </a>
-            <a href="https://naver.com" target="blank_">
+            <a
+              href={
+                "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=NvG3t3O6jvliwfPn2vuP&redirect_uri=http://localhost:3000/auth/naver&state=test"
+              }
+            >
               <NaverIcon />
             </a>
           </Row>
