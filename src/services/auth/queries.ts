@@ -7,5 +7,5 @@ export const useUserdataQuery = () => {
     queryFn: () => getUserdata(),
   });
 
-  return { getUserdata: data, ...restQuery };
+  return { data, ...restQuery };
 };
