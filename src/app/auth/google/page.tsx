@@ -12,7 +12,6 @@ const Google = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(code);
     userLoginMutate();
     router.push("/");
   }, []);
