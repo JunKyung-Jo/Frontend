@@ -24,7 +24,7 @@ export const ChatBox = styled.div<{ isMyChat: boolean }>`
   box-sizing: border-box;
   word-break: break-all;
 
-  animation: ${ShowChatBox} 0.4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  animation: ${ShowChatBox} 0.6s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
   ${font.$p2}
 `;
 
@@ -126,6 +126,7 @@ export const ChatArea = styled.div`
   padding: 20px 62px;
   box-sizing: border-box;
   overflow-y: scroll;
+  scroll-behavior: smooth !important;
 `;
 
 export const UserInfo = styled.div`
