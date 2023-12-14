@@ -6,11 +6,11 @@ import { Color } from "@/styles/theme";
 import { Logo } from "@/styles/svg";
 import { Button, Text } from "@/styles/ui";
 import { useLoginModal } from "@/hooks/useLoginModal";
-import { useSessionStorage } from "@/hooks/useSessionStorage";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 const FriendSidebar = () => {
   const { openModal } = useLoginModal();
-  const { getStorageItem } = useSessionStorage();
+  const { getStorageItem } = useLocalStorage();
 
   return (
     <Container>
