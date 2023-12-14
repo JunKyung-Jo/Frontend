@@ -63,30 +63,23 @@ export const ChatContainer = styled.div<{ isMyChat: boolean }>`
 export const ChatAiInfoContainer = styled.div`
   width: 100%;
   flex: 1;
-
   position: relative;
-
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
-
-  box-shadow: 0px 10px 10px ${color.white};
 `;
 
 export const ChatAiInfo = styled.div`
   width: 70rem;
   height: 15rem;
-
   position: relative;
-
   display: flex;
   justify-content: space-between;
   padding: 45px;
-
-  box-shadow: 0px 0px 6px ${color.gray200};
-
+  /* box-shadow: 0px 0px 6px ${color.gray200}; */
   border-radius: 20px;
+  border: 1px solid ${color.gray100};
 `;
 
 export const ChatAiOption = styled.div`
@@ -99,12 +92,12 @@ export const ChatAiOption = styled.div`
   top: 32px;
   display: flex;
   gap: 10px;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
   white-space: nowrap;
-
   ${font.$p2}
   color: ${color.warn};
+  border: 1px solid ${color.gray100};
 `;
 
 export const SettingButton = styled.div`
