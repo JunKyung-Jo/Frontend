@@ -6,15 +6,15 @@ import { Color } from "@/styles/theme";
 import { Logo } from "@/styles/svg";
 import { Button, Text } from "@/styles/ui";
 import { useLoginModal } from "@/hooks/useLoginModal";
-import { useSessionStorage } from "@/hooks/useSessionStorage";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 const FriendSidebar = () => {
   const { openModal } = useLoginModal();
-  const { getStorageItem } = useSessionStorage();
+  const { getStorageItem } = useLocalStorage();
 
   return (
     <Container>
-      {getStorageItem("userData") ? (
+      {getStorageItem("access-token") ? (
         <FriendContainer
           name="HeeSung"
           statusMsg="이것은 상태 메세지 입니다."

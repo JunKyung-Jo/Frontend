@@ -1,7 +1,7 @@
-import { useSessionStorage } from "@/hooks/useSessionStorage";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 export const Authorization = () => {
-  const { getStorageItem } = useSessionStorage();
+  const { getStorageItem } = useLocalStorage();
 
   return {
     headers: {
