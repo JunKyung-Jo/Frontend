@@ -4,6 +4,7 @@ import * as S from "./style";
 import { Column, Row, Text } from "@/styles/ui";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
+import useModal from "@/hooks/useModal";
 
 const UserChat = () => {
   const { openModal } = useRightbarSideModal();

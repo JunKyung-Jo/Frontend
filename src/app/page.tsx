@@ -6,6 +6,7 @@ import {
   UserChat,
   LoginModalForm,
 } from "@/components";
+import Modal from "@/components/modal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 import { useLocalStorage } from "@/hooks/useSessionStorage";
@@ -28,6 +29,7 @@ export default function Home() {
 
   return (
     <Container>
+      <Modal />
       {modalState.show && <LoginModalForm />}
       <FriendSidebar />
       <UserChat />
