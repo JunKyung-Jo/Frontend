@@ -14,7 +14,7 @@ const FriendSidebar = () => {
 
   return (
     <Container>
-      {getStorageItem("userData") ? (
+      {getStorageItem("access-token") ? (
         <FriendContainer
           name="HeeSung"
           statusMsg="이것은 상태 메세지 입니다."
