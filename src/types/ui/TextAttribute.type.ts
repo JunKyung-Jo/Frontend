@@ -5,6 +5,8 @@ import { CSSProperties } from "styled-components";
 type font = keyof typeof Font;
 
 export interface TextAttribute {
+  width?: CSSProperties["width"];
+  height?: CSSProperties["height"];
   fontType: font;
   color?: CSSProperties["color"];
   textAlign?: CSSProperties["textAlign"];
