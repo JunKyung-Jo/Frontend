@@ -3,34 +3,24 @@
 import {
   FriendSidebar,
   RightSidebar,
-  UserChat,
+  ChatArea,
   LoginModalForm,
 } from "@/components";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
-import { useSessionStorage } from "@/hooks/useSessionStorage";
-import { useUserdataQuery } from "@/services/auth/queries";
-import { useEffect } from "react";
+import { useUserdataQuery } from "@/services/auth/query";
 import styled from "styled-components";
 
 export default function Home() {
   const { rightModalState } = useRightbarSideModal();
   const { modalState } = useLoginModal();
-  const { data } = useUserdataQuery();
-  const { setStorageItem } = useSessionStorage();
-
-  useEffect(() => {
-    console.log(data);
-    if (data) {
-      setStorageItem("userdata", data);
-    }
-  }, []);
+  const query = useUserdataQuery();
 
   return (
     <Container>
       {modalState.show && <LoginModalForm />}
       <FriendSidebar />
-      <UserChat />
+      <ChatArea />
       {rightModalState.show && <RightSidebar />}
     </Container>
   );
