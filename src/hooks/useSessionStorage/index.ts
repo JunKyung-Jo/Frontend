@@ -1,14 +1,14 @@
 export const useSessionStorage = () => {
   const getStorageItem = (key: string) => {
-    if (window) {
+    if (window && window.sessionStorage.getItem(key)) {
       return window.sessionStorage.getItem(key);
     }
+    return null;
   };
 
   const setStorageItem = (key: string, value: any) => {
     if (window) {
       window.sessionStorage.setItem(key, value);
-      return;
     }
   };
 
