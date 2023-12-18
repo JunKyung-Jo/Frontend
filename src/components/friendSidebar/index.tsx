@@ -6,12 +6,12 @@ import { Color } from "@/styles/theme";
 import { AddBotIcon, Logo } from "@/styles/svg";
 import { Button, Column, Text } from "@/styles/ui";
 import { useLoginModal } from "@/hooks/useLoginModal";
-import { useSessionStorage } from "@/hooks/useSessionStorage";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 import { useGetDefaultFriendQuery } from "@/services/friend/query";
 
 const FriendSidebar = () => {
   const { openModal } = useLoginModal();
-  const { getStorageItem } = useSessionStorage();
+  const { getStorageItem } = useLocalStorage();
   const { data } = useGetDefaultFriendQuery();
 
   const userData = JSON.parse(getStorageItem("userdata") as string);
@@ -49,7 +49,7 @@ const FriendSidebar = () => {
 
       console.log(defaultAI, userAI, "로그인안된거");
     }
-  }, [data]);
+  }, [data, userData]);
 
   return (
     <Container>

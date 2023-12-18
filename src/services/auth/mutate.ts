@@ -1,10 +1,10 @@
 import { useMutation } from "react-query";
 import { userLoginbyAuth } from "./api";
-import { useSessionStorage } from "@/hooks/useSessionStorage";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 import { useRouter } from "next/navigation";
 
 export const useUserLoginMutation = (code: any, auth: string) => {
-  const { setStorageItem } = useSessionStorage();
+  const { setStorageItem } = useLocalStorage();
   const router = useRouter();
 
   const { mutate: userLoginMutate, ...restMutation } = useMutation({

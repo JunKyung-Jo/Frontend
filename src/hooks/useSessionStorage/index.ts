@@ -1,26 +1,27 @@
-export const useSessionStorage = () => {
+export const useLocalStorage = () => {
   const getStorageItem = (key: string) => {
-    if (window && window.sessionStorage.getItem(key)) {
-      return window.sessionStorage.getItem(key);
+    if (window) {
+      return window.localStorage.getItem(key);
     }
     return null;
   };
 
   const setStorageItem = (key: string, value: any) => {
     if (window) {
-      window.sessionStorage.setItem(key, value);
+      window.localStorage.setItem(key, value);
+      return;
     }
   };
 
   const removeStorageItem = (key: string) => {
     if (window) {
-      window.sessionStorage.removeItem(key);
+      window.localStorage.removeItem(key);
     }
   };
 
   const clearStorageItem = () => {
     if (window) {
-      window.sessionStorage.clear();
+      window.localStorage.clear();
     }
   };
 

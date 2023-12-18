@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 import { getUserdata } from "./api";
-import { useSessionStorage } from "@/hooks/useSessionStorage";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 export const useUserdataQuery = () => {
-  const { setStorageItem } = useSessionStorage();
+  const { setStorageItem } = useLocalStorage();
 
   const { data, isLoading, ...restQuery } = useQuery({
     queryKey: ["userdata"],

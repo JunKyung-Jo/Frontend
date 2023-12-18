@@ -10,7 +10,7 @@ const FriendContainer = ({ name, statusMsg }: FriendContainerAttribute) => {
       <ProfileImg />
       <Column alignItems="flex-start" justifyContent="space-evenly">
         <Text fontType="$Button3">{name}</Text>
-        <Text width="100px" fontType="$p3" textAlign="left" ellipsis>
+        <Text width="120px" fontType="$p3" textAlign="left" ellipsis>
           {statusMsg}
         </Text>
       </Column>
