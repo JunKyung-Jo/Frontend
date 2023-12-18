@@ -7,7 +7,7 @@ export const Container = styled.div`
   height: 600px;
   border-radius: 20px;
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@ export const ModalTop = styled.div`
 `;
 
 export const MainImage = styled.div`
-  width: 80%;
+  width: 100%;
   height: 70%;
   background-color: ${color.gray200};
   border-radius: 10px;
@@ -31,7 +31,7 @@ export const MainImage = styled.div`
 export const Description = styled.div`
   width: 100%;
   height: 30%;
-  padding: 0 80px;
+  padding: 0 10px;
   box-sizing: border-box;
 `;
 
