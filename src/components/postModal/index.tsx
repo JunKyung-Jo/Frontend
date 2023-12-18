@@ -1,6 +1,7 @@
 import useModal from "@/hooks/useModal";
 import * as S from "./style";
 import { CrossIcon } from "@/styles/svg";
+import CloseIcon from "@/styles/mysvg/closeIcon";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -11,7 +12,7 @@ const PostModal = ({ closeMyModal }: GenerateModalProps) => {
     <S.Container>
       <S.ModalTop>
         <div />
-        <CrossIcon width={3} height={3} onClick={closeMyModal} />
+        <CloseIcon onClick={closeMyModal} />
       </S.ModalTop>
     </S.Container>
   );

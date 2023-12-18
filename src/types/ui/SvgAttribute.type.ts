@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 
-export interface SvgAttribute extends React.SVGAttributes<HTMLOrSVGElement> {
+export interface SvgAttribute {
   width?: CSSProperties["width"];
   height?: CSSProperties["height"];
 
