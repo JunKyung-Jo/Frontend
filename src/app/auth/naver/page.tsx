@@ -13,7 +13,6 @@ const Naver = () => {
 
   useEffect(() => {
     userLoginMutate();
-    router.push("/");
   }, []);
 
   return <div></div>;
