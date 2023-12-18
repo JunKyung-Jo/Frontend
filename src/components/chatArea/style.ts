@@ -2,32 +2,6 @@ import styled, { keyframes } from "styled-components";
 import color from "../../styles/theme/color";
 import font from "@/styles/theme/font";
 
-const ShowChatBox = keyframes`
-  from {
-    opacity: 0;
-    transform: scale(0.7) translateY(50%) translateX(50%);
-  } to {
-    opacity: 1;
-    transform: scale(1) translateY(0%) translateX(0%);
-  }
-`;
-
-export const ChatBox = styled.div<{ isMyChat: boolean }>`
-  max-width: 440px;
-  border-radius: ${({ isMyChat }) =>
-    isMyChat ? "8px 0px 8px 8px" : "0px 8px 8px 8px"};
-  background-color: ${color.gray100};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 15px;
-  box-sizing: border-box;
-  word-break: break-all;
-
-  animation: ${ShowChatBox} 0.6s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
-  ${font.$p2}
-`;
-
 export const Send = styled.button`
   width: 50px;
   height: 50px;
@@ -52,12 +26,6 @@ export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
-
-export const ChatContainer = styled.div<{ isMyChat: boolean }>`
-  display: flex;
-  width: 100%;
-  justify-content: ${({ isMyChat }) => (isMyChat ? "right" : "left")};
 `;
 
 export const ChatAiInfoContainer = styled.div`
@@ -126,7 +94,6 @@ export const ChatArea = styled.div`
   padding: 20px 62px;
   box-sizing: border-box;
   overflow-y: scroll;
-  scroll-behavior: smooth !important;
 `;
 
 export const UserInfo = styled.div`

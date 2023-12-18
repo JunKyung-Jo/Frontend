@@ -3,6 +3,7 @@ export const useLocalStorage = () => {
     if (window) {
       return window.localStorage.getItem(key);
     }
+    return null;
   };
 
   const setStorageItem = (key: string, value: any) => {

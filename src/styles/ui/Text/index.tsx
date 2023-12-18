@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { TextAttribute } from "@/types/ui/TextAttribute.type";
 import { Color, Font } from "@/styles/theme";
 
 type Font = keyof typeof Font;
 
 const Text = ({
+  width,
   fontType,
   color = "black",
   textAlign = "center",
@@ -15,7 +16,7 @@ const Text = ({
     <Container
       fontType={fontType}
       ellipsis={ellipsis}
-      style={{ color, textAlign }}
+      style={{ color, textAlign, width }}
     >
       {children}
     </Container>
@@ -25,10 +26,18 @@ const Text = ({
 export default Text;
 
 const Container = styled.div<{ fontType: Font; ellipsis: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: left;
+  flex: 1 1 0;
 
   ${({ fontType }) => Font[fontType]};
-  text-overflow: ${({ ellipsis }) => (ellipsis ? "ellipsis" : "clip")};
+  ${({ ellipsis }) =>
+    ellipsis
+      ? css`
+          text-overflow: ellipsis;
+        `
+      : css`
+          text-overflow: clip;
+        `};
+  white-space: nowrap;
+  overflow: hidden;
 `;

@@ -6,7 +6,10 @@ import { FriendListContainerAttribute } from "@/types/components/FriendListConta
 import FriendContainer from "../friendContainer";
 import { ArrowIcon } from "@/styles/svg";
 
-const FriendListContainer = ({ listName }: FriendListContainerAttribute) => {
+const FriendListContainer = ({
+  listName,
+  friendsList,
+}: FriendListContainerAttribute) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -18,20 +21,18 @@ const FriendListContainer = ({ listName }: FriendListContainerAttribute) => {
         <ArrowIcon width={1.2} height={1.2} deg={isOpen ? 0 : 180} />
       </ListHeader>
       {isOpen && (
-        <Column>
-          <FriendContainer
-            name="공지봇"
-            statusMsg="이것은 상태 메세지 입니다."
-          />
-          <FriendContainer
-            name="잔잔한 친구"
-            statusMsg="이것은 상태 메세지 입니다."
-          />
-          <FriendContainer
-            name="활발한 친구"
-            statusMsg="이것은 상태 메세지 입니다."
-          />
-        </Column>
+        <FriendContainerList>
+          {friendsList.map((e: any, i) => {
+            return (
+              <FriendContainer
+                key={`friendContainer${i}`}
+                name={e.name}
+                statusMsg={e.statusMessage}
+                id={e.id}
+              />
+            );
+          })}
+        </FriendContainerList>
       )}
     </Container>
   );
@@ -42,12 +43,15 @@ export default FriendListContainer;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  flex-shrink: 0;
 
   overflow: hidden;
 `;
 
 const ListHeader = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 2rem;
@@ -63,4 +67,10 @@ const ListHeader = styled.div`
   &:active {
     background-color: ${Color.gray50};
   }
+`;
+
+const FriendContainerList = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
 `;

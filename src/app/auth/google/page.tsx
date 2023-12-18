@@ -13,7 +13,6 @@ const Google = () => {
 
   useEffect(() => {
     userLoginMutate();
-    router.push("/");
   }, []);
 
   return <div></div>;

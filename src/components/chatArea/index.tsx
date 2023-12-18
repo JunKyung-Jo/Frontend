@@ -1,15 +1,21 @@
-import React, { useState, useRef } from "react";
-import { LeftIcon, SendIcon, SettingIcon } from "@/styles/svg";
+import React, { useState, useRef, useEffect } from "react";
+import { LeftIcon, SendIcon, OptionIcon } from "@/styles/svg";
 import * as S from "./style";
 import { Column, Row, Text } from "@/styles/ui";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
+import { useUserChatMutation } from "@/services/chat/mutate";
+import UserChat from "./userChat";
+import { useRecoilValue } from "recoil";
+import { AImessage } from "@/store/services";
 
-const UserChat = () => {
+const ChatArea = () => {
   const { openModal } = useRightbarSideModal();
 
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const chatSettingRef = useRef<HTMLDivElement | null>(null);
+
+  const AImessageResponse = useRecoilValue(AImessage);
 
   const [isOpen, setIsOpen] = useOutsideClick(chatSettingRef, false);
   const [inputValue, setInputValue] = useState({ text: "", isMyChat: true });
@@ -17,12 +23,15 @@ const UserChat = () => {
     { text: "", isMyChat: true },
   ]);
 
+  const { userChatMutate } = useUserChatMutation(inputValue.text);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({ ...inputValue, text: e.target.value });
   };
 
-  const sendMessage = () => {
+  const sendMyMessage = () => {
     if (inputValue.text.trim()) {
+      userChatMutate();
       setMessages([...messages, inputValue]);
       setInputValue({ ...inputValue, text: "" });
       setTimeout(() => {
@@ -37,9 +46,15 @@ const UserChat = () => {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      sendMessage();
+      sendMyMessage();
     }
   };
+
+  useEffect(() => {
+    console.log(AImessageResponse);
+    setMessages([...messages, { text: AImessageResponse, isMyChat: false }]);
+    console.log(messages);
+  }, [AImessageResponse]);
 
   return (
     <S.Container>
@@ -49,7 +64,7 @@ const UserChat = () => {
             onClick={() => setIsOpen(!isOpen)}
             ref={chatSettingRef}
           >
-            <SettingIcon width={1.6} height={1.6} />
+            <OptionIcon width={2.4} height={2.4} />
             {isOpen && (
               <S.ChatAiOption>
                 <LeftIcon width={1.8} height={1.8} />
@@ -70,17 +85,16 @@ const UserChat = () => {
         {messages.map((message, index) => {
           if (message.text)
             return (
-              <S.ChatContainer
-                key={`chatbox${index}`}
+              <UserChat
+                setMessage={setMessages}
+                message={messages}
+                index={index}
+                text={message.text}
                 isMyChat={message.isMyChat}
-              >
-                <S.ChatBox isMyChat={message.isMyChat}>
-                  {message.text}
-                </S.ChatBox>
-              </S.ChatContainer>
+              />
             );
         })}
-        <S.ChatContainer isMyChat={true} ref={messageEndRef} />
+        <div ref={messageEndRef} />
       </S.ChatArea>
       <S.InputArea>
         <S.Input
@@ -89,7 +103,7 @@ const UserChat = () => {
           onKeyPress={handleKeyPress}
           placeholder="하고 싶은 말을 적어보세요!"
         />
-        <S.Send onClick={sendMessage}>
+        <S.Send onClick={sendMyMessage}>
           <SendIcon width={20} height={20} />
         </S.Send>
       </S.InputArea>
@@ -97,4 +111,4 @@ const UserChat = () => {
   );
 };
 
-export default UserChat;
+export default ChatArea;

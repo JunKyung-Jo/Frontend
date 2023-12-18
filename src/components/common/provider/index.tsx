@@ -9,7 +9,11 @@ interface ProviderAttribute {
   children: React.ReactNode;
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { refetchOnWindowFocus: false },
+  },
+});
 
 const Provider = ({ children }: ProviderAttribute) => {
   return (
