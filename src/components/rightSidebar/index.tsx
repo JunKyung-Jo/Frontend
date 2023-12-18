@@ -3,9 +3,19 @@ import styled, { keyframes } from "styled-components";
 import { Color, Font } from "@/styles/theme";
 import { Purplebadge, CrossIcon } from "@/styles/svg";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
+import useModal from "@/hooks/useModal";
+import PostModal from "../postModal";
 
 const RightSideBar = () => {
   const { closeModal, rightModalState } = useRightbarSideModal();
+  const { openMyModal, closeMyModal } = useModal();
+
+  const openPost = () => {
+    openMyModal({
+      component: <PostModal closeMyModal={closeMyModal} />,
+    });
+  };
+
   return (
     <SideBarPage rightModalState={rightModalState.animationState}>
       <RightSidebarHeader>
@@ -27,7 +37,7 @@ const RightSideBar = () => {
         <PostCount>게시물 NN</PostCount>
       </RightSidebarHeader>
       <PostContainer>
-        <PostContent>this is a pen</PostContent>
+        <PostContent onClick={openPost}>this is a pen</PostContent>
         <PostContent></PostContent>
         <PostContent></PostContent>
         <PostContent></PostContent>
