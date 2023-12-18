@@ -6,5 +6,6 @@ export { default as Purplebadge } from "@/styles/svg/purplebadge";
 export { default as ArrowIcon } from "@/styles/svg/arrowIcon";
 export { default as CrossIcon } from "@/styles/svg/crossIcon";
 export { default as SendIcon } from "@/styles/svg/sendIcon";
-export { default as SettingIcon } from "@/styles/svg/settingIcon";
 export { default as LeftIcon } from "@/styles/svg/leftIcon";
+export { default as OptionIcon } from "@/styles/svg/optionIcon";
+export { default as AddBotIcon } from "@/styles/svg/addBotIcon";
