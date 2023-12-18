@@ -14,6 +14,15 @@ const PostModal = ({ closeMyModal }: GenerateModalProps) => {
         <div />
         <CloseIcon onClick={closeMyModal} />
       </S.ModalTop>
+      <S.MainImage></S.MainImage>
+      <S.Description>
+        <S.Wrapper>
+          <S.Tag>#happy</S.Tag>
+          <S.Tag>#happy</S.Tag>
+          <S.Tag>#happy</S.Tag>
+          <S.Tag>#happy</S.Tag>
+        </S.Wrapper>
+      </S.Description>
     </S.Container>
   );
 };
