@@ -23,11 +23,7 @@ const useModal = () => {
     });
   }, [setModal]);
 
-  return {
-    openModal: openMyModal,
-    closeModal: closeMyModal,
-    visible: !!modal.visible,
-  };
+  return { openMyModal, closeMyModal, visible: !!modal.visible };
 };
 
 export default useModal;

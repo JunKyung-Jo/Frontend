@@ -5,7 +5,7 @@ import ModalView from "./View";
 
 const Modal = () => {
   const [modal] = useRecoilState(modalStore);
-  const { closeModal } = useModal();
+  const { closeMyModal } = useModal();
 
   return (
     <ModalView
@@ -13,7 +13,7 @@ const Modal = () => {
       onClose={() => {
         modal.onClose?.();
         if (!modal.menualClose) {
-          closeModal();
+          closeMyModal();
         }
       }}
     />
