@@ -4,10 +4,12 @@ import * as S from "./style";
 import { Column, Row, Text } from "@/styles/ui";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
+import useModal from "@/hooks/useModal";
+import UploadPostModal from "../uploadPostModal";
 
 const UserChat = () => {
   const { openModal } = useRightbarSideModal();
-
+  const { openMyModal, closeMyModal } = useModal();
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const chatSettingRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,6 +43,12 @@ const UserChat = () => {
     }
   };
 
+  const openUploadPost = () => {
+    openMyModal({
+      component: <UploadPostModal closeMyModal={closeMyModal} />,
+    });
+  };
+
   return (
     <S.Container>
       <S.ChatAiInfoContainer>
@@ -63,6 +71,7 @@ const UserChat = () => {
               <Text fontType="$H5">공지봇</Text>
               <Text fontType="$p1">이것은 상태 메세지 입니다. </Text>
             </Column>
+            <button onClick={openUploadPost}>게시물 업로드</button>
           </S.ChatAiName>
         </S.ChatAiInfo>
       </S.ChatAiInfoContainer>
