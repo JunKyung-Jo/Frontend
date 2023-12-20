@@ -5,6 +5,8 @@ import { Purplebadge, CrossIcon } from "@/styles/svg";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 import { useRecoilValue } from "recoil";
 import { selectedBotAtom } from "@/store/chat";
+import useModal from "@/hooks/useModal";
+import PostModal from "../postModal";
 
 const RightSideBar = ({
   userData,
@@ -17,6 +19,14 @@ const RightSideBar = ({
 }) => {
   const { closeModal, rightModalState } = useRightbarSideModal();
   const selectedFriend = useRecoilValue(selectedBotAtom);
+
+  const { openMyModal, closeMyModal } = useModal();
+
+  const openPost = () => {
+    openMyModal({
+      component: <PostModal closeMyModal={closeMyModal} />,
+    });
+  };
 
   return (
     <SideBarPage rightModalState={rightModalState.animationState}>
@@ -52,7 +62,7 @@ const RightSideBar = ({
         <PostCount>게시물 4개</PostCount>
       </RightSidebarHeader>
       <PostContainer>
-        <PostContent>this is a pen</PostContent>
+        <PostContent onClick={openPost}>this is a pen</PostContent>
         <PostContent></PostContent>
         <PostContent></PostContent>
         <PostContent></PostContent>
