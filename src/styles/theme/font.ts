@@ -33,6 +33,7 @@ const font = {
   $Button3: fontGenerator(Medium, 1.6, 120),
   $Button4: fontGenerator(Medium, 1.4, 120),
   $Navigation: fontGenerator(Regular, 1.2, 130),
+  $Mini: fontGenerator(Regular, 0.8, 130),
 };
 
 export default font;
