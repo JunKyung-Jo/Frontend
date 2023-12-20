@@ -8,8 +8,15 @@ import { useUserChatMutation } from "@/services/chat/mutate";
 import UserChat from "./userChat";
 import { useRecoilValue } from "recoil";
 import { AImessage } from "@/store/services";
+import { selectedBotAtom } from "@/store/chat";
 
-const ChatArea = () => {
+const ChatArea = ({
+  defaultFriendData,
+  myFriendData,
+}: {
+  defaultFriendData: any;
+  myFriendData: any;
+}) => {
   const { openModal } = useRightbarSideModal();
 
   const messageEndRef = useRef<HTMLDivElement | null>(null);
@@ -51,10 +58,10 @@ const ChatArea = () => {
   };
 
   useEffect(() => {
-    console.log(AImessageResponse);
     setMessages([...messages, { text: AImessageResponse, isMyChat: false }]);
-    console.log(messages);
   }, [AImessageResponse]);
+
+  const selectedFriend = useRecoilValue(selectedBotAtom);
 
   return (
     <S.Container>
@@ -75,8 +82,20 @@ const ChatArea = () => {
           <S.ChatAiName onClick={openModal}>
             <S.ProfileImg />
             <Column alignItems="flex-start" justifyContent="space-evenly">
-              <Text fontType="$H5">공지봇</Text>
-              <Text fontType="$p1">이것은 상태 메세지 입니다. </Text>
+              <Text fontType="$H5">
+                {myFriendData
+                  ? myFriendData.data.data[selectedFriend.id]?.name
+                  : defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
+                    ).name}
+              </Text>
+              <Text fontType="$p1">
+                {myFriendData
+                  ? myFriendData.data.data[selectedFriend.id]?.statusMessage
+                  : defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
+                    ).statusMessage}
+              </Text>
             </Column>
           </S.ChatAiName>
         </S.ChatAiInfo>
