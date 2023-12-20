@@ -29,6 +29,7 @@ const FriendListContainer = ({
                 name={e.name}
                 statusMsg={e.statusMessage}
                 id={e.id}
+                authority={e.authority}
               />
             );
           })}

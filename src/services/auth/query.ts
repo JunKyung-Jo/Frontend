@@ -1,18 +1,16 @@
-import { useQuery } from "react-query";
-import { getUserdata } from "./api";
+import { useQuery } from "@tanstack/react-query";
+import { getUserdata, refreshAccessToken } from "./api";
 import { useLocalStorage } from "@/hooks/useSessionStorage";
+import { useRouter } from "next/navigation";
 
 export const useUserdataQuery = () => {
-  const { setStorageItem } = useLocalStorage();
+  const router = useRouter();
 
-  const { data, isLoading, ...restQuery } = useQuery({
+  const { data, ...restQuery } = useQuery({
     queryKey: ["userdata"],
     queryFn: () => getUserdata(),
-    onSuccess: (res) => {
-      setStorageItem("userdata", JSON.stringify(res.data.data));
-    },
-    retry: false,
+    retry: 5,
   });
 
-  return { ...restQuery };
+  return { data, ...restQuery };
 };

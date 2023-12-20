@@ -6,7 +6,11 @@ export const getChatlog = async (id: string) => {
   return { data };
 };
 
-export const userChat = async (text: string) => {
-  const data = await instance.post("/chat", { text }, Authorization());
+export const userChat = async (text: string, id: number) => {
+  const data = await instance.post(
+    "/chat",
+    { text, friendId: id },
+    Authorization()
+  );
   return { data };
 };

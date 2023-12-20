@@ -9,20 +9,22 @@ export const useLocalStorage = () => {
   const setStorageItem = (key: string, value: any) => {
     if (window) {
       window.localStorage.setItem(key, value);
-      return;
     }
+    return;
   };
 
   const removeStorageItem = (key: string) => {
     if (window) {
       window.localStorage.removeItem(key);
     }
+    return;
   };
 
   const clearStorageItem = () => {
     if (window) {
       window.localStorage.clear();
     }
+    return;
   };
 
   return {

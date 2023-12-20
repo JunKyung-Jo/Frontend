@@ -4,61 +4,61 @@ import FriendContainer from "./friendContainer";
 import FriendListContainer from "./friendListContainer";
 import { Color } from "@/styles/theme";
 import { AddBotIcon, Logo } from "@/styles/svg";
-import { Button, Column, Text } from "@/styles/ui";
+import { Button, Column, Row, Text } from "@/styles/ui";
 import { useLoginModal } from "@/hooks/useLoginModal";
-import { useLocalStorage } from "@/hooks/useSessionStorage";
-import { useGetDefaultFriendQuery } from "@/services/friend/query";
+import Image from "next/image";
 
-const FriendSidebar = () => {
+const FriendSidebar = ({
+  myFriendData,
+  defaultFriendData,
+  userData,
+}: {
+  myFriendData: any;
+  defaultFriendData: any;
+  userData: any;
+}) => {
   const { openModal } = useLoginModal();
-  const { getStorageItem } = useLocalStorage();
-  const { data } = useGetDefaultFriendQuery();
-
-  const userData = JSON.parse(getStorageItem("userdata") as string);
 
   const [defaultAI, setDefaultAI] = useState([]);
   const [userAI, setUserAI] = useState([]);
 
   useEffect(() => {
-    if (userData) {
-      const defaultAIArray = userData.friends.filter(
+    if (userData && myFriendData) {
+      const defaultAIArray = myFriendData?.data.data.filter(
         (e: any) =>
           e.authority === "ROLE_FREE" || e.authority === "ROLE_ANNOUNCE"
       );
 
-      const userAIArray = userData.friends.filter(
+      const userAIArray = myFriendData?.data.data.filter(
         (e: any) => e.authority === "ROLE_CUSTOM"
       );
 
       setDefaultAI(defaultAIArray);
       setUserAI(userAIArray);
-
-      console.log(defaultAI, userAI, "로그인된거");
-    } else if (data?.data.data) {
-      const defaultAIArray = data?.data.data.filter(
+    } else if (defaultFriendData?.data.data) {
+      const defaultAIArray = defaultFriendData?.data.data.filter(
         (e: any) =>
           e.authority === "ROLE_FREE" || e.authority === "ROLE_ANNOUNCE"
       );
 
-      const userAIArray = data?.data.data.filter(
+      const userAIArray = defaultFriendData?.data.data.filter(
         (e: any) => e.authority === "ROLE_CUSTOM"
       );
 
       setDefaultAI(defaultAIArray);
       setUserAI(userAIArray);
-
-      console.log(defaultAI, userAI, "로그인안된거");
     }
-  }, [data, userData]);
+  }, [myFriendData, defaultFriendData, userData]);
 
   return (
     <Container>
       <Column alignItems="center">
-        {getStorageItem("userdata") ? (
+        {userData ? (
           <FriendContainer
             id={0}
-            name={userData.name}
-            statusMsg={userData.statusMessage}
+            name={userData.data.data.name + " (나)"}
+            statusMsg={userData.data.data.statusMessage}
+            authority="USER"
           />
         ) : (
           <LoginButtonContainer>
@@ -93,7 +93,11 @@ const FriendSidebar = () => {
         </AddAIBotButtonDiv>
       </Column>
       <FriendSidebarFooter>
-        <Logo width={16} height={4} />
+        <Image
+          src={Logo}
+          alt="logo"
+          style={{ width: "11 rem", height: "10rem" }}
+        />
       </FriendSidebarFooter>
     </Container>
   );
@@ -124,7 +128,9 @@ const FriendSidebarFooter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 6rem 1rem;
+
+  background-color: ${Color.gray50};
 `;
 
 const LoginButtonContainer = styled.div`

@@ -1,18 +1,41 @@
+import { selectedBotAtom } from "@/store/chat";
+import { OptionIcon } from "@/styles/svg";
 import { Color } from "@/styles/theme";
+import font from "@/styles/theme/font";
 import { Column, Text } from "@/styles/ui";
 import { FriendContainerAttribute } from "@/types/components/FriendContainerAttribute.type";
 import React from "react";
-import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import styled, { css } from "styled-components";
 
-const FriendContainer = ({ name, statusMsg }: FriendContainerAttribute) => {
+const FriendContainer = ({
+  name,
+  statusMsg,
+  id,
+  authority,
+}: FriendContainerAttribute) => {
+  const [selectedFriend, setSelectedFriend] = useRecoilState(selectedBotAtom);
+
   return (
-    <Container>
+    <Container
+      isSelected={selectedFriend.id === id - 1}
+      onClick={() => {
+        if (authority !== "USER") {
+          setSelectedFriend({ id: id - 1, authority });
+        }
+      }}
+    >
       <ProfileImg />
       <Column alignItems="flex-start" justifyContent="space-evenly">
         <Text fontType="$Button3">{name}</Text>
         <Text width="120px" fontType="$p3" textAlign="left" ellipsis>
           {statusMsg}
         </Text>
+        {authority === "USER" ? (
+          <EditProfileButton>클릭해서 정보를 수정해보세요!</EditProfileButton>
+        ) : (
+          ""
+        )}
       </Column>
     </Container>
   );
@@ -20,8 +43,9 @@ const FriendContainer = ({ name, statusMsg }: FriendContainerAttribute) => {
 
 export default FriendContainer;
 
-const Container = styled.div`
+const Container = styled.div<{ isSelected: boolean }>`
   display: flex;
+  position: relative;
   gap: 2rem;
 
   width: 100%;
@@ -30,8 +54,20 @@ const Container = styled.div`
   transition: 0.15s cubic-bezier(0.3, 0.49, 0.5, 1);
   cursor: pointer;
 
+  ${({ isSelected }) =>
+    isSelected
+      ? css`
+          background-color: ${Color.gray100};
+        `
+      : css`
+          background-color: ${Color.white};
+        `}
+
   &:hover {
     background-color: ${Color.gray100};
+  }
+  &:active {
+    background-color: ${Color.gray50};
   }
 `;
 
@@ -42,4 +78,21 @@ const ProfileImg = styled.div`
   border-radius: 999rem;
 
   background-color: black;
+`;
+
+const EditProfileButton = styled.div`
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+
+  padding: 0.25rem;
+  border-radius: 999px;
+  transition: 0.15s cubic-bezier(0.3, 0.49, 0.5, 1);
+  text-decoration: underline;
+
+  text-decoration-color: ${Color.gray500};
+
+  opacity: 0.7;
+
+  ${font.$Mini};
 `;

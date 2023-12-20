@@ -1,9 +1,10 @@
 "use client";
 
 import { RecoilRoot } from "recoil";
-import { QueryClientProvider, QueryClient } from "react-query";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 import { GlobalStyle } from "@/styles/theme";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 interface ProviderAttribute {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ const Provider = ({ children }: ProviderAttribute) => {
         <GlobalStyle />
         {children}
       </RecoilRoot>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

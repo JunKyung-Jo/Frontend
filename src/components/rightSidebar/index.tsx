@@ -3,11 +3,23 @@ import styled, { keyframes } from "styled-components";
 import { Color, Font } from "@/styles/theme";
 import { Purplebadge, CrossIcon } from "@/styles/svg";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
+import { useRecoilValue } from "recoil";
+import { selectedBotAtom } from "@/store/chat";
 import useModal from "@/hooks/useModal";
 import PostModal from "../postModal";
 
-const RightSideBar = () => {
+const RightSideBar = ({
+  userData,
+  defaultFriendData,
+  myFriendData,
+}: {
+  userData: any;
+  defaultFriendData: any;
+  myFriendData: any;
+}) => {
   const { closeModal, rightModalState } = useRightbarSideModal();
+  const selectedFriend = useRecoilValue(selectedBotAtom);
+
   const { openMyModal, closeMyModal } = useModal();
 
   const openPost = () => {
@@ -28,13 +40,26 @@ const RightSideBar = () => {
           <BotProfile />
           <div>
             <Row gap={0.3} alignItems="center">
-              <BotName>공지봇</BotName>
-              <Purplebadge width={3} height={3} />
+              <BotName>
+                {myFriendData
+                  ? myFriendData.data.data[selectedFriend.id]?.name
+                  : defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
+                    ).name}
+              </BotName>
+              {myFriendData.data.data[selectedFriend.id]?.authority ===
+                "ROLE_ANNOUNCE" && <Purplebadge width={3} height={3} />}
             </Row>
-            <BotInfo>이것은 상태 메세지입니다.</BotInfo>
+            <BotInfo>
+              {myFriendData
+                ? myFriendData.data.data[selectedFriend.id]?.statusMessage
+                : defaultFriendData?.data.data.find(
+                    (e: any) => e.id === selectedFriend.id + 1
+                  ).statusMessage}
+            </BotInfo>
           </div>
         </Row>
-        <PostCount>게시물 NN</PostCount>
+        <PostCount>게시물 4개</PostCount>
       </RightSidebarHeader>
       <PostContainer>
         <PostContent onClick={openPost}>this is a pen</PostContent>

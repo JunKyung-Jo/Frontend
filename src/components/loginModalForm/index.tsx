@@ -10,6 +10,7 @@ import { Color } from "@/styles/theme";
 import { Column, Input, Button, Text, Row, ModalLayout } from "@/styles/ui";
 import Link from "next/link";
 import styled from "styled-components";
+import Image from "next/image";
 
 const LoginModalForm = () => {
   const { closeModal } = useLoginModal();
@@ -20,7 +21,11 @@ const LoginModalForm = () => {
         <CloseModalBtn onClick={closeModal}>
           <CrossIcon width={2} height={2} />
         </CloseModalBtn>
-        <Logo width={40} height={6} />
+        <Image
+          src={Logo}
+          alt="logo"
+          style={{ width: "11rem", height: "10rem" }}
+        />
         <Column gap={2}>
           <Input placeholder="이메일을 입력해주세요" label="이메일" />
           <Input
@@ -54,9 +59,12 @@ const LoginModalForm = () => {
             </a>
           </Row>
         </Column>
-        <Text fontType="$p2">
+        <Text fontType="$p2" textAlign="center">
           파인드 프렌드가 처음이신가요? &ensp;
-          <Link href="/signup">
+          <Link
+            href="/signup"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             <Text fontType="$Button4" color={Color.primary}>
               회원가입 하기
             </Text>
