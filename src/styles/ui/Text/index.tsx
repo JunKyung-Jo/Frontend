@@ -5,7 +5,7 @@ import { Color, Font } from "@/styles/theme";
 type Font = keyof typeof Font;
 
 const Text = ({
-  width,
+  width = "fit-content",
   fontType,
   color = "black",
   textAlign = "center",
@@ -27,7 +27,6 @@ export default Text;
 
 const Container = styled.div<{ fontType: Font; ellipsis: boolean }>`
   text-align: left;
-  flex: 1 1 0;
 
   ${({ fontType }) => Font[fontType]};
   ${({ ellipsis }) =>
