@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { userLoginbyAuth } from "./api";
 import { useLocalStorage } from "@/hooks/useSessionStorage";
 import { useRouter } from "next/navigation";

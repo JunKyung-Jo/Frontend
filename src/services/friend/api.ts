@@ -15,3 +15,9 @@ export const makeMyFriend = async (name: string, statusMessage: string) => {
 
   return { data };
 };
+
+export const getMyFriend = async () => {
+  const data = await instance.get("/friend/list", Authorization());
+
+  return { data };
+};
