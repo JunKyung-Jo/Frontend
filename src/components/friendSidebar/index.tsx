@@ -96,7 +96,7 @@ const FriendSidebar = ({
         <Image
           src={Logo}
           alt="logo"
-          style={{ width: "11 rem", height: "10rem" }}
+          style={{ width: "11rem", height: "10rem" }}
         />
       </FriendSidebarFooter>
     </Container>
