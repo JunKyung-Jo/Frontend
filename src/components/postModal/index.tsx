@@ -1,15 +1,46 @@
 import useModal from "@/hooks/useModal";
 import * as S from "./style";
 import CloseIcon from "@/styles/mysvg/closeIcon";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { selectedBotAtom } from "@/store/chat";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
 }
 
 const PostModal = ({ closeMyModal }: GenerateModalProps) => {
+  useEffect(() => {
+    GetMeet(selectedFriend.id);
+  }, []);
+
+  const GetMeet = async (friendId: number) => {
+    const token = localStorage.getItem("access-token");
+    try {
+      const response = await axios.get(
+        `http://findfriend.kro.kr/api/feed?friendId=` + (friendId + 1),
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      setGet(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const selectedFriend = useRecoilValue(selectedBotAtom);
+
+  const [get, setGet] = useState([]);
+
   return (
     <S.Container>
-      <S.Image></S.Image>
+      {/* 여기 */}
+      <S.Image imgUrl={"1234"}></S.Image>
       <S.Contents>
         <S.Top>
           <S.Wrapper>
@@ -18,9 +49,8 @@ const PostModal = ({ closeMyModal }: GenerateModalProps) => {
           </S.Wrapper>
           <CloseIcon onClick={closeMyModal} />
         </S.Top>
-        <S.Description>
-          설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.
-        </S.Description>
+        {/* 여기 */}
+        <S.Description>{get}</S.Description>
         <S.Bottom>
           <S.Wrapper>
             <S.Tag>#hello</S.Tag>

@@ -10,12 +10,16 @@ export const Container = styled.div`
   display: flex;
 `;
 
-export const Image = styled.div`
+export const Image = styled.div<{ imgUrl: string }>`
   width: 60%;
   height: 100%;
   background: ${color.gray900};
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
+
+  background-image: ${(props) => `url(${props.imgUrl})`};
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 export const Contents = styled.div`
