@@ -14,6 +14,10 @@ export const useUserLoginMutation = (code: any, auth: string) => {
       setStorageItem("refresh-token", res.data.data.refreshToken);
       router.push("/");
     },
+    onError: () => {
+      alert("인증 중 문제가 발생했습니다.");
+      router.push("/");
+    },
   });
 
   return { userLoginMutate, ...restMutation };

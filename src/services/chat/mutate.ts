@@ -9,7 +9,7 @@ export const useUserChatMutation = (text: string) => {
   const selectedBot = useRecoilValue(selectedBotAtom);
 
   const { mutate: userChatMutate, ...restMutation } = useMutation({
-    mutationFn: () => userChat(text, selectedBot.id - 1),
+    mutationFn: () => userChat(text, selectedBot.id + 1),
     onSuccess: (res: any) => {
       setAIMessage(res.data.data.response);
     },

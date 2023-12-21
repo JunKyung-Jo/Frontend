@@ -22,13 +22,16 @@ const FriendContainer = ({
       onClick={() => {
         if (authority !== "USER") {
           setSelectedFriend({ id: id - 1, authority });
+          console.log(selectedFriend.id);
         }
       }}
     >
       <ProfileImg />
       <Column alignItems="flex-start" justifyContent="space-evenly">
-        <Text fontType="$Button3">{name}</Text>
-        <Text width="120px" fontType="$p3" textAlign="left" ellipsis>
+        <Text fontType="$Button3" width="12rem" textAlign="left" ellipsis>
+          {name}
+        </Text>
+        <Text width="12rem" fontType="$p3" textAlign="left" ellipsis>
           {statusMsg}
         </Text>
         {authority === "USER" ? (

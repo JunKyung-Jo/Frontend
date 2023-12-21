@@ -40,23 +40,27 @@ const RightSideBar = ({
           <BotProfile />
           <div>
             <Row gap={0.3} alignItems="center">
-              <BotName>
+              <Text fontType="$H5" width={"20rem"} textAlign="left" ellipsis>
                 {myFriendData
-                  ? myFriendData.data.data[selectedFriend.id]?.name
+                  ? myFriendData.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
+                    ).name
                   : defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
                     ).name}
-              </BotName>
-              {myFriendData.data.data[selectedFriend.id]?.authority ===
-                "ROLE_ANNOUNCE" && <Purplebadge width={3} height={3} />}
+                {myFriendData.data.data[selectedFriend.id]?.authority ===
+                  "ROLE_ANNOUNCE" && <Purplebadge width={3} height={3} />}
+              </Text>
             </Row>
-            <BotInfo>
+            <Text fontType="$p1" width={"20rem"} textAlign="left" ellipsis>
               {myFriendData
-                ? myFriendData.data.data[selectedFriend.id]?.statusMessage
+                ? myFriendData.data.data.find(
+                    (e: any) => e.id === selectedFriend.id + 1
+                  ).statusMessage
                 : defaultFriendData?.data.data.find(
                     (e: any) => e.id === selectedFriend.id + 1
                   ).statusMessage}
-            </BotInfo>
+            </Text>
           </div>
         </Row>
         <PostCount>게시물 4개</PostCount>
@@ -121,18 +125,6 @@ const BotProfile = styled.div`
   flex-shrink: 0;
   border-radius: 50%;
   background: ${Color.black};
-`;
-
-const BotName = styled.div`
-  color: ${Color.black};
-
-  ${Font.$H5}
-`;
-
-const BotInfo = styled.div`
-  color: ${Color.black};
-
-  ${Font.$p1}
 `;
 
 const PostCount = styled.div`

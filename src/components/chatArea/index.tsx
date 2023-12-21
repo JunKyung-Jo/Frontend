@@ -9,6 +9,7 @@ import UserChat from "./userChat";
 import { useRecoilValue } from "recoil";
 import { AImessage } from "@/store/services";
 import { selectedBotAtom } from "@/store/chat";
+import { useGetUserchatQuery } from "@/services/chat/query";
 
 const ChatArea = ({
   defaultFriendData,
@@ -23,6 +24,7 @@ const ChatArea = ({
   const chatSettingRef = useRef<HTMLDivElement | null>(null);
 
   const AImessageResponse = useRecoilValue(AImessage);
+  const selectedFriend = useRecoilValue(selectedBotAtom);
 
   const [isOpen, setIsOpen] = useOutsideClick(chatSettingRef, false);
   const [inputValue, setInputValue] = useState({ text: "", isMyChat: true });
@@ -31,6 +33,9 @@ const ChatArea = ({
   ]);
 
   const { userChatMutate } = useUserChatMutation(inputValue.text);
+  const { data, refetch, isLoading } = useGetUserchatQuery(
+    selectedFriend.id + 1
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({ ...inputValue, text: e.target.value });
@@ -40,14 +45,6 @@ const ChatArea = ({
     if (inputValue.text.trim()) {
       userChatMutate();
       setMessages([...messages, inputValue]);
-      setInputValue({ ...inputValue, text: "" });
-      setTimeout(() => {
-        messageEndRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-          inline: "nearest",
-        });
-      }, 0);
     }
   };
 
@@ -61,7 +58,36 @@ const ChatArea = ({
     setMessages([...messages, { text: AImessageResponse, isMyChat: false }]);
   }, [AImessageResponse]);
 
-  const selectedFriend = useRecoilValue(selectedBotAtom);
+  useEffect(() => {
+    if (!isLoading) {
+      const queryMessageArray: any[] = [];
+
+      data?.data.data.forEach((e: any) => {
+        queryMessageArray.push({ text: e.userMessage, isMyChat: true });
+        queryMessageArray.push({ text: e.replyMessage, isMyChat: false });
+      });
+
+      setMessages(queryMessageArray);
+
+      console.log(data, queryMessageArray, messages, "fdf");
+    }
+  }, [data]);
+
+  useEffect(() => {
+    setMessages([]);
+    refetch();
+  }, [selectedFriend]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      messageEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+      setInputValue({ ...inputValue, text: "" });
+    }, 0);
+  }, [messages]);
 
   return (
     <S.Container>
@@ -82,17 +108,23 @@ const ChatArea = ({
           <S.ChatAiName onClick={openModal}>
             <S.ProfileImg />
             <Column alignItems="flex-start" justifyContent="space-evenly">
-              <Text fontType="$H5">
+              <Text fontType="$H5" textAlign="left" width={"30rem"} ellipsis>
                 {myFriendData
-                  ? myFriendData.data.data[selectedFriend.id]?.name
-                  : defaultFriendData?.data.data.find(
+                  ? myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
+                    ).name
+                  : defaultFriendData.length &&
+                    defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id
                     ).name}
               </Text>
-              <Text fontType="$p1">
+              <Text fontType="$p1" textAlign="left" width={"30rem"} ellipsis>
                 {myFriendData
-                  ? myFriendData.data.data[selectedFriend.id]?.statusMessage
-                  : defaultFriendData?.data.data.find(
+                  ? myFriendData.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
+                    ).statusMessage
+                  : defaultFriendData.length &&
+                    defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
                     ).statusMessage}
               </Text>
