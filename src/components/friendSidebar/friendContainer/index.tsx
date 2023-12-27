@@ -1,3 +1,4 @@
+import UpdateUser from "@/components/Modals/updateUserModal";
 import useModal from "@/hooks/useModal";
 import { selectedBotAtom } from "@/store/chat";
 import { OptionIcon } from "@/styles/svg";
@@ -20,7 +21,7 @@ const FriendContainer = ({
 
   const openUpdateModal = () => {
     openMyModal({
-      component: <></>,
+      component: <UpdateUser closeMyModal={closeMyModal} />,
     });
   };
 
@@ -43,7 +44,9 @@ const FriendContainer = ({
           {statusMsg}
         </Text>
         {authority === "USER" ? (
-          <EditProfileButton>클릭해서 정보를 수정해보세요!</EditProfileButton>
+          <EditProfileButton onClick={openUpdateModal}>
+            클릭해서 정보를 수정해보세요!
+          </EditProfileButton>
         ) : (
           ""
         )}
