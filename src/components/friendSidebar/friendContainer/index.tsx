@@ -1,3 +1,4 @@
+import useModal from "@/hooks/useModal";
 import { selectedBotAtom } from "@/store/chat";
 import { OptionIcon } from "@/styles/svg";
 import { Color } from "@/styles/theme";
@@ -15,6 +16,13 @@ const FriendContainer = ({
   authority,
 }: FriendContainerAttribute) => {
   const [selectedFriend, setSelectedFriend] = useRecoilState(selectedBotAtom);
+  const { openMyModal, closeMyModal } = useModal();
+
+  const openUpdateModal = () => {
+    openMyModal({
+      component: <></>,
+    });
+  };
 
   return (
     <Container

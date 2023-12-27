@@ -6,7 +6,7 @@ import {
   ChatArea,
   LoginModalForm,
 } from "@/components";
-import Modal from "@/components/modal";
+import Modal from "@/components/Modals/modal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 import { useLocalStorage } from "@/hooks/useSessionStorage";

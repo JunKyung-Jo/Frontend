@@ -6,7 +6,7 @@ import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 import { useRecoilValue } from "recoil";
 import { selectedBotAtom } from "@/store/chat";
 import useModal from "@/hooks/useModal";
-import PostModal from "../postModal";
+import PostModal from "@/components/Modals/postModal";
 
 const RightSideBar = ({
   userData,
