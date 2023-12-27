@@ -1,7 +1,6 @@
 import UpdateUser from "@/components/Modals/updateUserModal";
 import useModal from "@/hooks/useModal";
 import { selectedBotAtom } from "@/store/chat";
-import { OptionIcon } from "@/styles/svg";
 import { Color } from "@/styles/theme";
 import font from "@/styles/theme/font";
 import { Column, Text } from "@/styles/ui";
@@ -21,7 +20,13 @@ const FriendContainer = ({
 
   const openUpdateModal = () => {
     openMyModal({
-      component: <UpdateUser closeMyModal={closeMyModal} />,
+      component: (
+        <UpdateUser
+          closeMyModal={closeMyModal}
+          name={name}
+          statusMsg={statusMsg}
+        />
+      ),
     });
   };
 
