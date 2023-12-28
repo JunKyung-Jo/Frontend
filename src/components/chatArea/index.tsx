@@ -10,6 +10,7 @@ import { useRecoilValue } from "recoil";
 import { AImessage } from "@/store/services";
 import { selectedBotAtom } from "@/store/chat";
 import { useGetUserchatQuery } from "@/services/chat/query";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 const ChatArea = ({
   defaultFriendData,
@@ -19,6 +20,7 @@ const ChatArea = ({
   myFriendData: any;
 }) => {
   const { openModal } = useRightbarSideModal();
+  const { getStorageItem } = useLocalStorage();
 
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const chatSettingRef = useRef<HTMLDivElement | null>(null);
@@ -68,14 +70,12 @@ const ChatArea = ({
       });
 
       setMessages(queryMessageArray);
-
-      console.log(data, queryMessageArray, messages, "fdf");
     }
   }, [data]);
 
   useEffect(() => {
     setMessages([]);
-    refetch();
+    if (getStorageItem("access-token")) refetch();
   }, [selectedFriend]);
 
   useEffect(() => {
@@ -88,6 +88,8 @@ const ChatArea = ({
       setInputValue({ ...inputValue, text: "" });
     }, 0);
   }, [messages]);
+
+  console.log(defaultFriendData, selectedFriend.id, "fwfewfwefewf");
 
   return (
     <S.Container>
@@ -113,9 +115,8 @@ const ChatArea = ({
                   ? myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
                     ).name
-                  : defaultFriendData.length &&
-                    defaultFriendData?.data.data.find(
-                      (e: any) => e.id === selectedFriend.id
+                  : defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
                     ).name}
               </Text>
               <Text fontType="$p1" textAlign="left" width={"30rem"} ellipsis>
@@ -123,8 +124,7 @@ const ChatArea = ({
                   ? myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
                     ).statusMessage
-                  : defaultFriendData.length &&
-                    defaultFriendData?.data.data.find(
+                  : defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
                     ).statusMessage}
               </Text>
