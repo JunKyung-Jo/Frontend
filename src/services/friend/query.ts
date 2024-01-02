@@ -5,7 +5,7 @@ export const useGetDefaultFriendQuery = () => {
   const { data, isLoading, ...restQuery } = useQuery({
     queryKey: ["getDefaultFriend"],
     queryFn: () => getDefaultFriend(),
-    retry: 5,
+    retry: 2,
   });
 
   return {
@@ -19,7 +19,7 @@ export const useGetMyFriendQuery = () => {
   const { data, isLoading, ...restQuery } = useQuery({
     queryKey: ["getMyFriend"],
     queryFn: () => getMyFriend(),
-    retry: 5,
+    retry: 2,
   });
 
   return { myFriendData: data, isMyFriendLoading: isLoading, ...restQuery };

@@ -9,7 +9,7 @@ export const useUserdataQuery = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: ["userdata"],
     queryFn: () => getUserdata(),
-    retry: 5,
+    retry: 2,
   });
 
   return { data, ...restQuery };
