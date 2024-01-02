@@ -44,11 +44,11 @@ const RightSideBar = ({
                 {myFriendData
                   ? myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
-                    ).name
+                    )?.name
                   : defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
-                    ).name}
-                {myFriendData.data.data[selectedFriend.id]?.authority ===
+                    )?.name}
+                {myFriendData?.data.data[selectedFriend.id]?.authority ===
                   "ROLE_ANNOUNCE" && <Purplebadge width={3} height={3} />}
               </Text>
             </Row>
@@ -56,10 +56,10 @@ const RightSideBar = ({
               {myFriendData
                 ? myFriendData.data.data.find(
                     (e: any) => e.id === selectedFriend.id + 1
-                  ).statusMessage
+                  )?.statusMessage
                 : defaultFriendData?.data.data.find(
                     (e: any) => e.id === selectedFriend.id + 1
-                  ).statusMessage}
+                  )?.statusMessage}
             </Text>
           </div>
         </Row>
