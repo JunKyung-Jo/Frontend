@@ -25,6 +25,8 @@ export const Input = styled.input`
   height: 50px;
   border: 1px solid ${color.gray200};
   border-radius: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
 `;
 
 export const Button = styled.button`

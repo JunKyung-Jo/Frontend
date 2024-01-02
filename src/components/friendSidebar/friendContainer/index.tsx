@@ -21,7 +21,13 @@ const FriendContainer = ({
 
   const openUpdateModal = () => {
     openMyModal({
-      component: <UpdateModal closeMyModal={closeMyModal} />,
+      component: (
+        <UpdateModal
+          name={name}
+          statusMsg={statusMsg}
+          closeMyModal={closeMyModal}
+        />
+      ),
     });
   };
 
