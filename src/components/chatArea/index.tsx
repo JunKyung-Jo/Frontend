@@ -117,7 +117,7 @@ const ChatArea = ({
                     ).name
                   : defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
-                    ).name}
+                    )?.name}
               </Text>
               <Text fontType="$p1" textAlign="left" width={"30rem"} ellipsis>
                 {myFriendData
@@ -126,7 +126,7 @@ const ChatArea = ({
                     ).statusMessage
                   : defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
-                    ).statusMessage}
+                    )?.statusMessage}
               </Text>
             </Column>
           </S.ChatAiName>
