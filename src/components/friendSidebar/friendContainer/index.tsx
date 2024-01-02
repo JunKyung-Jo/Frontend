@@ -1,3 +1,5 @@
+import UpdateModal from "@/components/updateModal";
+import useModal from "@/hooks/useModal";
 import { selectedBotAtom } from "@/store/chat";
 import { OptionIcon } from "@/styles/svg";
 import { Color } from "@/styles/theme";
@@ -15,6 +17,13 @@ const FriendContainer = ({
   authority,
 }: FriendContainerAttribute) => {
   const [selectedFriend, setSelectedFriend] = useRecoilState(selectedBotAtom);
+  const { openMyModal, closeMyModal } = useModal();
+
+  const openUpdateModal = () => {
+    openMyModal({
+      component: <UpdateModal closeMyModal={closeMyModal} />,
+    });
+  };
 
   return (
     <Container
@@ -35,7 +44,9 @@ const FriendContainer = ({
           {statusMsg}
         </Text>
         {authority === "USER" ? (
-          <EditProfileButton>클릭해서 정보를 수정해보세요!</EditProfileButton>
+          <EditProfileButton onClick={openUpdateModal}>
+            클릭해서 정보를 수정해보세요!
+          </EditProfileButton>
         ) : (
           ""
         )}
