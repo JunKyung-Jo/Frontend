@@ -129,8 +129,6 @@ const FriendSidebarFooter = styled.div`
   justify-content: center;
   align-items: center;
   padding: 6rem 1rem;
-
-  background-color: ${Color.gray50};
 `;
 
 const LoginButtonContainer = styled.div`
