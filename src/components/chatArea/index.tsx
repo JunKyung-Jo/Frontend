@@ -114,7 +114,7 @@ const ChatArea = ({
                 {myFriendData
                   ? myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
-                    ).name
+                    )?.name
                   : defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
                     )?.name}
@@ -123,7 +123,7 @@ const ChatArea = ({
                 {myFriendData
                   ? myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
-                    ).statusMessage
+                    )?.statusMessage
                   : defaultFriendData?.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
                     )?.statusMessage}
