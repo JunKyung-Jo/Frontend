@@ -56,7 +56,7 @@ const FriendSidebar = ({
         {userData ? (
           <FriendContainer
             id={0}
-            name={userData.data.data.name + " (나)"}
+            name={userData.data.data.name}
             statusMsg={userData.data.data.statusMessage}
             authority="USER"
           />
