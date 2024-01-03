@@ -8,6 +8,7 @@ import { Button, Column, Row, Text } from "@/styles/ui";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
+import NewFriendModal from "../newFriendModal";
 
 const FriendSidebar = ({
   myFriendData,
@@ -53,7 +54,7 @@ const FriendSidebar = ({
 
   const openMakeFriendModal = () => {
     openMyModal({
-      component: "",
+      component: <NewFriendModal closeMyModal={closeMyModal} />,
     });
   };
 
@@ -95,7 +96,7 @@ const FriendSidebar = ({
             type="채팅"
           />
         )}
-        <AddAIBotButtonDiv>
+        <AddAIBotButtonDiv onClick={() => openMakeFriendModal()}>
           <AddBotIcon width={3} height={3} />
         </AddAIBotButtonDiv>
       </Column>
