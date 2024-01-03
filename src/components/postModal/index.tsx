@@ -8,18 +8,19 @@ import { selectedBotAtom } from "@/store/chat";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
+  id: number;
 }
 
-const PostModal = ({ closeMyModal }: GenerateModalProps) => {
+const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   useEffect(() => {
-    GetMeet(selectedFriend.id);
+    GetMeet(id);
   }, []);
 
-  const GetMeet = async (friendId: number) => {
+  const GetMeet = async (feedId: number) => {
     const token = localStorage.getItem("access-token");
     try {
       const response = await axios.get(
-        `http://findfriend.kro.kr/api/feed?friendId=` + (friendId + 1),
+        `http://findfriend.kro.kr/api/feed?feedId=` + (feedId + 1),
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,8 +33,6 @@ const PostModal = ({ closeMyModal }: GenerateModalProps) => {
       console.error(error);
     }
   };
-
-  const selectedFriend = useRecoilValue(selectedBotAtom);
 
   const [get, setGet] = useState([]);
 
