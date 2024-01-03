@@ -62,7 +62,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
           value={userInput.statusMessage}
           onChange={(e) => handleInputChange(e, "statusMessage")}
         />
-        <S.Button onClick={profileUpdateMutate}>수정하기</S.Button>
+        <S.Button onClick={() => profileUpdateMutate()}>수정하기</S.Button>
       </S.Contents>
       <div />
     </S.Container>
