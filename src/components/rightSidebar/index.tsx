@@ -26,7 +26,7 @@ const RightSideBar = ({
 
   const openPost = (id: number) => {
     openMyModal({
-      component: <PostModal closeMyModal={closeMyModal} />,
+      component: <PostModal closeMyModal={closeMyModal} id={id} />,
     });
   };
 
@@ -35,9 +35,6 @@ const RightSideBar = ({
   const GetList = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
-      console.log(
-        "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1)
-      );
       const response = await axios.get(
         "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1),
         { headers: { Authorization: `Bearer ${token}` } }
@@ -91,6 +88,12 @@ const RightSideBar = ({
         <PostCount>게시물 4개</PostCount>
       </RightSidebarHeader>
       <PostContainer>
+        <PostContent
+          onClick={() => {
+            openPost(1);
+          }}
+          img={"AAA"}
+        />
         {feed.map((props: { id: number; url: string }) => (
           <PostContent
             onClick={() => {
