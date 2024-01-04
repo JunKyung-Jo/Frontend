@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
 import { css } from "styled-components";
 import { Color } from "@/styles/theme";
 import { Row, Text } from "..";
 
-const CheckBox = ({ labels }: { labels: string[] }) => {
+interface CheckBoxProps {
+  labels: string[];
+}
+
+const CheckBox = ({ labels }: CheckBoxProps) => {
   const [isChecked, setIsChecked] = useState(true);
 
   return (

@@ -21,7 +21,7 @@ export const Contents = styled.div`
 `;
 
 export const Content = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
