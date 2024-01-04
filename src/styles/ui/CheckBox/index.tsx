@@ -9,9 +9,10 @@ import { CheckboxAtom } from "@/store/checkBox";
 interface CheckBoxProps {
   labels: string[];
   index: number;
+  data: string[];
 }
 
-const CheckBox = ({ labels, index }: CheckBoxProps) => {
+const CheckBox = ({ labels, index, data }: CheckBoxProps) => {
   const [isChecked, setIsChecked] = useState(true);
   const [checkboxData, setCheckboxData] = useRecoilState(CheckboxAtom);
   return (
@@ -21,8 +22,9 @@ const CheckBox = ({ labels, index }: CheckBoxProps) => {
           onClick={() => {
             setIsChecked(!isChecked);
             let checkboxArray = [...checkboxData];
-            checkboxArray.splice(index, 1, labels[0]);
+            checkboxArray.splice(index, 1, data[0]);
             setCheckboxData(checkboxArray);
+            console.log(checkboxData);
           }}
           checked={isChecked}
         />
@@ -33,8 +35,9 @@ const CheckBox = ({ labels, index }: CheckBoxProps) => {
           onClick={() => {
             setIsChecked(!isChecked);
             let checkboxArray = [...checkboxData];
-            checkboxArray.splice(index, 1, labels[0]);
+            checkboxArray.splice(index, 1, data[1]);
             setCheckboxData(checkboxArray);
+            console.log(checkboxData);
           }}
           checked={!isChecked}
         />

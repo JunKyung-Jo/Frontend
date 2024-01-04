@@ -2,5 +2,5 @@ import { atom } from "recoil";
 
 export const CheckboxAtom = atom({
   key: "checkboxAtom",
-  default: ["", "", "", ""],
+  default: ["EXTROVERTED", "REALISTIC", "ORGANIZED", "SENSITIVE"],
 });
