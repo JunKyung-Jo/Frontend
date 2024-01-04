@@ -3,6 +3,9 @@ import { Text } from "@/styles/ui";
 import * as S from "./style";
 import CheckBox from "@/styles/ui/CheckBox";
 import { CrossIcon } from "@/styles/svg";
+import { useRecoilValue } from "recoil";
+import { CheckboxAtom } from "@/store/checkBox";
+import { instance } from "@/apis/instance";
 
 interface Modal {
   closeMyModal(): void;
@@ -14,11 +17,12 @@ interface FriendData {
   personalities: string[];
 }
 
-const NewFriendModal = ({ closeMyModal }: Modal) => {
+const NewFriendModal = async ({ closeMyModal }: Modal) => {
+  const checkBox = useRecoilValue(CheckboxAtom);
   const [friendData, setFriendData] = useState<FriendData>({
     name: "",
     statusMessage: "",
-    personalities: ["내향적인", "창의적인", "자유분방한", "이성적인"],
+    personalities: checkBox,
   });
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +42,6 @@ const NewFriendModal = ({ closeMyModal }: Modal) => {
   };
 
   const handleMakeFriend = () => {
-    console.log(friendData);
     closeMyModal();
   };
 
