@@ -3,26 +3,39 @@ import styled from "styled-components";
 import { css } from "styled-components";
 import { Color } from "@/styles/theme";
 import { Row, Text } from "..";
+import { useRecoilState } from "recoil";
+import { CheckboxAtom } from "@/store/checkBox";
 
 interface CheckBoxProps {
   labels: string[];
+  index: number;
 }
 
-const CheckBox = ({ labels }: CheckBoxProps) => {
+const CheckBox = ({ labels, index }: CheckBoxProps) => {
   const [isChecked, setIsChecked] = useState(true);
-
+  const [checkboxData, setCheckboxData] = useRecoilState(CheckboxAtom);
   return (
     <Container>
       <Row gap={1} alignItems="center" justifyContent="center">
         <Checkbox
-          onClick={() => setIsChecked(!isChecked)}
+          onClick={() => {
+            setIsChecked(!isChecked);
+            let checkboxArray = [...checkboxData];
+            checkboxArray.splice(index, 1, labels[0]);
+            setCheckboxData(checkboxArray);
+          }}
           checked={isChecked}
         />
         <Text fontType="$p3">{labels[0]}</Text>
       </Row>
       <Row gap={1} alignItems="center" justifyContent="center">
         <Checkbox
-          onClick={() => setIsChecked(!isChecked)}
+          onClick={() => {
+            setIsChecked(!isChecked);
+            let checkboxArray = [...checkboxData];
+            checkboxArray.splice(index, 1, labels[0]);
+            setCheckboxData(checkboxArray);
+          }}
           checked={!isChecked}
         />
         <Text fontType="$p3">{labels[1]}</Text>

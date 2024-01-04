@@ -69,10 +69,10 @@ const NewFriendModal = ({ closeMyModal }: Modal) => {
           <Text fontType="$p1">친구 성격</Text>
         </S.Content>
         <S.botRadioGrid>
-          <CheckBox labels={["외향적인", "내향적인"]} />
-          <CheckBox labels={["현실적인", "창의적인"]} />
-          <CheckBox labels={["계획적인", "자유분방한"]} />
-          <CheckBox labels={["감성적인", "이성적인"]} />
+          <CheckBox index={0} labels={["외향적인", "내향적인"]} />
+          <CheckBox index={1} labels={["현실적인", "창의적인"]} />
+          <CheckBox index={2} labels={["계획적인", "자유분방한"]} />
+          <CheckBox index={3} labels={["감성적인", "이성적인"]} />
         </S.botRadioGrid>
       </S.Contents>
       <S.MakeFriendBtn onClick={handleMakeFriend}> 친구 만나기</S.MakeFriendBtn>
