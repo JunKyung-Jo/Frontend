@@ -2,6 +2,12 @@ import styled from "styled-components";
 import font from "@/styles/theme/font";
 import color from "@/styles/theme/color";
 
+export const Rows = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Container = styled.div`
   width: 120rem;
   height: 70rem;
@@ -12,12 +18,19 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
+  width: 95%;
+  height: 6rem;
+
   display: inline-flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   gap: 449px;
 
   border-bottom: 1px solid ${color.gray200};
+
+  color: var(--Black, #000);
+
+  ${font.$H5}
 `;
 
 export const UploadImage = styled.p`
@@ -26,7 +39,7 @@ export const UploadImage = styled.p`
   ${font.$Body3};
 `;
 
-export const Button = styled.input`
+export const Button = styled.label`
   color: ${color.white};
 
   ${font.$Button2};
@@ -48,4 +61,27 @@ export const ContentsBox = styled.textarea<{ height: number }>`
   resize: none;
 
   border-bottom: 1px solid ${color.gray200};
+`;
+
+export const SubmitBox = styled.div`
+  width: fit-content;
+  height: fit-content;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SubmitButton = styled.div`
+  display: inline-flex;
+  padding: 13px 37px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  background: var(--primary, #0064ff);
+
+  color: var(--White, #fff);
+
+  ${font.$Button2}
 `;
