@@ -59,6 +59,7 @@ export const ChatAiOption = styled.div`
   right: 6px;
   top: 32px;
   display: flex;
+  flex-direction: column;
   gap: 10px;
   padding: 10px;
   border-radius: 5px;

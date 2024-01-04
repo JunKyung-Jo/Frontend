@@ -3,7 +3,12 @@ import React from "react";
 import { Column } from "@/styles/ui";
 import { ImageIcon } from "@/styles/svg";
 
-const PostModal = () => {
+interface GenerateModalProps {
+  closeMyModal: () => void;
+  id: number;
+}
+
+const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   return (
     <S.Container>
       <S.Header>게시물 업로드</S.Header>

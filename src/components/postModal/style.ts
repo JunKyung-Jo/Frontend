@@ -26,7 +26,7 @@ export const UploadImage = styled.p`
   ${font.$Body3};
 `;
 
-export const Button = styled.button`
+export const Button = styled.input`
   color: ${color.white};
 
   ${font.$Button2};
