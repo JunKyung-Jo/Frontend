@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedBotAtom } from "@/store/chat";
+import { LikeIcon, UnLikeIcon } from "@/styles/svg";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -106,7 +107,8 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
         <div>곗수 : {isLike?.count ?? 0}</div>
         <S.Bottom>
           <S.Wrapper>
-            <S.Tag>#hello</S.Tag>
+            <UnLikeIcon />
+            <S.Tag>#helo</S.Tag>
             <S.Tag>#hello</S.Tag>
             <S.Tag>#hello</S.Tag>
           </S.Wrapper>

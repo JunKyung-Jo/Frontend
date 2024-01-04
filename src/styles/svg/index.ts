@@ -9,3 +9,5 @@ export { default as SendIcon } from "@/styles/svg/sendIcon";
 export { default as LeftIcon } from "@/styles/svg/leftIcon";
 export { default as OptionIcon } from "@/styles/svg/optionIcon";
 export { default as AddBotIcon } from "@/styles/svg/addBotIcon";
+export { default as LikeIcon } from "@/styles/svg/likeIcon";
+export { default as UnLikeIcon } from "@/styles/svg/unlikeIcon";
