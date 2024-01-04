@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import * as S from "./style";
 import { Text } from "@/styles/ui";
-import { useRecoilValue } from "recoil";
-import { userDataAtom } from "@/store/services";
 import { instance } from "@/apis/instance";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../common/provider";
 
 interface Modal {
   closeMyModal(): void;
@@ -27,14 +27,20 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
     }));
   };
 
-  const handleUpdate = async () => {
-    closeMyModal();
-    await instance.put("/user/update", userInput, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access-token") || ""}`,
-      },
-    });
-  };
+  const { mutate: profileUpdateMutate } = useMutation({
+    mutationFn: async () => {
+      closeMyModal();
+      await instance.put("/user/update", userInput, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token") || ""}`,
+        },
+      });
+    },
+    onSuccess() {
+      console.log("데이터를 잘 보냈다");
+      queryClient.invalidateQueries({ queryKey: ["userdata"] });
+    },
+  });
 
   return (
     <S.Container>
@@ -56,7 +62,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
           value={userInput.statusMessage}
           onChange={(e) => handleInputChange(e, "statusMessage")}
         />
-        <S.Button onClick={handleUpdate}>수정하기</S.Button>
+        <S.Button onClick={() => profileUpdateMutate()}>수정하기</S.Button>
       </S.Contents>
       <div />
     </S.Container>
