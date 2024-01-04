@@ -3,6 +3,12 @@ import React from "react";
 import { ImageIcon } from "@/styles/svg";
 import CloseIcon from "@/styles/mysvg/closeIcon";
 
+//e.target.files[0] -> 유즈스테이트에 담아라
+// const formData = new FormData();
+// formData.append('이미데이터 칼럼이름', e.target.files[0])
+// formData.append('내용 칼럼이름', JSON.stringify(여기에 뭐내용적고)
+//instance.post("주소", formData, {"Content-Type": ""...Auth()})
+
 interface GenerateModalProps {
   closeMyModal: () => void;
   id: number;
@@ -11,16 +17,16 @@ interface GenerateModalProps {
 const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   return (
     <S.Container>
-      <S.Rows>
+      <S.Rows1>
         <div></div>
         <S.Header>게시물 업로드</S.Header>
         <div onClick={closeMyModal}>
           <CloseIcon />
         </div>
-      </S.Rows>
+      </S.Rows1>
       <S.Rows>
         <S.BorderBox height={64}>
-          <ImageIcon />
+          <ImageIcon width={10} height={10} />
           <S.UploadImage>게시물 이미지를 업로드 해주세요.</S.UploadImage>
           <input
             type="file"

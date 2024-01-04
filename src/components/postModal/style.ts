@@ -8,6 +8,12 @@ export const Rows = styled.div`
   align-items: center;
 `;
 
+export const Rows1 = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Container = styled.div`
   width: 120rem;
   height: 70rem;
@@ -40,7 +46,14 @@ export const UploadImage = styled.p`
 `;
 
 export const Button = styled.label`
+  display: inline-flex;
+  padding: 13px 37px;
+  justify-content: center;
+  align-items: center;
   color: ${color.white};
+
+  border-radius: 10px;
+  background: var(--primary, #0064ff);
 
   ${font.$Button2};
 `;
@@ -48,6 +61,11 @@ export const Button = styled.label`
 export const BorderBox = styled.div<{ height: number }>`
   width: 64rem;
   height: ${(props) => `${props.height}rem`};
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   border-right: 1px solid ${color.gray200};
 `;

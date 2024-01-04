@@ -1,12 +1,12 @@
 import { SvgAttribute } from "@/types/ui/SvgAttribute.type";
 import React from "react";
 
-const ImageIcon = ({ width = 64, height = 64 }: SvgAttribute) => {
+const ImageIcon = ({ width = 10, height = 10 }: SvgAttribute) => {
   return (
     <svg
       width={`${width}rem`}
       height={`${height}rem`}
-      viewBox="0 0 640 640"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
