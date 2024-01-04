@@ -1,68 +1,51 @@
-import color from "@/styles/theme/color";
-import font from "@/styles/theme/font";
 import styled from "styled-components";
+import font from "@/styles/theme/font";
+import color from "@/styles/theme/color";
 
 export const Container = styled.div`
-  width: 900px;
-  height: 500px;
-  border-radius: 10px;
-  background-color: white;
-  display: flex;
+  width: 120rem;
+  height: 70rem;
+
+  border-radius: 20px;
+  background: ${color.white};
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export const Image = styled.div`
-  width: 60%;
-  height: 100%;
-  background: ${color.gray900};
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-`;
+export const Header = styled.div`
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 449px;
 
-export const Contents = styled.div`
-  width: 40%;
-  height: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-`;
-
-export const Top = styled.div`
-  width: 100%;
-  height: 40px;
   border-bottom: 1px solid ${color.gray200};
+`;
+
+export const UploadImage = styled.p`
+  color: ${color.black};
+
+  ${font.$Body3};
+`;
+
+export const Button = styled.input`
+  color: ${color.white};
+
+  ${font.$Button2};
+`;
+
+export const BorderBox = styled.div<{ height: number }>`
+  width: 64rem;
+  height: ${(props) => `${props.height}rem`};
+
+  border-right: 1px solid ${color.gray200};
+`;
+
+export const ContentsBox = styled.textarea<{ height: number }>`
   display: flex;
+  width: 56rem;
+  height: ${(props) => `${props.height}rem`};
+  padding: 18px 393px 154px 18px;
   align-items: center;
-  justify-content: space-between;
-`;
+  resize: none;
 
-export const Profile = styled.div`
-  width: 25px;
-  height: 25px;
-  background-color: ${color.gray800};
-  border-radius: 100px;
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-export const Name = styled.h1`
-  ${font.$p1};
-`;
-
-export const Description = styled.div`
-  ${font.$p1};
-`;
-
-export const Bottom = styled.div`
-  margin-top: 60%;
-  width: 100%;
-  height: 30%;
-  border-top: 1px solid ${color.gray200};
-`;
-
-export const Tag = styled.div`
-  ${font.$p1}
-  cursor: pointer;
+  border-bottom: 1px solid ${color.gray200};
 `;

@@ -1,34 +1,28 @@
-import useModal from "@/hooks/useModal";
 import * as S from "./style";
-import CloseIcon from "@/styles/mysvg/closeIcon";
+import React from "react";
+import { Column } from "@/styles/ui";
+import { ImageIcon } from "@/styles/svg";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
+  id: number;
 }
 
-const PostModal = ({ closeMyModal }: GenerateModalProps) => {
+const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   return (
     <S.Container>
-      <S.Image></S.Image>
-      <S.Contents>
-        <S.Top>
-          <S.Wrapper>
-            <S.Profile />
-            <S.Name>공지봇</S.Name>
-          </S.Wrapper>
-          <CloseIcon onClick={closeMyModal} />
-        </S.Top>
-        <S.Description>
-          설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.설명입니다.
-        </S.Description>
-        <S.Bottom>
-          <S.Wrapper>
-            <S.Tag>#hello</S.Tag>
-            <S.Tag>#hello</S.Tag>
-            <S.Tag>#hello</S.Tag>
-          </S.Wrapper>
-        </S.Bottom>
-      </S.Contents>
+      <S.Header>게시물 업로드</S.Header>
+      <Column alignItems="center" justifyContent="space-between">
+        <S.BorderBox height={64}>
+          <ImageIcon />
+          <S.UploadImage>게시물 이미지를 업로드 해주세요.</S.UploadImage>
+          <S.Button type="file">컴푸터에서 선택</S.Button>
+        </S.BorderBox>
+        <div>
+          <S.ContentsBox height={20.2}>문구를 입력하세요</S.ContentsBox>
+          <S.ContentsBox height={14}>해시태그를 추가하세요</S.ContentsBox>
+        </div>
+      </Column>
     </S.Container>
   );
 };
