@@ -10,9 +10,10 @@ import { LikeIcon, UnLikeIcon } from "@/styles/svg";
 interface GenerateModalProps {
   closeMyModal: () => void;
   id: number;
+  url: string;
 }
 
-const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
+const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   useEffect(() => {
     GetMeet(id);
     GetLike(id);
@@ -22,14 +23,14 @@ const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
     const token = localStorage.getItem("access-token");
     try {
       const response = await axios.get(
-        `http://findfriend.kro.kr/api/feed?feedId=` + (feedId + 1),
+        `http://findfriend.kro.kr/api/feed?feedId=` + feedId,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log(response.data);
+      console.log("Get Meet" + response.data);
       setGet(response.data);
     } catch (error) {
       console.error(error);
@@ -47,7 +48,7 @@ const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
           },
         }
       );
-      console.log(response.data);
+      console.log("총 " + response.data);
       setLike(response.data);
     } catch (e) {
       console.error(e);
@@ -80,7 +81,7 @@ const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
     }
   };
 
-  const [get, setGet] = useState([]);
+  const [get, setGet] = useState<{ content: string; users: string[] }>();
   const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
     isLiked: false,
     count: 0,
@@ -89,7 +90,7 @@ const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
   return (
     <S.Container>
       {/* 여기 */}
-      <S.Image imgUrl={"1234"}></S.Image>
+      <S.Image url={url}></S.Image>
       <S.Contents>
         <S.Top>
           <S.Wrapper>
@@ -99,7 +100,7 @@ const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
           <CloseIcon onClick={closeMyModal} />
         </S.Top>
         {/* 여기 */}
-        <S.Description>{get}</S.Description>
+        <S.Description>{get?.content}</S.Description>
         <div>곗수 : {isLike.count}</div>
         <S.Bottom>
           <S.Wrapper>
@@ -110,7 +111,9 @@ const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
             >
               {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
             </div>
-            <S.Tag>#helo</S.Tag>
+            {get?.users.map((props) => (
+              <S.Tag>#{props}</S.Tag>
+            ))}
             <S.Tag>#hello</S.Tag>
             <S.Tag>#hello</S.Tag>
           </S.Wrapper>

@@ -96,7 +96,6 @@ const ChatArea = ({
   const { openMyModal, closeMyModal } = useModal();
 
   const openPost = () => {
-    console.log("Post 오픈");
     openMyModal({
       component: (
         <PostModal closeMyModal={closeMyModal} id={selectedFriend.id + 1} />
@@ -110,7 +109,6 @@ const ChatArea = ({
         <S.ChatAiInfo>
           <S.SettingButton
             onClick={() => {
-              console.log("클릭");
               setIsOpen(!isOpen);
             }}
             ref={chatSettingRef}

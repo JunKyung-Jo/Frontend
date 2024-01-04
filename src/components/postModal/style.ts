@@ -5,7 +5,7 @@ import color from "@/styles/theme/color";
 export const Rows = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
 `;
 
 export const Rows1 = styled.div`
@@ -41,6 +41,9 @@ export const Header = styled.div`
 
 export const UploadImage = styled.p`
   color: ${color.black};
+
+  margin-top: 1.7rem;
+  margin-bottom: 4.4rem;
 
   ${font.$Body3};
 `;
@@ -82,8 +85,8 @@ export const ContentsBox = styled.textarea<{ height: number }>`
 `;
 
 export const SubmitBox = styled.div`
-  width: fit-content;
-  height: fit-content;
+  width: 100%;
+  height: 25rem;
 
   display: flex;
   align-items: center;
@@ -91,6 +94,8 @@ export const SubmitBox = styled.div`
 `;
 
 export const SubmitButton = styled.div`
+  cursor: pointer;
+
   display: inline-flex;
   padding: 13px 37px;
   justify-content: center;
