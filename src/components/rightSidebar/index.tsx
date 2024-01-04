@@ -6,7 +6,7 @@ import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
 import { useRecoilValue } from "recoil";
 import { selectedBotAtom } from "@/store/chat";
 import useModal from "@/hooks/useModal";
-import PostModal from "../postModal";
+import FeedModal from "../feedModal";
 import axios from "axios";
 import { useLayoutEffect, useState } from "react";
 
@@ -26,7 +26,7 @@ const RightSideBar = ({
 
   const openPost = (id: number) => {
     openMyModal({
-      component: <PostModal closeMyModal={closeMyModal} id={id} />,
+      component: <FeedModal closeMyModal={closeMyModal} id={id} />,
     });
   };
 

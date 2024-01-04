@@ -12,7 +12,7 @@ interface GenerateModalProps {
   id: number;
 }
 
-const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
+const FeedModal = ({ closeMyModal, id }: GenerateModalProps) => {
   useEffect(() => {
     GetMeet(id);
     GetLike(id);
@@ -81,7 +81,10 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   };
 
   const [get, setGet] = useState([]);
-  const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>();
+  const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
+    isLiked: false,
+    count: 0,
+  });
 
   return (
     <S.Container>
@@ -97,17 +100,16 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
         </S.Top>
         {/* 여기 */}
         <S.Description>{get}</S.Description>
-        <button
-          onClick={() => {
-            likeHandler(id);
-          }}
-        >
-          좋아요
-        </button>
-        <div>곗수 : {isLike?.count ?? 0}</div>
+        <div>곗수 : {isLike.count}</div>
         <S.Bottom>
           <S.Wrapper>
-            <UnLikeIcon />
+            <div
+              onClick={() => {
+                likeHandler(id);
+              }}
+            >
+              {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
+            </div>
             <S.Tag>#helo</S.Tag>
             <S.Tag>#hello</S.Tag>
             <S.Tag>#hello</S.Tag>
@@ -118,4 +120,4 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   );
 };
 
-export default PostModal;
+export default FeedModal;
