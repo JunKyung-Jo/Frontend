@@ -15,6 +15,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
   const [userInput, setUserInput] = useState({
     name: name,
     statusMessage: statusMsg,
+    file: null,
   });
 
   const handleInputChange = (
@@ -27,20 +28,57 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
     }));
   };
 
+  const handleFileChange = (event: any) => {
+    const selectedFile = event.target.files?.[0] || null;
+
+    setUserInput((prevUserInput) => ({
+      ...prevUserInput,
+      file: selectedFile,
+    }));
+  };
+
   const { mutate: profileUpdateMutate } = useMutation({
     mutationFn: async () => {
+      const formData = new FormData();
+      const { name, statusMessage } = userInput;
+      formData.append(
+        "data",
+        new Blob([JSON.stringify({ name, statusMessage })], {
+          type: "application/json",
+        })
+      );
+
+      if (userInput.file) {
+        formData.append("file", userInput.file);
+      }
+
       closeMyModal();
-      await instance.put("/user/update", userInput, {
+
+      await instance.put("/user/update", formData, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("access-token") || ""}`,
         },
       });
     },
     onSuccess() {
-      console.log("데이터를 잘 보냈다");
       queryClient.invalidateQueries({ queryKey: ["userdata"] });
     },
   });
+
+  const readFileContent = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const content = reader.result as string;
+        resolve(content);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsText(file);
+    });
+  };
 
   return (
     <S.Container>
@@ -48,6 +86,10 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
         프로필 수정
       </Text>
       <S.Contents>
+        <S.Wrapper>
+          <S.Image type="file" onChange={handleFileChange} />
+          <S.Label htmlFor="file">프로필 이미지</S.Label>
+        </S.Wrapper>
         <Text fontType="$Body2" width="100%" textAlign="left">
           유저 이름
         </Text>
