@@ -35,9 +35,12 @@ const RightSideBar = ({
   const GetList = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
+      // const response = await axios.get(
+      //   "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1),
+      //   { headers: { Authorization: `Bearer ${token}` } }
+      // );
       const response = await axios.get(
-        "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1),
-        { headers: { Authorization: `Bearer ${token}` } }
+        "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1)
       );
       console.log("데이터" + response.data);
       setFeed(response.data);

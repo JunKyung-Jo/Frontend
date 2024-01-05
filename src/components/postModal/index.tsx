@@ -17,19 +17,24 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
     tags: string[];
   }>({
     content: "",
-    friendId: 0,
+    friendId: 1,
     tags: [],
   });
 
   const submitHandler = async (id: number) => {
-    console.log("자료" + data);
-    console.log("사지" + img);
-    // const formData = new FormData();
+    // setData((prevData) => ({
+    //   ...prevData,
+    //   friendId: id,
+    // }));
     const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
+    formData.append(
+      "data",
+      new Blob([JSON.stringify({ ...data, friendId: id })], {
+        type: "application/json",
+      })
+    );
     formData.append("file", img || "");
-    formData.append("friendId", (id + 1 || 0).toString());
-    console.log(data);
+    // console.log(data);
     // formData.append('이미데이터 칼럼이름', e.target.files[0])
     // formData.append('내용 칼럼이름', JSON.stringify(여기에 뭐내용적고)
     try {
@@ -40,7 +45,9 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      alert("성공");
     } catch (e) {
+      alert("실패");
       console.error(e);
     }
     //instance.post("주소", formData, {"Content-Type": ""...Auth()})
