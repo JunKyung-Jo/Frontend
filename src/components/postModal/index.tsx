@@ -10,7 +10,7 @@ interface GenerateModalProps {
 }
 
 const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
-  const [img, setImg] = useState<string>();
+  const [img, setImg] = useState<File | null>();
   const [data, setData] = useState<{
     content: string;
     friendId: number;
@@ -21,11 +21,12 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
     tags: [],
   });
 
-  const submitHandler = async () => {
+  const submitHandler = async (id: number) => {
     // const formData = new FormData();
     const formData = new FormData();
     formData.append("data", JSON.stringify(data));
-    formData.append("file", img ?? "");
+    formData.append("file", img || "");
+    formData.append("friendId", (id + 1 || 0).toString());
     console.log(data);
     // formData.append('이미데이터 칼럼이름', e.target.files[0])
     // formData.append('내용 칼럼이름', JSON.stringify(여기에 뭐내용적고)
@@ -53,21 +54,25 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
         </div>
       </S.Rows1>
       <S.Rows>
-        <S.BorderBox height={64}>
-          <ImageIcon width={10} height={10} />
-          <S.UploadImage>게시물 이미지를 업로드 해주세요.</S.UploadImage>
-          <input
-            type="file"
-            id="image"
-            onChange={(e) => {
-              // setImg(e.target.files[0]);
-            }}
-            //e.target.files[0] -> 유즈스테이트에 담아라
-            style={{
-              display: "none",
-            }}
-          />
-          <S.Button htmlFor="image">이미지를 선택해 주세요.</S.Button>
+        <S.BorderBox height={64} i={img}>
+          {img === undefined && (
+            <>
+              <ImageIcon width={10} height={10} />
+              <S.UploadImage>게시물 이미지를 업로드 해주세요.</S.UploadImage>
+              <input
+                type="file"
+                id="image"
+                onChange={(e) => {
+                  setImg(e.target.files ? e.target.files[0] : null);
+                }}
+                //e.target.files[0] -> 유즈스테이트에 담아라
+                style={{
+                  display: "none",
+                }}
+              />
+              <S.Button htmlFor="image">이미지를 선택해 주세요.</S.Button>
+            </>
+          )}
         </S.BorderBox>
         <div>
           <S.ContentsBox
@@ -97,7 +102,7 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
           <S.SubmitBox>
             <S.SubmitButton
               onClick={() => {
-                submitHandler();
+                submitHandler(id);
               }}
             >
               등록하기

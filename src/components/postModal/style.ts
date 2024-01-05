@@ -61,7 +61,7 @@ export const Button = styled.label`
   ${font.$Button2};
 `;
 
-export const BorderBox = styled.div<{ height: number }>`
+export const BorderBox = styled.div<{ height: number; i: any }>`
   width: 64rem;
   height: ${(props) => `${props.height}rem`};
 
@@ -69,6 +69,12 @@ export const BorderBox = styled.div<{ height: number }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background-image: ${(props) =>
+    props.i ? `url(${URL.createObjectURL(props.i)})` : "none"};
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   border-right: 1px solid ${color.gray200};
 `;
