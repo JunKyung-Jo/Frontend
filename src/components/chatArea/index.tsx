@@ -135,6 +135,7 @@ const ChatArea = ({
           </S.SettingButton>
           <S.ChatAiName onClick={openModal}>
             <S.ProfileImg
+              onClick={openModal}
               src={
                 myFriendData
                   ? myFriendData.data.data.find(
@@ -145,8 +146,7 @@ const ChatArea = ({
                     )?.url
               }
             />
-          <S.ChatAiName>
-            <S.ProfileImg onClick={openModal} />
+            <S.ChatAiName />
             <Column alignItems="flex-start" justifyContent="space-evenly">
               <Text fontType="$H5" textAlign="left" width={"30rem"} ellipsis>
                 {myFriendData
