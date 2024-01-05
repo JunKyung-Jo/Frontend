@@ -1,68 +1,116 @@
-import color from "@/styles/theme/color";
-import font from "@/styles/theme/font";
 import styled from "styled-components";
+import font from "@/styles/theme/font";
+import color from "@/styles/theme/color";
+
+export const Rows = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+`;
+
+export const Rows1 = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 export const Container = styled.div`
-  width: 900px;
-  height: 500px;
-  border-radius: 10px;
-  background-color: white;
-  display: flex;
+  width: 120rem;
+  height: 70rem;
+
+  border-radius: 20px;
+  background: ${color.white};
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export const Image = styled.div`
-  width: 60%;
-  height: 100%;
-  background: ${color.gray900};
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-`;
+export const Header = styled.div`
+  width: 95%;
+  height: 6rem;
 
-export const Contents = styled.div`
-  width: 40%;
-  height: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-`;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 449px;
 
-export const Top = styled.div`
-  width: 100%;
-  height: 40px;
   border-bottom: 1px solid ${color.gray200};
-  display: flex;
+
+  color: var(--Black, #000);
+
+  ${font.$H5}
+`;
+
+export const UploadImage = styled.p`
+  color: ${color.black};
+
+  margin-top: 1.7rem;
+  margin-bottom: 4.4rem;
+
+  ${font.$Body3};
+`;
+
+export const Button = styled.label`
+  display: inline-flex;
+  padding: 13px 37px;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
+  color: ${color.white};
+
+  border-radius: 10px;
+  background: var(--primary, #0064ff);
+
+  ${font.$Button2};
 `;
 
-export const Profile = styled.div`
-  width: 25px;
-  height: 25px;
-  background-color: ${color.gray800};
-  border-radius: 100px;
-`;
+export const BorderBox = styled.div<{ height: number; i: any }>`
+  width: 64rem;
+  height: ${(props) => `${props.height}rem`};
 
-export const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+
+  background-image: ${(props) =>
+    props.i ? `url(${URL.createObjectURL(props.i)})` : "none"};
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border-right: 1px solid ${color.gray200};
 `;
 
-export const Name = styled.h1`
-  ${font.$p1};
+export const ContentsBox = styled.textarea<{ height: number }>`
+  display: flex;
+  width: 56rem;
+  height: ${(props) => `${props.height}rem`};
+  padding: 18px 393px 154px 18px;
+  align-items: center;
+  resize: none;
+
+  border-bottom: 1px solid ${color.gray200};
 `;
 
-export const Description = styled.div`
-  ${font.$p1};
-`;
-
-export const Bottom = styled.div`
-  margin-top: 60%;
+export const SubmitBox = styled.div`
   width: 100%;
-  height: 30%;
-  border-top: 1px solid ${color.gray200};
+  height: 25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const Tag = styled.div`
-  ${font.$p1}
+export const SubmitButton = styled.div`
   cursor: pointer;
+
+  display: inline-flex;
+  padding: 13px 37px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  background: var(--primary, #0064ff);
+
+  color: var(--White, #fff);
+
+  ${font.$Button2}
 `;

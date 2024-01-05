@@ -11,6 +11,8 @@ import { AImessage } from "@/store/services";
 import { selectedBotAtom } from "@/store/chat";
 import { useGetUserchatQuery } from "@/services/chat/query";
 import { useLocalStorage } from "@/hooks/useSessionStorage";
+import useModal from "@/hooks/useModal";
+import PostModal from "../postModal";
 
 const ChatArea = ({
   defaultFriendData,
@@ -91,24 +93,48 @@ const ChatArea = ({
 
   console.log(defaultFriendData, selectedFriend.id, "fwfewfwefewf");
 
+  const { openMyModal, closeMyModal } = useModal();
+
+  const openPost = () => {
+    openMyModal({
+      component: (
+        <PostModal closeMyModal={closeMyModal} id={selectedFriend.id + 1} />
+      ),
+    });
+  };
+
   return (
     <S.Container>
       <S.ChatAiInfoContainer>
         <S.ChatAiInfo>
           <S.SettingButton
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
             ref={chatSettingRef}
           >
             <OptionIcon width={2.4} height={2.4} />
             {isOpen && (
-              <S.ChatAiOption>
-                <LeftIcon width={1.8} height={1.8} />
-                친구 떠나기
-              </S.ChatAiOption>
+              <>
+                <S.ChatAiOption>
+                  <div style={{ display: "flex" }}>
+                    <LeftIcon width={1.8} height={1.8} />
+                    친구 떠나기
+                  </div>
+                  <div
+                    style={{ color: "black" }}
+                    onClick={() => {
+                      openPost();
+                    }}
+                  >
+                    게시물 등록
+                  </div>
+                </S.ChatAiOption>
+              </>
             )}
           </S.SettingButton>
-          <S.ChatAiName onClick={openModal}>
-            <S.ProfileImg />
+          <S.ChatAiName>
+            <S.ProfileImg onClick={openModal} />
             <Column alignItems="flex-start" justifyContent="space-evenly">
               <Text fontType="$H5" textAlign="left" width={"30rem"} ellipsis>
                 {myFriendData
