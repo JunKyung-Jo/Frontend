@@ -3,4 +3,5 @@ export interface FriendContainerAttribute {
   statusMsg: string;
   id: number;
   authority: string;
+  url: string;
 }

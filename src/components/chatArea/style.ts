@@ -14,13 +14,11 @@ export const Send = styled.button`
   cursor: pointer;
 `;
 
-export const ProfileImg = styled.div`
+export const ProfileImg = styled.img`
   width: 7rem;
   height: 7rem;
 
   border-radius: 999rem;
-
-  background-color: black;
 `;
 export const Container = styled.div`
   flex: 1;

@@ -133,6 +133,18 @@ const ChatArea = ({
               </>
             )}
           </S.SettingButton>
+          <S.ChatAiName onClick={openModal}>
+            <S.ProfileImg
+              src={
+                myFriendData
+                  ? myFriendData.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
+                    )?.url
+                  : defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id + 1
+                    )?.url
+              }
+            />
           <S.ChatAiName>
             <S.ProfileImg onClick={openModal} />
             <Column alignItems="flex-start" justifyContent="space-evenly">

@@ -63,6 +63,7 @@ const FriendSidebar = ({
       <Column alignItems="center">
         {userData ? (
           <FriendContainer
+            url={userData.data.data.url}
             id={0}
             name={userData.data.data.name}
             statusMsg={userData.data.data.statusMessage}
