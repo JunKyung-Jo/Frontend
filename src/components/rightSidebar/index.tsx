@@ -59,7 +59,17 @@ const RightSideBar = ({
           </Row>
         </div>
         <Row alignItems="center" gap={3}>
-          <BotProfile />
+          <BotProfile
+            src={
+              myFriendData
+                ? myFriendData.data.data.find(
+                    (e: any) => e.id === selectedFriend.id + 1
+                  )?.url
+                : defaultFriendData?.data.data.find(
+                    (e: any) => e.id === selectedFriend.id + 1
+                  )?.url
+            }
+          />
           <div>
             <Row gap={0.3} alignItems="center">
               <Text fontType="$H5" width={"20rem"} textAlign="left" ellipsis>
@@ -96,6 +106,7 @@ const RightSideBar = ({
         />
         {feed.map((props: { id: number; url: string }) => (
           <PostContent
+            key={props.id}
             onClick={() => {
               openPost(props.id);
             }}
@@ -151,12 +162,11 @@ const RightSidebarHeader = styled.div`
   padding-right: 2.5rem;
 `;
 
-const BotProfile = styled.div`
+const BotProfile = styled.img`
   width: 10rem;
   height: 10rem;
   flex-shrink: 0;
   border-radius: 50%;
-  background: ${Color.black};
 `;
 
 const PostCount = styled.div`

@@ -15,6 +15,7 @@ const FriendContainer = ({
   statusMsg,
   id,
   authority,
+  url,
 }: FriendContainerAttribute) => {
   const [selectedFriend, setSelectedFriend] = useRecoilState(selectedBotAtom);
   const { openMyModal, closeMyModal } = useModal();
@@ -41,7 +42,7 @@ const FriendContainer = ({
         }
       }}
     >
-      <ProfileImg />
+      <ProfileImg src={url} />
       <Column alignItems="flex-start" justifyContent="space-evenly">
         <Text fontType="$Button3" width="12rem" textAlign="left" ellipsis>
           {name}
@@ -91,13 +92,11 @@ const Container = styled.div<{ isSelected: boolean }>`
   }
 `;
 
-const ProfileImg = styled.div`
+const ProfileImg = styled.img`
   width: 4rem;
   height: 4rem;
 
   border-radius: 999rem;
-
-  background-color: black;
 `;
 
 const EditProfileButton = styled.div`
