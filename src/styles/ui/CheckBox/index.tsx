@@ -1,26 +1,35 @@
-import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import { css } from "styled-components";
 import { Color } from "@/styles/theme";
+import { useState } from "react";
+import styled, { css } from "styled-components";
 import { Row, Text } from "..";
 
-const CheckBox = ({ labels }: { labels: string[] }) => {
-  const [isChecked, setIsChecked] = useState(true);
+const CheckBox = ({
+  labels,
+  onChange,
+}: {
+  labels: [string, string];
+  onChange: (label: string) => void;
+}) => {
+  const [checkedLabel, setCheckedLabel] = useState(labels[0]);
+
+  const handleCheckboxClick = (label: string) => {
+    setCheckedLabel(label);
+    onChange(label);
+  };
 
   return (
     <Container>
       <Row gap={1} alignItems="center" justifyContent="center">
-        <Checkbox
-          onClick={() => setIsChecked(!isChecked)}
-          checked={isChecked}
+        <StyledCheckbox
+          onClick={() => handleCheckboxClick(labels[0])}
+          checked={checkedLabel === labels[0]}
         />
         <Text fontType="$p3">{labels[0]}</Text>
       </Row>
       <Row gap={1} alignItems="center" justifyContent="center">
-        <Checkbox
-          onClick={() => setIsChecked(!isChecked)}
-          checked={!isChecked}
+        <StyledCheckbox
+          onClick={() => handleCheckboxClick(labels[1])}
+          checked={checkedLabel === labels[1]}
         />
         <Text fontType="$p3">{labels[1]}</Text>
       </Row>
@@ -35,7 +44,7 @@ const Container = styled.div`
   gap: 1rem;
 `;
 
-const Checkbox = styled.div<{ checked: boolean }>`
+const StyledCheckbox = styled.div<{ checked: boolean }>`
   width: 1.75rem;
   height: 1.75rem;
 

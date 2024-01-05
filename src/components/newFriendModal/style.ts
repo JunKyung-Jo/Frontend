@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 600px;
-  height: 700px;
+  min-height: 700px;
   background-color: ${color.white};
   border-radius: 10px;
   padding: 15px 60px;
@@ -20,11 +20,43 @@ export const Contents = styled.div`
   box-sizing: border-box;
 `;
 
+export const ImageInputContent = styled.div`
+  width: min-content;
+  position: relative;
+  margin: 0 auto;
+  margin-bottom: 40px;
+`;
+
 export const Content = styled.div`
   margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+export const ImageInput = styled.input`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  background-color: ${color.black};
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+`;
+
+export const Label = styled.label`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  background-color: ${color.black};
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
 `;
 
 export const Input = styled.input`
