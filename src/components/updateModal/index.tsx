@@ -28,26 +28,36 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
     }));
   };
 
+  const handleFileChange = (event: any) => {
+    const selectedFile = event.target.files?.[0] || null;
+
+    setUserInput((prevUserInput) => ({
+      ...prevUserInput,
+      file: selectedFile,
+    }));
+  };
+
   const { mutate: profileUpdateMutate } = useMutation({
     mutationFn: async () => {
+      const formData = new FormData();
       const { name, statusMessage } = userInput;
+      formData.append(
+        "data",
+        new Blob([JSON.stringify({ name, statusMessage })], {
+          type: "application/json",
+        })
+      );
 
-      const requestData = {
-        data: {
-          name,
-          statusMessage,
-        },
-        file: userInput.file,
-      };
+      if (userInput.file) {
+        formData.append("file", userInput.file);
+      }
 
       closeMyModal();
 
-      console.log(requestData);
-
-      await instance.put("/user/update", requestData, {
+      await instance.put("/user/update", formData, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("access-token") || ""}`,
-          "Content-Type": "application/json",
         },
       });
     },
@@ -77,7 +87,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
       </Text>
       <S.Contents>
         <S.Wrapper>
-          <S.Image type="file" />
+          <S.Image type="file" onChange={handleFileChange} />
           <S.Label htmlFor="file">프로필 이미지</S.Label>
         </S.Wrapper>
         <Text fontType="$Body2" width="100%" textAlign="left">
