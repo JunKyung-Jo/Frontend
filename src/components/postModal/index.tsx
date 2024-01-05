@@ -22,6 +22,8 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   });
 
   const submitHandler = async (id: number) => {
+    console.log("자료" + data);
+    console.log("사지" + img);
     // const formData = new FormData();
     const formData = new FormData();
     formData.append("data", JSON.stringify(data));
