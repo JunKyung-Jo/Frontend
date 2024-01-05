@@ -38,6 +38,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   };
 
   const GetLike = async (feedId: number) => {
+    console.log("가져오기");
     const token = localStorage.getItem("access-token");
     try {
       const response = await axios.get(
@@ -58,7 +59,8 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   const likeHandler = async (feedId: number) => {
     try {
       const token = localStorage.getItem("access-token");
-      if (isLike) {
+      if (isLike.isLiked) {
+        console.log("삭제");
         await axios.delete(
           `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
           {
@@ -67,21 +69,25 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
             },
           }
         );
-        console.log("삭제");
       } else {
-        await axios.post(`http://findfriend.kro.kr/api/like?feedId=${feedId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("좋아요");
+        console.log("성공");
+        await axios.post(
+          `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
+          null, // 두 번째 매개변수는 데이터 객체이므로 null로 설정
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
       }
+      GetLike(feedId);
     } catch (e) {
       console.error(e);
     }
   };
 
-  const [get, setGet] = useState<{ content: string; users: string[] }>();
+  const [get, setGet] = useState<{ content: string; tags: string[] }>();
   const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
     isLiked: false,
     count: 0,
@@ -101,21 +107,24 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
         </S.Top>
         {/* 여기 */}
         <S.Description>{get?.content}</S.Description>
-        <div>곗수 : {isLike.count}</div>
         <S.Bottom>
           <S.Wrapper>
             <div
               onClick={() => {
                 likeHandler(id);
               }}
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
             >
               {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
+              <div>{isLike.count}</div>
             </div>
-            {get?.users.map((props) => (
-              <S.Tag>#{props}</S.Tag>
+            {get?.tags.map((props) => (
+              <S.Tag>{props}</S.Tag>
             ))}
-            <S.Tag>#hello</S.Tag>
-            <S.Tag>#hello</S.Tag>
           </S.Wrapper>
         </S.Bottom>
       </S.Contents>

@@ -22,14 +22,14 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   });
 
   const submitHandler = async (id: number) => {
-    setData((prevData) => ({
-      ...prevData,
-      friendId: id,
-    }));
+    // setData((prevData) => ({
+    //   ...prevData,
+    //   friendId: id,
+    // }));
     const formData = new FormData();
     formData.append(
       "data",
-      new Blob([JSON.stringify(data)], {
+      new Blob([JSON.stringify({ ...data, friendId: id })], {
         type: "application/json",
       })
     );
@@ -45,7 +45,9 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      alert("성공");
     } catch (e) {
+      alert("실패");
       console.error(e);
     }
     //instance.post("주소", formData, {"Content-Type": ""...Auth()})
