@@ -51,6 +51,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
       );
       console.log("총 " + response.data);
       setLike(response.data);
+      setStateLike(response.data.isLike);
     } catch (e) {
       console.error(e);
     }
@@ -59,7 +60,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   const likeHandler = async (feedId: number) => {
     try {
       const token = localStorage.getItem("access-token");
-      if (isLike.isLiked) {
+      if (stateLike) {
         console.log("삭제");
         await axios.delete(
           `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
@@ -69,17 +70,19 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
             },
           }
         );
+        setStateLike(false);
       } else {
         console.log("성공");
         await axios.post(
           `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
-          null, // 두 번째 매개변수는 데이터 객체이므로 null로 설정
+          null,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
+        setStateLike(true);
       }
       GetLike(feedId);
     } catch (e) {
@@ -92,6 +95,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     isLiked: false,
     count: 0,
   });
+  const [stateLike, setStateLike] = useState(false);
 
   return (
     <S.Container>
@@ -119,7 +123,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
                 justifyContent: "center",
               }}
             >
-              {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
+              {stateLike ? <LikeIcon /> : <UnLikeIcon />}
               <div>{isLike.count}</div>
             </div>
             {get?.tags.map((props) => (
