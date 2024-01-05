@@ -24,9 +24,9 @@ const RightSideBar = ({
 
   const { openMyModal, closeMyModal } = useModal();
 
-  const openPost = (id: number) => {
+  const openPost = (id: number, url: string) => {
     openMyModal({
-      component: <FeedModal closeMyModal={closeMyModal} id={id} />,
+      component: <FeedModal closeMyModal={closeMyModal} id={id} url={url} />,
     });
   };
 
@@ -95,20 +95,14 @@ const RightSideBar = ({
             </Text>
           </div>
         </Row>
-        <PostCount>게시물 4개</PostCount>
+        <PostCount>게시물 {feed.length}개</PostCount>
       </RightSidebarHeader>
       <PostContainer>
-        <PostContent
-          onClick={() => {
-            openPost(1);
-          }}
-          img={"AAA"}
-        />
         {feed.map((props: { id: number; url: string }) => (
           <PostContent
             key={props.id}
             onClick={() => {
-              openPost(props.id);
+              openPost(props.id, props.url);
             }}
             img={props.url}
           />
