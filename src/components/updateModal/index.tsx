@@ -76,7 +76,11 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
       </Text>
       <S.Contents>
         <S.Wrapper>
-          <S.Image type="file" onChange={handleFileChange} />
+          <S.Image
+            accept="image/gif, image/jpeg, image/png"
+            type="file"
+            onChange={handleFileChange}
+          />
           <S.Label url={newUrl} htmlFor="file">
             프로필 이미지
           </S.Label>
