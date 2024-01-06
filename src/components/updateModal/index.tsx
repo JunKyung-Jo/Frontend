@@ -17,6 +17,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
     statusMessage: statusMsg,
     file: null,
   });
+  const [newUrl, setNewUrl] = useState("");
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -30,6 +31,8 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
 
   const handleFileChange = (event: any) => {
     const selectedFile = event.target.files?.[0] || null;
+    const newUrl = URL.createObjectURL(selectedFile);
+    setNewUrl(newUrl);
 
     setUserInput((prevUserInput) => ({
       ...prevUserInput,
@@ -66,20 +69,6 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
     },
   });
 
-  const readFileContent = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const content = reader.result as string;
-        resolve(content);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-      reader.readAsText(file);
-    });
-  };
-
   return (
     <S.Container>
       <Text fontType="$Body1" width="100%" textAlign="center">
@@ -87,8 +76,14 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
       </Text>
       <S.Contents>
         <S.Wrapper>
-          <S.Image type="file" onChange={handleFileChange} />
-          <S.Label htmlFor="file">프로필 이미지</S.Label>
+          <S.Image
+            accept="image/gif, image/jpeg, image/png"
+            type="file"
+            onChange={handleFileChange}
+          />
+          <S.Label url={newUrl} htmlFor="file">
+            프로필 이미지
+          </S.Label>
         </S.Wrapper>
         <Text fontType="$Body2" width="100%" textAlign="left">
           유저 이름
