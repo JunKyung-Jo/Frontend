@@ -175,13 +175,15 @@ const PostContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2px;
+
+  overflow-y: scroll;
 `;
 
 const PostContent = styled.div<{ img: string }>`
   width: 13rem;
   height: 13rem;
-  background: ${Color.black};
-  display: inline-flex;
+  background: ${(props) => (props.img === "" ? Color.black : Color.white)};
+  )display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;

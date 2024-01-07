@@ -92,7 +92,7 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
           ></S.ContentsBox>
           <S.ContentsBox
             height={14}
-            placeholder="해시태그를 추가하세요(# 필수)"
+            placeholder="해시태그를 추가하세요(#으로 구별)"
             onChange={(e) => {
               const hashtags = e.target.value
                 .split("#")
