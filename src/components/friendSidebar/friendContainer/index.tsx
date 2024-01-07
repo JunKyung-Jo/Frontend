@@ -52,7 +52,7 @@ const FriendContainer = ({
         </Text>
         {authority === "USER" ? (
           <EditProfileButton onClick={openUpdateModal}>
-            클릭해서 정보를 수정해보세요!
+            정보 수정
           </EditProfileButton>
         ) : (
           ""

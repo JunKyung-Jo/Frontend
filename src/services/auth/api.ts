@@ -1,6 +1,5 @@
 import { Authorization } from "@/apis/authorization";
 import { instance } from "@/apis/instance";
-import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 export const userLoginbyAuth = async (code: any, auth: string) => {
   const data = await instance.post(`auth/signup?code=${code}&auth=${auth}`);

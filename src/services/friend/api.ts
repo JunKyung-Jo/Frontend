@@ -11,7 +11,7 @@ export const makeMyFriend = async (name: string, statusMessage: string) => {
     "/friend/meet",
     { name, statusMessage },
     Authorization()
-  );
+  );                                          
 
   return { data };
 };

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDefaultFriend, getMyFriend } from "./api";
+import { useEffect } from "react";
 
 export const useGetDefaultFriendQuery = () => {
   const { data, isLoading, ...restQuery } = useQuery({
@@ -22,5 +23,5 @@ export const useGetMyFriendQuery = () => {
     retry: 2,
   });
 
-  return { myFriendData: data, isMyFriendLoading: isLoading, ...restQuery };
+  return { data, isMyFriendLoading: isLoading, ...restQuery };
 };
