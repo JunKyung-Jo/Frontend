@@ -37,32 +37,11 @@ const RightSideBar = ({
   };
 
   const [feed, setFeed] = useState([]);
-
-  // const GetList = async (id: number) => {
-  //   try {
-  //     // const response = await axios.get(
-  //     //   "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1),
-  //     //   { headers: { Authorization: `Bearer ${token}` } }
-  //     // );
-  //     const response = await axios.get(
-  //       "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1)
-  //     );
-  //     console.log("데이터" + response.data);
-  //     setFeed(response.data);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-
-  // useLayoutEffect(() => {
-  //   GetList(selectedFriend.id);
-  // }, []);
-
   const { data, isLoading } = useGetListQuery(selectedFriend.id) as QueryResult;
 
   useEffect(() => {
     if (!isLoading) {
-      console.log("리큐땅" + data.data);
+      console.log("리큐땅" + data?.data);
       setFeed(data);
     }
   }, [data]);
