@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { LeftIcon, SendIcon, OptionIcon } from "@/styles/svg";
 import * as S from "./style";
 import { Column, Row, Text } from "@/styles/ui";
@@ -13,6 +13,7 @@ import { useGetUserchatQuery } from "@/services/chat/query";
 import { useLocalStorage } from "@/hooks/useSessionStorage";
 import useModal from "@/hooks/useModal";
 import PostModal from "../postModal";
+import axios from "axios";
 
 const ChatArea = ({
   defaultFriendData,
@@ -35,6 +36,7 @@ const ChatArea = ({
   const [messages, setMessages] = useState<any[]>([
     { text: "", isMyChat: true },
   ]);
+  const [user, setUser] = useState();
 
   const { userChatMutate } = useUserChatMutation(inputValue.text);
   const { data, refetch, isLoading } = useGetUserchatQuery(
@@ -57,6 +59,24 @@ const ChatArea = ({
       sendMyMessage();
     }
   };
+
+  const GetUser = async () => {
+    try {
+      const token = localStorage.getItem("access-token");
+      const response = await axios.get(
+        "http://findfriend.kro.kr/api/user/get",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log("유저임" + JSON.stringify(response.data.friends));
+      setUser(response.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useLayoutEffect(() => {
+    GetUser();
+  }, []);
 
   useEffect(() => {
     setMessages([...messages, { text: AImessageResponse, isMyChat: false }]);

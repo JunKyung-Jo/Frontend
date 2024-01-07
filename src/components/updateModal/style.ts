@@ -60,14 +60,19 @@ export const Image = styled.input`
   cursor: pointer;
 `;
 
-export const Label = styled.label`
+export const Label = styled.label<{ url: string }>`
   width: 70px;
   height: 70px;
   border-radius: 50%;
   display: flex;
-  background-color: ${color.black};
   align-items: center;
   justify-content: center;
   color: white;
   cursor: pointer;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url(${({ url }) => url}) lightgray 0% / cover no-repeat;
 `;

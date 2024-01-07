@@ -19,6 +19,12 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     GetLike(id);
   }, []);
 
+  const [get, setGet] = useState<{ content: string; tags: string[] }>();
+  const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
+    isLiked: false,
+    count: 0,
+  });
+
   const GetMeet = async (feedId: number) => {
     const token = localStorage.getItem("access-token");
     try {
@@ -48,44 +54,53 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           },
         }
       );
-      console.log("총 " + response.data);
+      console.log("api" + JSON.stringify(response.data));
       setLike(response.data);
+      // setStateLike(response.data.isLike);
     } catch (e) {
       console.error(e);
     }
   };
 
-  const likeHandler = async (feedId: number) => {
+  const likeHandler = (feedid: number) => {
+    if (isLike.isLiked === true) {
+      DeleteLike(feedid);
+    } else if (isLike.isLiked === false) {
+      PostLike(feedid);
+    } else {
+      alert("좋아요 error");
+    }
+  };
+
+  const DeleteLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
-      if (isLike) {
-        await axios.delete(
-          `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log("삭제");
-      } else {
-        await axios.post(`http://findfriend.kro.kr/api/like?feedId=${feedId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("좋아요");
-      }
+      await axios.delete(`http://findfriend.kro.kr/api/like?feedId=${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("싫어요");
+      GetLike(id);
     } catch (e) {
       console.error(e);
     }
   };
 
-  const [get, setGet] = useState<{ content: string; users: string[] }>();
-  const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
-    isLiked: false,
-    count: 0,
-  });
+  const PostLike = async (id: number) => {
+    try {
+      const token = localStorage.getItem("access-token");
+      await axios.post(`http://findfriend.kro.kr/api/like?feedId=${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("좋아요");
+      GetLike(id);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <S.Container>
@@ -101,21 +116,24 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
         </S.Top>
         {/* 여기 */}
         <S.Description>{get?.content}</S.Description>
-        <div>곗수 : {isLike.count}</div>
         <S.Bottom>
           <S.Wrapper>
             <div
               onClick={() => {
                 likeHandler(id);
               }}
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
             >
               {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
+              <div>{isLike.count}</div>
             </div>
-            {get?.users.map((props) => (
-              <S.Tag>#{props}</S.Tag>
+            {get?.tags.map((props) => (
+              <S.Tag>{props}</S.Tag>
             ))}
-            <S.Tag>#hello</S.Tag>
-            <S.Tag>#hello</S.Tag>
           </S.Wrapper>
         </S.Bottom>
       </S.Contents>

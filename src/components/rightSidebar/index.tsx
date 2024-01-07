@@ -8,7 +8,13 @@ import { selectedBotAtom } from "@/store/chat";
 import useModal from "@/hooks/useModal";
 import FeedModal from "../feedModal";
 import axios from "axios";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useGetListQuery } from "./api";
+
+interface QueryResult {
+  data: any;
+  isLoading: boolean;
+}
 
 const RightSideBar = ({
   userData,
@@ -31,24 +37,14 @@ const RightSideBar = ({
   };
 
   const [feed, setFeed] = useState([]);
+  const { data, isLoading } = useGetListQuery(selectedFriend.id) as QueryResult;
 
-  const GetList = async (id: number) => {
-    try {
-      const token = localStorage.getItem("access-token");
-      const response = await axios.get(
-        "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1),
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      console.log("데이터" + response.data);
-      setFeed(response.data);
-    } catch (e) {
-      console.error(e);
+  useEffect(() => {
+    if (!isLoading) {
+      console.log("리큐땅" + data?.data);
+      setFeed(data);
     }
-  };
-
-  useLayoutEffect(() => {
-    GetList(selectedFriend.id);
-  }, []);
+  }, [data]);
 
   return (
     <SideBarPage rightModalState={rightModalState.animationState}>
@@ -95,18 +91,21 @@ const RightSideBar = ({
             </Text>
           </div>
         </Row>
-        <PostCount>게시물 {feed.length}개</PostCount>
+        <PostCount>게시물 {feed?.length}개</PostCount>
       </RightSidebarHeader>
       <PostContainer>
-        {feed.map((props: { id: number; url: string }) => (
-          <PostContent
-            key={props.id}
-            onClick={() => {
-              openPost(props.id, props.url);
-            }}
-            img={props.url}
-          />
-        ))}
+        {feed
+          ?.slice(0)
+          .reverse()
+          .map((props: { id: number; url: string }) => (
+            <PostContent
+              key={props.id}
+              onClick={() => {
+                openPost(props.id, props.url);
+              }}
+              img={props.url}
+            />
+          ))}
       </PostContainer>
     </SideBarPage>
   );
