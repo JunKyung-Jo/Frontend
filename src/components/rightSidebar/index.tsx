@@ -180,8 +180,8 @@ const PostContainer = styled.div`
 const PostContent = styled.div<{ img: string }>`
   width: 13rem;
   height: 13rem;
-  background: ${Color.black};
-  display: inline-flex;
+  background: ${(props) => (props.img === "" ? Color.black : Color.white)};
+  )display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
