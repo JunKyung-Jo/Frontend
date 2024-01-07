@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ImageIcon } from "@/styles/svg";
 import CloseIcon from "@/styles/mysvg/closeIcon";
 import axios from "axios";
+import { queryClient } from "../common/provider";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -22,10 +23,6 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
   });
 
   const submitHandler = async (id: number) => {
-    // setData((prevData) => ({
-    //   ...prevData,
-    //   friendId: id,
-    // }));
     const formData = new FormData();
     formData.append(
       "data",
@@ -46,6 +43,8 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
         },
       });
       alert("성공");
+      queryClient.invalidateQueries({ queryKey: ["getList", id - 1] });
+      closeMyModal();
     } catch (e) {
       alert("실패");
       console.error(e);

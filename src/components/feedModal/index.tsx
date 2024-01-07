@@ -19,6 +19,12 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     GetLike(id);
   }, []);
 
+  const [get, setGet] = useState<{ content: string; tags: string[] }>();
+  const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
+    isLiked: false,
+    count: 0,
+  });
+
   const GetMeet = async (feedId: number) => {
     const token = localStorage.getItem("access-token");
     try {
@@ -38,7 +44,6 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   };
 
   const GetLike = async (feedId: number) => {
-    console.log("가져오기");
     const token = localStorage.getItem("access-token");
     try {
       const response = await axios.get(
@@ -49,49 +54,53 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           },
         }
       );
-      console.log("총 " + response.data);
+      console.log("api" + JSON.stringify(response.data));
       setLike(response.data);
+      // setStateLike(response.data.isLike);
     } catch (e) {
       console.error(e);
     }
   };
 
-  const likeHandler = async (feedId: number) => {
+  const likeHandler = (feedid: number) => {
+    if (isLike.isLiked === true) {
+      DeleteLike(feedid);
+    } else if (isLike.isLiked === false) {
+      PostLike(feedid);
+    } else {
+      alert("좋아요 error");
+    }
+  };
+
+  const DeleteLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
-      if (isLike.isLiked) {
-        console.log("삭제");
-        await axios.delete(
-          `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      } else {
-        console.log("성공");
-        await axios.post(
-          `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
-          null, // 두 번째 매개변수는 데이터 객체이므로 null로 설정
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      }
-      GetLike(feedId);
+      await axios.delete(`http://findfriend.kro.kr/api/like?feedId=${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("싫어요");
+      GetLike(id);
     } catch (e) {
       console.error(e);
     }
   };
 
-  const [get, setGet] = useState<{ content: string; tags: string[] }>();
-  const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
-    isLiked: false,
-    count: 0,
-  });
+  const PostLike = async (id: number) => {
+    try {
+      const token = localStorage.getItem("access-token");
+      await axios.post(`http://findfriend.kro.kr/api/like?feedId=${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("좋아요");
+      GetLike(id);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <S.Container>
