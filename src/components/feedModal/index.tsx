@@ -131,8 +131,8 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
               {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
               <div>{isLike.count}</div>
             </div>
-            {get?.tags.map((props) => (
-              <S.Tag>{props}</S.Tag>
+            {get?.tags.map((props, i) => (
+              <S.Tag key={i}>{props}</S.Tag>
             ))}
           </S.Wrapper>
         </S.Bottom>
