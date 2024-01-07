@@ -38,11 +38,16 @@ export const Top = styled.div`
   justify-content: space-between;
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.div<{ i: string }>`
   width: 25px;
   height: 25px;
   background-color: ${color.gray800};
   border-radius: 100px;
+
+  background-image: url(${(props) => props.i});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 export const Wrapper = styled.div`

@@ -36,12 +36,30 @@ const ChatArea = ({
   const [messages, setMessages] = useState<any[]>([
     { text: "", isMyChat: true },
   ]);
-  const [user, setUser] = useState();
 
   const { userChatMutate } = useUserChatMutation(inputValue.text);
   const { data, refetch, isLoading } = useGetUserchatQuery(
     selectedFriend.id + 1
   );
+
+  const [user, setUser] = useState();
+
+  useLayoutEffect(() => {
+    GetUser();
+  }, []);
+
+  const GetUser = async () => {
+    try {
+      const token = localStorage.getItem("access-token");
+      const response = await axios.get(
+        "http://findfriend.kro.kr/api/user/get",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setUser(response.data.authority);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({ ...inputValue, text: e.target.value });
@@ -59,24 +77,6 @@ const ChatArea = ({
       sendMyMessage();
     }
   };
-
-  const GetUser = async () => {
-    try {
-      const token = localStorage.getItem("access-token");
-      const response = await axios.get(
-        "http://findfriend.kro.kr/api/user/get",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      console.log("유저임" + JSON.stringify(response.data.friends));
-      setUser(response.data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useLayoutEffect(() => {
-    GetUser();
-  }, []);
 
   useEffect(() => {
     setMessages([...messages, { text: AImessageResponse, isMyChat: false }]);
@@ -141,14 +141,16 @@ const ChatArea = ({
                     <LeftIcon width={1.8} height={1.8} />
                     친구 떠나기
                   </div>
-                  <div
-                    style={{ color: "black" }}
-                    onClick={() => {
-                      openPost();
-                    }}
-                  >
-                    게시물 등록
-                  </div>
+                  {user === "ROLE_ADMIN" && (
+                    <div
+                      style={{ color: "black" }}
+                      onClick={() => {
+                        openPost();
+                      }}
+                    >
+                      게시물 등록
+                    </div>
+                  )}
                 </S.ChatAiOption>
               </>
             )}

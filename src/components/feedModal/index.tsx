@@ -19,7 +19,12 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     GetLike(id);
   }, []);
 
-  const [get, setGet] = useState<{ content: string; tags: string[] }>();
+  const [get, setGet] = useState<{
+    name: string;
+    content: string;
+    tags: string[];
+    url: string;
+  }>();
   const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
     isLiked: false,
     count: 0,
@@ -109,8 +114,8 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
       <S.Contents>
         <S.Top>
           <S.Wrapper>
-            <S.Profile />
-            <S.Name>공지봇</S.Name>
+            <S.Profile i={get?.url ?? ""} />
+            <S.Name>{get?.name}</S.Name>
           </S.Wrapper>
           <CloseIcon onClick={closeMyModal} />
         </S.Top>
