@@ -175,6 +175,8 @@ const PostContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2px;
+
+  overflow-y: scroll;
 `;
 
 const PostContent = styled.div<{ img: string }>`
