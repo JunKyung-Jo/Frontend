@@ -1,10 +1,7 @@
-import useModal from "@/hooks/useModal";
 import * as S from "./style";
 import CloseIcon from "@/styles/mysvg/closeIcon";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { selectedBotAtom } from "@/store/chat";
 import { LikeIcon, UnLikeIcon } from "@/styles/svg";
 
 interface GenerateModalProps {
@@ -133,8 +130,12 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
                 justifyContent: "center",
               }}
             >
-              {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
-              <div>{isLike.count}</div>
+              {isLike.isLiked ? (
+                <LikeIcon width={2} height={2} />
+              ) : (
+                <UnLikeIcon width={2} height={2} />
+              )}
+              <S.LikeFont>{isLike.count}</S.LikeFont>
             </div>
             {get?.tags.map((props) => (
               <S.Tag>{props}</S.Tag>

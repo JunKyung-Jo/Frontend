@@ -75,3 +75,9 @@ export const Tag = styled.div`
   ${font.$p1}
   cursor: pointer;
 `;
+
+export const LikeFont = styled.p`
+  ${font.$p3};
+
+  margin-left: 0.4rem;
+`;
