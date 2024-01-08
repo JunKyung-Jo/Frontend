@@ -52,10 +52,9 @@
 |----------------------------------------------------------------------------------------------------------------------|
 |![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/46a7b950-a935-47ed-a5c4-ec2d16317cfb)|
 |입력|
-|![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/50d44785-69aa-47fb-91d6-5b160d2c9e7a)|
+|![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/e17ca231-2110-4d42-817d-c63b1564df6b)|
 |수정 후|
-|![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/8f625625-eaeb-4279-95f2-9c2bf38bea7f)
-|
+|![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/8f625625-eaeb-4279-95f2-9c2bf38bea7f)|
 
 
 
