@@ -60,9 +60,15 @@ const RightSideBar = ({
           {/* myFriendData를 활용하여 등록 */}
           <BotProfile
             src={
-              myFriendData.data.data.find(
+              defaultFriendData.data.data.find(
                 (e: any) => e.id === selectedFriend.id
               )?.url
+                ? defaultFriendData.data.data.find(
+                    (e: any) => e.id === selectedFriend.id
+                  )?.url
+                : myFriendData.data.data.find(
+                    (e: any) => e.id === selectedFriend.id
+                  )?.url
                 ? myFriendData.data.data.find(
                     (e: any) => e.id === selectedFriend.id
                   )?.url
@@ -76,11 +82,13 @@ const RightSideBar = ({
             <Row gap={0.3} alignItems="center">
               <Text fontType="$H5" width={"20rem"} textAlign="left" ellipsis>
                 {/* myFriendData에 있는 데이터를 활용하여 권한 처리 */}
-                {myFriendData
-                  ? myFriendData.data.data.find(
+                {defaultFriendData.data.data.find(
+                  (e: any) => e.id === selectedFriend.id
+                )?.name
+                  ? defaultFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id
                     )?.name
-                  : defaultFriendData?.data.data.find(
+                  : myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id
                     )?.name}
                 {myFriendData?.data.data[selectedFriend.id]?.authority ===
@@ -88,11 +96,13 @@ const RightSideBar = ({
               </Text>
             </Row>
             <Text fontType="$p1" width={"20rem"} textAlign="left" ellipsis>
-              {myFriendData
-                ? myFriendData.data.data.find(
+              {defaultFriendData.data.data.find(
+                (e: any) => e.id === selectedFriend.id
+              )?.statusMessage
+                ? defaultFriendData.data.data.find(
                     (e: any) => e.id === selectedFriend.id
                   )?.statusMessage
-                : defaultFriendData?.data.data.find(
+                : myFriendData.data.data.find(
                     (e: any) => e.id === selectedFriend.id
                   )?.statusMessage}
             </Text>

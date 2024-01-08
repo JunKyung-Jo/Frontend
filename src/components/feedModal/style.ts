@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export const Container = styled.div`
   width: fit-content;
-  height: 500px;
+  height: 600px;
   border-radius: 10px;
   background-color: white;
   display: flex;
@@ -16,7 +16,7 @@ export const FeedImage = styled.div<{ url: string }>`
   border-top-left-radius: 10px;
 
   width: 700px;
-  height: 500px;
+  height: 600px;
 
   background-image: ${(props) => `url(${props.url})`};
   background-size: cover;
