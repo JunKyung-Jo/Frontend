@@ -1,4 +1,7 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const selectedBotAtom = atom({
   key: "selectedBot",
@@ -11,4 +14,10 @@ export const selectedBotAtom = atom({
 export const AIChatlogAtom = atom({
   key: "AIChatlog",
   default: [],
+});
+
+export const freeChatAmountAtom = atom({
+  key: "freeChatAmountAtom",
+  default: 3,
+  effects_UNSTABLE: [persistAtom],
 });
