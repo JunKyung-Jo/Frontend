@@ -39,6 +39,7 @@ const LoginModalForm = () => {
           <Text fontType="$p2" color={Color.gray500}>
             소셜 계정으로 로그인
           </Text>
+          {/* 구글 Auth 로그인 링크 */}
           <Row gap={1.5}>
             <a
               href={
@@ -47,9 +48,15 @@ const LoginModalForm = () => {
             >
               <GoogleIcon />
             </a>
+
+            {/* 카카오 Auth 로그인 링크 들어갈 자리 */}
+
             <a href={process.env.KAKAO_AUTH_URL}>
               <KakaoIcon />
             </a>
+
+            {/* 네이버 Auth 로그인 링크 */}
+
             <a
               href={
                 "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=NvG3t3O6jvliwfPn2vuP&redirect_uri=http://localhost:3000/auth/naver&state=test"
@@ -65,6 +72,8 @@ const LoginModalForm = () => {
             href="/signup"
             style={{ display: "flex", justifyContent: "center" }}
           >
+            {/* 회원가입 페이지 없음 */}
+
             <Text fontType="$Button4" color={Color.primary}>
               회원가입 하기
             </Text>

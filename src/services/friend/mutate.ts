@@ -23,10 +23,10 @@ export const useDeleteFriendMutation = (friendId: number) => {
     onSuccess: () => {
       setSelectedFriend({
         ...selectedFriend,
-        id: selectedFriend.id <= 1 ? 1 : selectedFriend.id - 1,
+        id: selectedFriend.id <= 1 ? 0 : selectedFriend.id - 1,
       });
       queryClient.invalidateQueries({
-        queryKey: ["getMyFriend", "getDefaultFriend"],
+        queryKey: ["getMyFriend"],
       });
     },
   });

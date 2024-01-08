@@ -9,6 +9,7 @@ import { useLoginModal } from "@/hooks/useLoginModal";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
 import NewFriendModal from "../newFriendModal";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 const FriendSidebar = ({
   myFriendData,
@@ -24,15 +25,14 @@ const FriendSidebar = ({
   const [defaultAI, setDefaultAI] = useState([]);
   const [userAI, setUserAI] = useState([]);
 
+  const { getStorageItem } = useLocalStorage();
+
   useEffect(() => {
-    console.log(
-      "친구사이드바 렌더링 : ",
-      myFriendData,
-      defaultFriendData,
-      userData
-    );
+    //유저테이터와 유저전용 친구목록이있으면(로그인 된 상태면)
 
     if (userData && myFriendData) {
+      //공지봇 드롭다운과 AI 봇 드롭다운에 들어갈 데이터 봇 역할에 따라 각각 나눠주기
+
       const defaultAIArray = myFriendData?.data.data.filter(
         (e: any) =>
           e.authority === "ROLE_FREE" || e.authority === "ROLE_ANNOUNCE"
@@ -45,6 +45,10 @@ const FriendSidebar = ({
       setDefaultAI(defaultAIArray);
       setUserAI(userAIArray);
     } else if (defaultFriendData) {
+      //기본봇 리스트만있으면 (로그인 안된 상태면)
+
+      //공지봇 드롭다운과 AI 봇 드롭다운에 들어갈 데이터 봇 역할에 따라 각각 나눠주기
+
       const defaultAIArray = defaultFriendData?.data.data.filter(
         (e: any) =>
           e.authority === "ROLE_FREE" || e.authority === "ROLE_ANNOUNCE"
@@ -59,6 +63,8 @@ const FriendSidebar = ({
     }
   }, [myFriendData, defaultFriendData, userData]);
 
+  //친구 생성모달 선언
+
   const openMakeFriendModal = () => {
     openMyModal({
       component: <NewFriendModal closeMyModal={closeMyModal} />,
@@ -68,7 +74,8 @@ const FriendSidebar = ({
   return (
     <Container>
       <Column alignItems="center">
-        {userData ? (
+        {/* 로그인 된 상태면 유저정보 컨테이너 렌더링시켜주기 */}
+        {getStorageItem("access-token") ? (
           <FriendContainer
             url={userData.data.data.url}
             id={0}
@@ -77,6 +84,7 @@ const FriendSidebar = ({
             authority="USER"
           />
         ) : (
+          // 로그인 안됐으면 로그인버튼 포함된 컨테이너 렌더링 시켜주기
           <LoginButtonContainer>
             <Text fontType="$p3">
               로그인하고 더 많은
@@ -92,11 +100,13 @@ const FriendSidebar = ({
             />
           </LoginButtonContainer>
         )}
+        {/* 공지 봇 드랍다운 만들고 공지 봇 리스트 넣어주기 */}
         <FriendListContainer
           friendsList={defaultAI}
           listName="공지 봇"
           type="공지"
         />
+        {/* AI 봇 드랍다운 만들고 AI 봇 리스트 넣어주기 */}
         {userData && (
           <FriendListContainer
             friendsList={userAI}
@@ -104,11 +114,15 @@ const FriendSidebar = ({
             type="채팅"
           />
         )}
+
+        {/* 누르면 봇 생성 모달 띄워주기 */}
+
         <AddAIBotButtonDiv onClick={() => openMakeFriendModal()}>
           <AddBotIcon width={3} height={3} />
         </AddAIBotButtonDiv>
       </Column>
       <FriendSidebarFooter>
+        {/* 푸터 로고 렌더링 */}
         <Image
           src={Logo}
           alt="logo"

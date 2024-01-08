@@ -9,6 +9,8 @@ import { FriendContainerAttribute } from "@/types/components/FriendContainerAttr
 import React from "react";
 import { useRecoilState } from "recoil";
 import styled, { css } from "styled-components";
+import Logo from "@/styles/svg/logo.png";
+import Image from "next/image";
 
 const FriendContainer = ({
   name,
@@ -17,7 +19,12 @@ const FriendContainer = ({
   authority,
   url,
 }: FriendContainerAttribute) => {
+  //선택된 봇 정보담고있는 전역변수
+
   const [selectedFriend, setSelectedFriend] = useRecoilState(selectedBotAtom);
+
+  //본인정보 수정 모달띄워주는 함수
+
   const { openMyModal, closeMyModal } = useModal();
 
   const openUpdateModal = () => {
@@ -36,26 +43,30 @@ const FriendContainer = ({
     <Container
       isSelected={selectedFriend.id === id - 1}
       onClick={() => {
+        // 눌렀을때 유저 컨테이너가 아니라면 선택된 봇 정보 변경해주기 (유저는 선택해도 게시물 모달창 & 채팅영역 정보 변경 없음.)
         if (authority !== "USER") {
           setSelectedFriend({ id: id - 1, authority });
-          console.log(selectedFriend.id);
         }
       }}
     >
-      <ProfileImg src={url !== "" ? url : "./../../../styles/svg/logo.png"} />
+      <div style={{ width: "4rem", height: "4rem", position: "relative" }}>
+        {/*사진 넣고 없으면 기본이미지 넣어주기*/}
+        <ProfileImg src={url ? url : Logo} alt="friend" fill />
+      </div>
       <Column alignItems="flex-start" justifyContent="space-evenly">
         <Text fontType="$Button3" width="12rem" textAlign="left" ellipsis>
+          {/*봇 이름*/}
           {name}
         </Text>
         <Text width="12rem" fontType="$p3" textAlign="left" ellipsis>
+          {/*봇 상태 메세지*/}
           {statusMsg}
         </Text>
-        {authority === "USER" ? (
+        {/*정보 수정 버튼*/}
+        {authority === "USER" && (
           <EditProfileButton onClick={openUpdateModal}>
             정보 수정
           </EditProfileButton>
-        ) : (
-          ""
         )}
       </Column>
     </Container>
@@ -92,10 +103,7 @@ const Container = styled.div<{ isSelected: boolean }>`
   }
 `;
 
-const ProfileImg = styled.img`
-  width: 4rem;
-  height: 4rem;
-
+const ProfileImg = styled(Image)`
   border-radius: 999rem;
 `;
 
