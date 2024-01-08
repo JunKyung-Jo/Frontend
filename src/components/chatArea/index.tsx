@@ -213,6 +213,7 @@ const ChatArea = ({
                 alt="profileImg"
                 onClick={openModal}
                 fill
+                /* 이미지 url 넣기 */
                 src={
                   defaultFriendData?.data.data.find(
                     (e: any) => e.id === selectedFriend.id
@@ -233,26 +234,32 @@ const ChatArea = ({
             <S.ChatAiName />
             <Column alignItems="flex-start" justifyContent="space-evenly">
               <Text fontType="$H5" textAlign="left" width={"30rem"} ellipsis>
-                {defaultFriendData?.data.data.find(
-                  (e: any) => e.id === selectedFriend.id
-                )?.name
-                  ? defaultFriendData?.data.data.find(
-                      (e: any) => e.id === selectedFriend.id
-                    )?.name
-                  : myFriendData.data.data.find(
-                      (e: any) => e.id === selectedFriend.id
-                    )?.name}
+                {
+                  //봇 이름
+                  defaultFriendData?.data.data.find(
+                    (e: any) => e.id === selectedFriend.id
+                  )?.name
+                    ? defaultFriendData?.data.data.find(
+                        (e: any) => e.id === selectedFriend.id
+                      )?.name
+                    : myFriendData.data.data.find(
+                        (e: any) => e.id === selectedFriend.id
+                      )?.name
+                }
               </Text>
               <Text fontType="$p1" textAlign="left" width={"30rem"} ellipsis>
-                {defaultFriendData?.data.data.find(
-                  (e: any) => e.id === selectedFriend.id
-                )?.statusMessage
-                  ? defaultFriendData?.data.data.find(
-                      (e: any) => e.id === selectedFriend.id
-                    )?.statusMessage
-                  : myFriendData.data.data.find(
-                      (e: any) => e.id === selectedFriend.id
-                    )?.statusMessage}
+                {
+                  // 봇 상태메세지
+                  defaultFriendData?.data.data.find(
+                    (e: any) => e.id === selectedFriend.id
+                  )?.statusMessage
+                    ? defaultFriendData?.data.data.find(
+                        (e: any) => e.id === selectedFriend.id
+                      )?.statusMessage
+                    : myFriendData.data.data.find(
+                        (e: any) => e.id === selectedFriend.id
+                      )?.statusMessage
+                }
               </Text>
             </Column>
           </S.ChatAiName>
