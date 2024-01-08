@@ -19,6 +19,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
   });
   const [newUrl, setNewUrl] = useState("");
 
+  // 입력 필드의 값이 변경될 때 호출되는 이벤트 핸들러
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     field: string
@@ -29,6 +30,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
     }));
   };
 
+  // 파일 선택 시 호출되는 이벤트 핸들러
   const handleFileChange = (event: any) => {
     const selectedFile = event.target.files?.[0] || null;
     const newUrl = URL.createObjectURL(selectedFile);
@@ -40,6 +42,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
     }));
   };
 
+  // useMutation을 사용하여 프로필 업데이트 요청을 처리함
   const { mutate: profileUpdateMutate } = useMutation({
     mutationFn: async () => {
       const formData = new FormData();
@@ -57,6 +60,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
 
       closeMyModal();
 
+      // 예시 스키마 API 문서 참고
       await instance.put("/user/update", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -65,6 +69,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
       });
     },
     onSuccess() {
+      // 업데이트 성공 시, 해당 사용자 데이터 다시 받아옴.
       queryClient.invalidateQueries({ queryKey: ["userdata"] });
     },
   });
@@ -76,6 +81,7 @@ const UpdateModal = ({ closeMyModal, name, statusMsg }: Modal) => {
       </Text>
       <S.Contents>
         <S.Wrapper>
+          {/*이미지 입력 받는 태그*/}
           <S.Image
             accept="image/gif, image/jpeg, image/png"
             type="file"
