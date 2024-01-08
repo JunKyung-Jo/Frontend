@@ -4,6 +4,7 @@ import { ImageIcon } from "@/styles/svg";
 import CloseIcon from "@/styles/mysvg/closeIcon";
 import axios from "axios";
 import { queryClient } from "../common/provider";
+import { instance } from "@/apis/instance";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -36,8 +37,8 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
     // feed 등록 api post
     try {
       const token = localStorage.getItem("access-token");
-      await axios.post(
-        "http://findfriend.kro.kr/api/feed",
+      await instance.post(
+        "/feed",
         formData, // 아까 만들 from 데이터
         {
           headers: {
