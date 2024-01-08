@@ -70,13 +70,8 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
       </S.Rows1>
       <S.Rows>
         <S.BorderBox height={64}>
-          <img
-            src={URL.createObjectURL(img) ?? ""}
-            alt="Preview"
-            style={{ width: "100%", height: "100%" }}
-          />
           {/* 등록된 이미지가 없을경우 등록페이지 있을경우 예시이미지 보여주기 */}
-          {img === undefined && (
+          {img == undefined ? (
             <>
               <ImageIcon width={10} height={10} />
               {/* 이미지 등록하는 input tag */}
@@ -94,6 +89,12 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
               />
               <S.Button htmlFor="image">이미지를 선택해 주세요.</S.Button>
             </>
+          ) : (
+            <img
+              src={URL.createObjectURL(img)}
+              alt="Preview"
+              style={{ width: "100%", height: "100%" }}
+            />
           )}
         </S.BorderBox>
 
