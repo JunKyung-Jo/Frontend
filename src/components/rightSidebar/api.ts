@@ -1,10 +1,9 @@
+import { instance } from "@/apis/instance";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const GetList = async (id: number) => {
-  const response = await axios.get(
-    "http://findfriend.kro.kr/api/feed/list?friendId=" + (id + 1)
-  );
+  const response = await instance.get("/feed/list?friendId=" + (id + 1));
   console.log("데이터" + response.data);
   return response.data;
 };
