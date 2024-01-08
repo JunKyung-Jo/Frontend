@@ -17,6 +17,7 @@ import { useLocalStorage } from "@/hooks/useSessionStorage";
 import useModal from "@/hooks/useModal";
 import PostModal from "../postModal";
 import axios from "axios";
+import { useDeleteFriendMutation } from "@/services/friend/mutate";
 
 const ChatArea = ({
   defaultFriendData,
@@ -49,7 +50,6 @@ const ChatArea = ({
   const [messages, setMessages] = useState<any[]>([
     { text: "", isMyChat: true },
   ]);
-  const [user, setUser] = useState();
 
   //입력된채팅내용 서버로전송(로그인o)
   const { userChatMutate } = useUserChatMutation(inputValue.text);
@@ -59,8 +59,29 @@ const ChatArea = ({
   const { data, refetch, isLoading } = useGetUserchatQuery(
     selectedFriend.id + 1
   );
+  //친구 삭제
+  const { deleteFriendMutate } = useDeleteFriendMutation(selectedFriend.id + 1);
 
   //input값 변화하였을때 state변경하는함수
+  const [user, setUser] = useState();
+
+  useLayoutEffect(() => {
+    GetUser();
+  }, []);
+
+  const GetUser = async () => {
+    try {
+      const token = localStorage.getItem("access-token");
+      const response = await axios.get(
+        "http://findfriend.kro.kr/api/user/get",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setUser(response.data.authority);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({ ...inputValue, text: e.target.value });
   };
@@ -85,25 +106,6 @@ const ChatArea = ({
       sendMyMessage();
     }
   };
-
-  //유저정보 갖고옴
-  const GetUser = async () => {
-    try {
-      const token = localStorage.getItem("access-token");
-      const response = await axios.get(
-        "http://findfriend.kro.kr/api/user/get",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setUser(response.data);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  //페이지 렌더링 시 유저데이터 갖고옴
-  useLayoutEffect(() => {
-    GetUser();
-  }, []);
 
   //응답오면 채팅배열에 값 삽입
   useEffect(() => {
@@ -167,18 +169,27 @@ const ChatArea = ({
             {isOpen && (
               <>
                 <S.ChatAiOption>
-                  <div style={{ display: "flex" }}>
-                    <LeftIcon width={1.8} height={1.8} />
-                    친구 떠나기
-                  </div>
-                  <div
-                    style={{ color: "black" }}
-                    onClick={() => {
-                      openPost();
-                    }}
-                  >
-                    게시물 등록
-                  </div>
+                  {selectedFriend.authority === "ROLE_CUSTOM" && (
+                    <div
+                      style={{ display: "flex" }}
+                      onClick={() => {
+                        deleteFriendMutate();
+                      }}
+                    >
+                      <LeftIcon width={1.8} height={1.8} />
+                      친구 떠나기
+                    </div>
+                  )}
+                  {user === "ROLE_ADMIN" && (
+                    <div
+                      style={{ color: "black" }}
+                      onClick={() => {
+                        openPost();
+                      }}
+                    >
+                      게시물 등록
+                    </div>
+                  )}
                 </S.ChatAiOption>
               </>
             )}

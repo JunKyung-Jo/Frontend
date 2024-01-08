@@ -25,5 +25,5 @@ export const useGetMyFriendQuery = () => {
     refetchOnWindowFocus: false,
   });
 
-  return { data, isMyFriendLoading: isLoading, ...restQuery };
+  return { myFriendData: data, isMyFriendLoading: isLoading, ...restQuery };
 };

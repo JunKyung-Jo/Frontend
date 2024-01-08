@@ -25,6 +25,13 @@ const FriendSidebar = ({
   const [userAI, setUserAI] = useState([]);
 
   useEffect(() => {
+    console.log(
+      "친구사이드바 렌더링 : ",
+      myFriendData,
+      defaultFriendData,
+      userData
+    );
+
     if (userData && myFriendData) {
       const defaultAIArray = myFriendData?.data.data.filter(
         (e: any) =>
@@ -37,7 +44,7 @@ const FriendSidebar = ({
 
       setDefaultAI(defaultAIArray);
       setUserAI(userAIArray);
-    } else if (defaultFriendData?.data.data) {
+    } else if (defaultFriendData) {
       const defaultAIArray = defaultFriendData?.data.data.filter(
         (e: any) =>
           e.authority === "ROLE_FREE" || e.authority === "ROLE_ANNOUNCE"

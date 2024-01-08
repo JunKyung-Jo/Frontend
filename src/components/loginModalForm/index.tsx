@@ -42,7 +42,7 @@ const LoginModalForm = () => {
           <Row gap={1.5}>
             <a
               href={
-                "https://accounts.google.com/o/oauth2/v2/auth?client_id=89793238958-tkn3joi9p5kc0erlhaq3rbub46gbjmut.apps.googleusercontent.com&redirect_uri=http://localhost:3000/auth/google&response_type=code&scope=email"
+                "https://accounts.google.com/o/oauth2/v2/auth?client_id=89793238958-tkn3joi9p5kc0erlhaq3rbub46gbjmut.apps.googleusercontent.com&redirect_uri=http://localhost:3000/auth/google&response_type=code&scope=email profile"
               }
             >
               <GoogleIcon />

@@ -1,10 +1,7 @@
-import useModal from "@/hooks/useModal";
 import * as S from "./style";
 import CloseIcon from "@/styles/mysvg/closeIcon";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { selectedBotAtom } from "@/store/chat";
 import { LikeIcon, UnLikeIcon } from "@/styles/svg";
 
 interface GenerateModalProps {
@@ -19,30 +16,35 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     GetLike(id);
   }, []);
 
-  const [get, setGet] = useState<{ content: string; tags: string[] }>();
+  const [get, setGet] = useState<{
+    name: string;
+    content: string;
+    tags: string[];
+    url: string;
+  }>();
   const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
-    isLiked: false,
-    count: 0,
+    isLiked: false, //자신이 좋아요했으면 true
+    count: 0, //게시물 전체 좋아요 갯수
   });
 
   const GetMeet = async (feedId: number) => {
-    const token = localStorage.getItem("access-token");
+    const token = localStorage.getItem("access-token"); // 로컬의 토큰 가져오기
     try {
       const response = await axios.get(
-        `http://findfriend.kro.kr/api/feed?feedId=` + feedId,
+        `http://findfriend.kro.kr/api/feed?feedId=` + feedId, // api get 요청
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log("Get Meet" + response.data);
-      setGet(response.data);
+      setGet(response.data); // 요청받은 response 를 state에 저장
     } catch (error) {
       console.error(error);
     }
   };
 
+  // 좋아요 가져오기
   const GetLike = async (feedId: number) => {
     const token = localStorage.getItem("access-token");
     try {
@@ -62,6 +64,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     }
   };
 
+  // 자신의 좋아요 상태에 따라 post와 delete 조건처리
   const likeHandler = (feedid: number) => {
     if (isLike.isLiked === true) {
       DeleteLike(feedid);
@@ -72,6 +75,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     }
   };
 
+  // 좋아요 삭제
   const DeleteLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
@@ -80,13 +84,13 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("싫어요");
       GetLike(id);
     } catch (e) {
       console.error(e);
     }
   };
 
+  // 좋아요 post
   const PostLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
@@ -95,7 +99,6 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("좋아요");
       GetLike(id);
     } catch (e) {
       console.error(e);
@@ -109,8 +112,8 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
       <S.Contents>
         <S.Top>
           <S.Wrapper>
-            <S.Profile />
-            <S.Name>공지봇</S.Name>
+            <S.Profile i={get?.url ?? ""} />
+            <S.Name>{get?.name}</S.Name>
           </S.Wrapper>
           <CloseIcon onClick={closeMyModal} />
         </S.Top>
@@ -119,6 +122,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
         <S.Bottom>
           <S.Wrapper>
             <div
+              // 클릭시 likeHandler function으로 이동
               onClick={() => {
                 likeHandler(id);
               }}
@@ -128,9 +132,14 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
                 justifyContent: "center",
               }}
             >
-              {isLike.isLiked ? <LikeIcon /> : <UnLikeIcon />}
-              <div>{isLike.count}</div>
+              {isLike.isLiked ? (
+                <LikeIcon width={2} height={2} />
+              ) : (
+                <UnLikeIcon width={2} height={2} />
+              )}
+              <S.LikeFont>{isLike.count}</S.LikeFont>
             </div>
+            {/* #으로 구별된 태그 전부 가져오기 */}
             {get?.tags.map((props, i) => (
               <S.Tag key={i}>{props}</S.Tag>
             ))}

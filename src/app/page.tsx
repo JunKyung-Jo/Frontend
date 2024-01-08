@@ -15,7 +15,7 @@ import {
   useGetDefaultFriendQuery,
   useGetMyFriendQuery,
 } from "@/services/friend/query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export default function Home() {
@@ -28,9 +28,27 @@ export default function Home() {
   const { myFriendData, isMyFriendLoading } = useGetMyFriendQuery();
   const { data, isLoading } = useUserdataQuery();
 
+  const [defaultFriendArray, setDefaultFriendArray] = useState<any>(null);
+  const [myFriendArray, setMyFriendArray] = useState<any>(null);
+  const [userData, setUserData] = useState<any>(null);
+
   useEffect(() => {
-    console.log("다시받아옴");
-  }, [data, myFriendData]);
+    if (!isDefaultFriendLoading) {
+      setDefaultFriendArray(defaultFriendData);
+    }
+  }, [defaultFriendData]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setUserData(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!isMyFriendLoading) {
+      setMyFriendArray(myFriendData);
+    }
+  }, [myFriendData]);
 
   const defaultFriendListDummy = {
     data: {
@@ -61,55 +79,25 @@ export default function Home() {
       <Modal />
       {modalState.show && <LoginModalForm />}
       <FriendSidebar
-        userData={
-          getStorageItem("access-token")
-            ? isLoading
-              ? userDataDummy
-              : data
-            : null
-        }
+        userData={userData ? userData : userDataDummy}
         defaultFriendData={
-          isDefaultFriendLoading ? defaultFriendListDummy : defaultFriendData
+          defaultFriendArray ? defaultFriendArray : defaultFriendListDummy
         }
-        myFriendData={
-          getStorageItem("access-token")
-            ? isMyFriendLoading
-              ? myFriendListDummy
-              : myFriendData
-            : null
-        }
+        myFriendData={myFriendArray ? myFriendArray : myFriendListDummy}
       />
       <ChatArea
         defaultFriendData={
-          isDefaultFriendLoading ? defaultFriendListDummy : defaultFriendData
+          defaultFriendArray ? defaultFriendArray : defaultFriendListDummy
         }
-        myFriendData={
-          getStorageItem("access-token")
-            ? isMyFriendLoading
-              ? myFriendListDummy
-              : myFriendData
-            : null
-        }
+        myFriendData={myFriendArray ? myFriendArray : myFriendListDummy}
       />
       {rightModalState.show && (
         <RightSidebar
-          userData={
-            getStorageItem("access-token")
-              ? isLoading
-                ? userDataDummy
-                : data
-              : null
-          }
+          userData={userData ? userData : userDataDummy}
           defaultFriendData={
-            isDefaultFriendLoading ? defaultFriendListDummy : defaultFriendData
+            defaultFriendArray ? defaultFriendArray : defaultFriendListDummy
           }
-          myFriendData={
-            getStorageItem("access-token")
-              ? isMyFriendLoading
-                ? myFriendListDummy
-                : myFriendData
-              : null
-          }
+          myFriendData={myFriendArray ? myFriendArray : myFriendListDummy}
         />
       )}
     </Container>

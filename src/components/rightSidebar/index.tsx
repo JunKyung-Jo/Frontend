@@ -1,4 +1,4 @@
-import { Button, Column, Row, Text } from "@/styles/ui";
+import { Row, Text } from "@/styles/ui";
 import styled, { keyframes } from "styled-components";
 import { Color, Font } from "@/styles/theme";
 import { Purplebadge, CrossIcon } from "@/styles/svg";
@@ -7,7 +7,6 @@ import { useRecoilValue } from "recoil";
 import { selectedBotAtom } from "@/store/chat";
 import useModal from "@/hooks/useModal";
 import FeedModal from "../feedModal";
-import axios from "axios";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useGetListQuery } from "./api";
 
@@ -35,16 +34,17 @@ const RightSideBar = ({
       component: <FeedModal closeMyModal={closeMyModal} id={id} url={url} />,
     });
   };
-
+  //feed list 받아온 값을 저장하는 state
   const [feed, setFeed] = useState([]);
+  // query key를 지정하여 새로고침 없이 실행시킬 react query
   const { data, isLoading } = useGetListQuery(selectedFriend.id) as QueryResult;
 
   useEffect(() => {
+    // 받아오는 시간동안은 true로 끝나면 false로 반환하는 isLoading 변수
     if (!isLoading) {
-      console.log("리큐땅" + data?.data);
-      setFeed(data);
+      setFeed(data); // 전체 feed
     }
-  }, [data]);
+  }, [data]); // data값이 변경되면 실행된다
 
   return (
     <SideBarPage rightModalState={rightModalState.animationState}>
@@ -55,6 +55,7 @@ const RightSideBar = ({
           </Row>
         </div>
         <Row alignItems="center" gap={3}>
+          {/* myFriendData를 활용하여 등록 */}
           <BotProfile
             src={
               myFriendData
@@ -69,6 +70,7 @@ const RightSideBar = ({
           <div>
             <Row gap={0.3} alignItems="center">
               <Text fontType="$H5" width={"20rem"} textAlign="left" ellipsis>
+                {/* myFriendData에 있는 데이터를 활용하여 권한 처리 */}
                 {myFriendData
                   ? myFriendData.data.data.find(
                       (e: any) => e.id === selectedFriend.id + 1
@@ -91,21 +93,28 @@ const RightSideBar = ({
             </Text>
           </div>
         </Row>
+        {/* feed 전체 갯수를 길이로 나타낸다(?널 허용한다는 뜻) */}
         <PostCount>게시물 {feed?.length}개</PostCount>
       </RightSidebarHeader>
       <PostContainer>
-        {feed
-          ?.slice(0)
-          .reverse()
-          .map((props: { id: number; url: string }) => (
-            <PostContent
-              key={props.id}
-              onClick={() => {
-                openPost(props.id, props.url);
-              }}
-              img={props.url}
-            />
-          ))}
+        {
+          // feed 최신순으로 정렬
+          feed
+            ?.slice(0)
+            .reverse()
+            // feed id 를 넘겨주는 props
+            .map((props: { id: number; url: string }) => (
+              <PostContent
+                key={props.id}
+                onClick={() => {
+                  // feed 모달 띄우는 function
+                  openPost(props.id, props.url);
+                }}
+                // 이미지 background(배경)처리
+                img={props.url}
+              />
+            ))
+        }
       </PostContainer>
     </SideBarPage>
   );
@@ -175,13 +184,15 @@ const PostContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2px;
+
+  overflow-y: scroll;
 `;
 
 const PostContent = styled.div<{ img: string }>`
   width: 13rem;
   height: 13rem;
-  background: ${Color.black};
-  display: inline-flex;
+  background: ${(props) => (props.img === "" ? Color.black : Color.white)};
+  )display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;

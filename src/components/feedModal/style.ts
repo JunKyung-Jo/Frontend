@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const Image = styled.div<{ url: string }>`
   width: 60%;
   height: 100%;
-  background: ${color.gray900};
+
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
 
@@ -38,11 +38,16 @@ export const Top = styled.div`
   justify-content: space-between;
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.div<{ i: string }>`
   width: 25px;
   height: 25px;
-  background-color: ${color.gray800};
+  background-color: ${(props) =>
+    props.i === "" ? color.gray800 : color.white};
   border-radius: 100px;
+  background-image: url(${(props) => props.i});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 export const Wrapper = styled.div`
@@ -69,4 +74,10 @@ export const Bottom = styled.div`
 export const Tag = styled.div`
   ${font.$p1}
   cursor: pointer;
+`;
+
+export const LikeFont = styled.p`
+  ${font.$p3};
+
+  margin-left: 0.4rem;
 `;

@@ -83,11 +83,17 @@ export const ContentsBox = styled.textarea<{ height: number }>`
   display: flex;
   width: 56rem;
   height: ${(props) => `${props.height}rem`};
-  padding: 18px 393px 154px 18px;
+  padding: 18px;
   align-items: center;
   resize: none;
 
+  border: none;
   border-bottom: 1px solid ${color.gray200};
+
+  &: focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 export const SubmitBox = styled.div`

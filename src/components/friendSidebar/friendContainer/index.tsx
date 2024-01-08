@@ -42,7 +42,7 @@ const FriendContainer = ({
         }
       }}
     >
-      <ProfileImg src={url ? url : "@/styles/svg/logo.png"} />
+      <ProfileImg src={url !== "" ? url : "./../../../styles/svg/logo.png"} />
       <Column alignItems="flex-start" justifyContent="space-evenly">
         <Text fontType="$Button3" width="12rem" textAlign="left" ellipsis>
           {name}
