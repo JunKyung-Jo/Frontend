@@ -102,12 +102,15 @@ const RightSideBar = ({
           feed
             ?.slice(0)
             .reverse()
+            // feed id 를 넘겨주는 props
             .map((props: { id: number; url: string }) => (
               <PostContent
                 key={props.id}
                 onClick={() => {
+                  // feed 모달 띄우는 function
                   openPost(props.id, props.url);
                 }}
+                // 이미지 background(배경)처리
                 img={props.url}
               />
             ))
