@@ -85,7 +85,6 @@ export const ContentsBox = styled.textarea<{ height: number }>`
   border-bottom: 1px solid ${color.gray200};
 
   &: focus {
-    border: none;
     outline: none;
   }
 `;
