@@ -110,7 +110,6 @@ const FriendSidebar = ({
           <AddBotIcon width={3} height={3} />
         </AddAIBotButtonDiv>
       </Column>
-      {/* 화면 하단 로고 */}
       <FriendSidebarFooter>
         <Image
           src={Logo}
