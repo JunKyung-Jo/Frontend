@@ -11,25 +11,26 @@ instance.interceptors.response.use(
   },
   async (error) => {
     const { getStorageItem, setStorageItem } = useLocalStorage();
-
-    try {
-      axios
-        .put(
-          "http://findfriend.kro.kr/api/auth/refresh",
-          {},
-          {
-            headers: {
-              "Authorization-refresh": `Bearer ${getStorageItem(
-                "refresh-token"
-              )}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          setStorageItem("access-token", data.accessToken);
-          setStorageItem("refresh-token", data.refreshToken);
-        });
-    } catch (e) {}
+    if (error.response.status === 403 && getStorageItem("refresh-token")) {
+      try {
+        axios
+          .put(
+            "http://findfriend.kro.kr/api/auth/refresh",
+            {},
+            {
+              headers: {
+                "Authorization-refresh": `Bearer ${getStorageItem(
+                  "refresh-token"
+                )}`,
+              },
+            }
+          )
+          .then(({ data }) => {
+            setStorageItem("access-token", data.accessToken);
+            setStorageItem("refresh-token", data.refreshToken);
+          });
+      } catch (e) {}
+    }
 
     return Promise.reject(error);
   }

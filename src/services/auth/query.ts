@@ -5,7 +5,7 @@ export const useUserdataQuery = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: ["userdata"],
     queryFn: () => getUserdata(),
-    retry: 2,
+    retry: false,
     refetchOnWindowFocus: false,
   });
 

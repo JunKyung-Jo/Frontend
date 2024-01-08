@@ -2,7 +2,7 @@ import { instance } from "@/apis/instance";
 import { useQuery } from "@tanstack/react-query";
 
 const GetList = async (id: number) => {
-  const response = await instance.get("/feed/list?friendId=" + (id + 1));
+  const response = await instance.get("/feed/list?friendId=" + id);
   return response.data;
 };
 

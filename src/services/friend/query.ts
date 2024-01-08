@@ -6,7 +6,7 @@ export const useGetDefaultFriendQuery = () => {
   const { data, isLoading, ...restQuery } = useQuery({
     queryKey: ["getDefaultFriend"],
     queryFn: () => getDefaultFriend(),
-    retry: 2,
+    retry: false,
     refetchOnWindowFocus: false,
   });
 
@@ -21,7 +21,7 @@ export const useGetMyFriendQuery = () => {
   const { data, isLoading, ...restQuery } = useQuery({
     queryKey: ["getMyFriend"],
     queryFn: () => getMyFriend(),
-    retry: 2,
+    retry: false,
     refetchOnWindowFocus: false,
   });
 

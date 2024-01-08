@@ -1,6 +1,7 @@
 import color from "@/styles/theme/color";
 import font from "@/styles/theme/font";
 import styled from "styled-components";
+import Image from "next/image";
 
 export const Container = styled.div`
   width: fit-content;
@@ -10,7 +11,7 @@ export const Container = styled.div`
   display: flex;
 `;
 
-export const Image = styled.div<{ url: string }>`
+export const FeedImage = styled.div<{ url: string }>`
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
 
@@ -39,16 +40,8 @@ export const Top = styled.div`
   justify-content: space-between;
 `;
 
-export const Profile = styled.div<{ i: string }>`
-  width: 25px;
-  height: 25px;
-  background-color: ${(props) =>
-    props.i === "" ? color.gray800 : color.white};
-  border-radius: 100px;
-  background-image: url(${(props) => props.i});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+export const Profile = styled(Image)`
+  border-radius: 999rem;
 `;
 
 export const Wrapper = styled.div`

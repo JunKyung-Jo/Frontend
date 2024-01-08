@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { LikeIcon, UnLikeIcon } from "@/styles/svg";
 import { instance } from "@/apis/instance";
+import Logo from "@/styles/svg/logo.png";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -105,11 +106,19 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   return (
     <S.Container>
       {/* 여기 */}
-      <S.Image url={url}></S.Image>
+      <S.FeedImage url={url}></S.FeedImage>
       <S.Contents>
         <S.Top>
           <S.Wrapper>
-            <S.Profile i={get?.url ?? ""} />
+            <div
+              style={{ width: "25px", height: "25px", position: "relative" }}
+            >
+              <S.Profile
+                alt="profileImg"
+                src={get?.url ? get?.url : Logo}
+                fill
+              />
+            </div>
             <S.Name>{get?.name}</S.Name>
           </S.Wrapper>
           <div
