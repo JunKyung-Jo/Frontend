@@ -39,6 +39,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           },
         }
       );
+      console.log(response.data);
       setGet(response.data); // 요청받은 response 를 state에 저장
     } catch (error) {
       console.error(error);
