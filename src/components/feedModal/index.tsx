@@ -23,28 +23,28 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     url: string;
   }>();
   const [isLike, setLike] = useState<{ isLiked: boolean; count: number }>({
-    isLiked: false,
-    count: 0,
+    isLiked: false, //자신이 좋아요했으면 true
+    count: 0, //게시물 전체 좋아요 갯수
   });
 
   const GetMeet = async (feedId: number) => {
-    const token = localStorage.getItem("access-token");
+    const token = localStorage.getItem("access-token"); // 로컬의 토큰 가져오기
     try {
       const response = await axios.get(
-        `http://findfriend.kro.kr/api/feed?feedId=` + feedId,
+        `http://findfriend.kro.kr/api/feed?feedId=` + feedId, // api get 요청
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log("Get Meet" + response.data);
-      setGet(response.data);
+      setGet(response.data); // 요청받은 response 를 state에 저장
     } catch (error) {
       console.error(error);
     }
   };
 
+  // 좋아요 가져오기
   const GetLike = async (feedId: number) => {
     const token = localStorage.getItem("access-token");
     try {
@@ -64,6 +64,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     }
   };
 
+  // 자신의 좋아요 상태에 따라 post와 delete 조건처리
   const likeHandler = (feedid: number) => {
     if (isLike.isLiked === true) {
       DeleteLike(feedid);
@@ -74,6 +75,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     }
   };
 
+  // 좋아요 삭제
   const DeleteLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
@@ -82,13 +84,13 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("싫어요");
       GetLike(id);
     } catch (e) {
       console.error(e);
     }
   };
 
+  // 좋아요 post
   const PostLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
@@ -97,7 +99,6 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("좋아요");
       GetLike(id);
     } catch (e) {
       console.error(e);
@@ -121,6 +122,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
         <S.Bottom>
           <S.Wrapper>
             <div
+              // 클릭시 likeHandler function으로 이동
               onClick={() => {
                 likeHandler(id);
               }}
@@ -137,6 +139,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
               )}
               <S.LikeFont>{isLike.count}</S.LikeFont>
             </div>
+            {/* #으로 구별된 태그 전부 가져오기 */}
             {get?.tags.map((props) => (
               <S.Tag>{props}</S.Tag>
             ))}
