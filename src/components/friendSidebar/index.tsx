@@ -64,7 +64,7 @@ const FriendSidebar = ({
 
   return (
     <Container>
-      /* 사용자가 로그인한 경우, 사용자 정보를 보여줌 */
+      {/* 사용자가 로그인한 경우, 사용자 정보를 보여줌 */}
       <Column alignItems="center">
         {userData ? (
           <FriendContainer
@@ -75,8 +75,8 @@ const FriendSidebar = ({
             authority="USER"
           />
         ) : (
-          /* 사용자가 로그인하지 않은 경우, 로그인 유도 메시지와 로그인 버튼을 표시 */
           <LoginButtonContainer>
+            {/* 사용자가 로그인하지 않은 경우, 로그인 유도 메시지와 로그인 버튼을 표시 */}
             <Text fontType="$p3">
               로그인하고 더 많은
               <br /> 기능을 이용해보세요!
