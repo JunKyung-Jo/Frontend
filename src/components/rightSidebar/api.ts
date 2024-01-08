@@ -11,8 +11,8 @@ const GetList = async (id: number) => {
 
 export const useGetListQuery = (id: number) => {
   const { data, isLoading, ...restQuery } = useQuery<void, Error, void>({
-    queryKey: ["getList", id],
-    queryFn: () => GetList(id),
+    queryKey: ["getList", id], // query key 지정
+    queryFn: () => GetList(id), // 실행시킬 함수 지정
   });
 
   return { data, isLoading, ...restQuery };
