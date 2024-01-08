@@ -3,7 +3,7 @@ import font from "@/styles/theme/font";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 900px;
+  width: fit-content;
   height: 500px;
   border-radius: 10px;
   background-color: white;
@@ -11,19 +11,20 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.div<{ url: string }>`
-  width: 60%;
-  height: 100%;
-
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
 
+  width: 700px;
+  height: 500px;
+
   background-image: ${(props) => `url(${props.url})`};
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 `;
 
 export const Contents = styled.div`
-  width: 40%;
+  width: 35rem;
   height: 100%;
   padding: 10px;
   box-sizing: border-box;

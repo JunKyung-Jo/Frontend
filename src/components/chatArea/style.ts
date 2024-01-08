@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import color from "../../styles/theme/color";
 import font from "@/styles/theme/font";
+import Image from "next/image";
 
 export const Send = styled.button`
   width: 50px;
@@ -14,7 +15,7 @@ export const Send = styled.button`
   cursor: pointer;
 `;
 
-export const ProfileImg = styled.img`
+export const ProfileImg = styled(Image)`
   width: 7rem;
   height: 7rem;
 

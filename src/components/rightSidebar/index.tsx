@@ -9,6 +9,8 @@ import useModal from "@/hooks/useModal";
 import FeedModal from "../feedModal";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useGetListQuery } from "./api";
+import Logo from "@/styles/svg/logo.png";
+import Image from "next/image";
 
 interface QueryResult {
   data: any;
@@ -58,14 +60,17 @@ const RightSideBar = ({
           {/* myFriendData를 활용하여 등록 */}
           <BotProfile
             src={
-              myFriendData
+              myFriendData.data.data.find(
+                (e: any) => e.id === selectedFriend.id + 1
+              )?.url
                 ? myFriendData.data.data.find(
                     (e: any) => e.id === selectedFriend.id + 1
                   )?.url
-                : defaultFriendData?.data.data.find(
-                    (e: any) => e.id === selectedFriend.id + 1
-                  )?.url
+                : Logo
             }
+            alt="friend"
+            width={320}
+            height={320}
           />
           <div>
             <Row gap={0.3} alignItems="center">
@@ -164,7 +169,7 @@ const RightSidebarHeader = styled.div`
   padding-right: 2.5rem;
 `;
 
-const BotProfile = styled.img`
+const BotProfile = styled(Image)`
   width: 10rem;
   height: 10rem;
   flex-shrink: 0;
@@ -192,7 +197,7 @@ const PostContent = styled.div<{ img: string }>`
   width: 13rem;
   height: 13rem;
   background: ${(props) => (props.img === "" ? Color.black : Color.white)};
-  )display: inline-flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;

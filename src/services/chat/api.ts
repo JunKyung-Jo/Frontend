@@ -7,8 +7,6 @@ export const getChatlog = async (id: number) => {
 };
 
 export const userChat = async (text: string, id: number) => {
-  console.log(text, "fewfe");
-
   const data = await instance.post(
     "/chat",
     { text: text, friendId: id },
@@ -18,6 +16,6 @@ export const userChat = async (text: string, id: number) => {
 };
 
 export const userFreeChat = async (text: string, id: number) => {
-  const data = await instance.get("/chat/free", { text: text, friendId: id });
+  const data = await instance.post("/chat/free", { text: text, friendId: id });
   return { data };
 };

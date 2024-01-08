@@ -19,6 +19,8 @@ import PostModal from "../postModal";
 import axios from "axios";
 import { useDeleteFriendMutation } from "@/services/friend/mutate";
 
+import Logo from "@/styles/svg/logo.png";
+
 const ChatArea = ({
   defaultFriendData,
   myFriendData,
@@ -195,18 +197,30 @@ const ChatArea = ({
             )}
           </S.SettingButton>
           <S.ChatAiName onClick={openModal}>
-            <S.ProfileImg
-              onClick={openModal}
-              src={
-                myFriendData
-                  ? myFriendData.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
-                    )?.url
-                  : defaultFriendData?.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
-                    )?.url
-              }
-            />
+            <div
+              style={{ width: "8rem", height: "8rem", position: "relative" }}
+            >
+              <S.ProfileImg
+                alt="profileImg"
+                onClick={openModal}
+                fill
+                src={
+                  defaultFriendData?.data.data.find(
+                    (e: any) => e.id === selectedFriend.id + 1
+                  )?.url
+                    ? defaultFriendData?.data.data.find(
+                        (e: any) => e.id === selectedFriend.id + 1
+                      )?.url
+                    : myFriendData.data.data.find(
+                        (e: any) => e.id === selectedFriend.id + 1
+                      )?.url
+                    ? myFriendData.data.data.find(
+                        (e: any) => e.id === selectedFriend.id + 1
+                      )?.url
+                    : Logo
+                }
+              />
+            </div>
             <S.ChatAiName />
             <Column alignItems="flex-start" justifyContent="space-evenly">
               <Text fontType="$H5" textAlign="left" width={"30rem"} ellipsis>

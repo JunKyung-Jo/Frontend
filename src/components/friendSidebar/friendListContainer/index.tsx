@@ -22,6 +22,7 @@ const FriendListContainer = ({
       </ListHeader>
       {isOpen && (
         <FriendContainerList>
+          {/*서버에서 받아온 친구 배열 반복문 돌려서 하나하나 값 넣어서 렌더링*/}
           {friendsList.map((e: any, i) => {
             return (
               <FriendContainer
