@@ -43,10 +43,10 @@ export default function Home() {
   }, [defaultFriendData]);
 
   useEffect(() => {
-    setSelectedBot({
-      authority: defaultFriendArray?.data.data[0].authority,
-      id: defaultFriendArray?.data.data[0].id,
-    });
+    // setSelectedBot({
+    //   authority: defaultFriendArray?.data.data[0].authority,
+    //   id: defaultFriendArray?.data.data[0].id,
+    // });
   }, [defaultFriendArray]);
 
   useEffect(() => {

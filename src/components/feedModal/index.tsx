@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { LikeIcon, UnLikeIcon } from "@/styles/svg";
 import { instance } from "@/apis/instance";
 import Logo from "@/styles/svg/logo.png";
+import { useLocalStorage } from "@/hooks/useSessionStorage";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -28,9 +29,11 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     isLiked: false, //자신이 좋아요했으면 true
     count: 0, //게시물 전체 좋아요 갯수
   });
+  const [likeState, setLikeState] = useState(false);
+
+  const { getStorageItem } = useLocalStorage();
 
   const GetMeet = async (feedId: number) => {
-    const token = localStorage.getItem("access-token"); // 로컬의 토큰 가져오기
     try {
       const response = await instance.get(
         `/feed?feedId=` + feedId // api get 요청
@@ -52,7 +55,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
         },
       });
       setLike(response.data);
-      // setStateLike(response.data.isLike);
+      setLikeState(response.data.isLiked);
     } catch (e) {
       console.error(e);
     }
@@ -118,9 +121,9 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           </S.Wrapper>
           <div
             onClick={() => {
-              if (isLike.isLiked === true) {
+              if (isLike.isLiked === true && likeState === false) {
                 PostLike(id);
-              } else {
+              } else if (isLike.isLiked === false && likeState === true) {
                 DeleteLike(id);
               }
             }}
@@ -135,7 +138,9 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
             <div
               // 클릭시 likeHandler function으로 이동
               onClick={() => {
-                likeHandler();
+                if (getStorageItem("access-token")) {
+                  likeHandler();
+                }
               }}
               style={{
                 display: "flex",
