@@ -31,11 +31,33 @@ const FriendSidebar = ({
 
   const { getStorageItem } = useLocalStorage();
   useEffect(() => {
-    //공지봇 드롭다운과 AI 봇 드롭다운에 들어갈 데이터 넣어주기
-    setDefaultAI(defaultFriendData?.data.data);
-    setUserAI(myFriendData?.data.data);
+    //유저테이터와 유저전용 친구목록이있으면(로그인 된 상태면)
 
-    console.log(defaultAI, userAI);
+    if (userData && myFriendData) {
+      //공지봇 드롭다운과 AI 봇 드롭다운에 들어갈 데이터 봇 역할에 따라 각각 나눠주기
+
+      // 사용자가 로그인한 경우, 해당 유저의 AI와 공지 봇 목록을 추출하여 state 업데이트
+      const defaultAIArray = myFriendData?.data.data.filter(
+        (e: any) =>
+          e.authority === "ROLE_FREE" || e.authority === "ROLE_ANNOUNCE"
+      );
+      const userAIArray = myFriendData?.data.data.filter(
+        (e: any) => e.authority === "ROLE_CUSTOM"
+      );
+      setDefaultAI(defaultAIArray);
+      setUserAI(userAIArray);
+    } else if (defaultFriendData?.data.data) {
+      // 사용자가 로그인하지 않은 경우, 기본 AI와 공지 봇 목록을 추출하여 state 업데이트
+      const defaultAIArray = defaultFriendData?.data.data.filter(
+        (e: any) =>
+          e.authority === "ROLE_FREE" || e.authority === "ROLE_ANNOUNCE"
+      );
+      const userAIArray = defaultFriendData?.data.data.filter(
+        (e: any) => e.authority === "ROLE_CUSTOM"
+      );
+      setDefaultAI(defaultAIArray);
+      setUserAI(userAIArray);
+    }
   }, [myFriendData, defaultFriendData, userData]);
 
   // 모달 오픈 함수
