@@ -33,12 +33,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
     const token = localStorage.getItem("access-token"); // 로컬의 토큰 가져오기
     try {
       const response = await instance.get(
-        `/feed?feedId=` + feedId, // api get 요청
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `/feed?feedId=` + feedId // api get 요청
       );
       setGet(response.data); // 요청받은 response 를 state에 저장
     } catch (error) {

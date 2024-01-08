@@ -5,6 +5,7 @@ import CloseIcon from "@/styles/mysvg/closeIcon";
 import axios from "axios";
 import { queryClient } from "../common/provider";
 import { instance } from "@/apis/instance";
+import Image from "next/image";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -90,11 +91,11 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
               <S.Button htmlFor="image">이미지를 선택해 주세요.</S.Button>
             </>
           ) : (
-            <img
-              src={URL.createObjectURL(img)}
-              alt="Preview"
-              style={{ width: "100%", height: "100%" }}
-            />
+            <div
+              style={{ width: "100%", height: "100%", position: "relative" }}
+            >
+              <Image src={URL.createObjectURL(img)} alt="Preview" fill />
+            </div>
           )}
         </S.BorderBox>
 
