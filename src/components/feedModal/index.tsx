@@ -55,7 +55,6 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("api" + JSON.stringify(response.data));
       setLike(response.data);
       // setStateLike(response.data.isLike);
     } catch (e) {
@@ -64,19 +63,13 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   };
 
   // 자신의 좋아요 상태에 따라 post와 delete 조건처리
+  // client predict 사용하여 성능 최적화
   const likeHandler = () => {
     if (isLike.isLiked === true) {
       setLike((prev) => ({ count: prev.count - 1, isLiked: false }));
     } else {
       setLike((prev) => ({ count: prev.count + 1, isLiked: true }));
     }
-    // if (isLike.isLiked === true) {
-    //   DeleteLike(feedid);
-    // } else if (isLike.isLiked === false) {
-    //   PostLike(feedid);
-    // } else {
-    //   alert("좋아요 error");
-    // }
   };
 
   // 좋아요 삭제

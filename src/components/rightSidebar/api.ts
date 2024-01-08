@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 
 const GetList = async (id: number) => {
   const response = await instance.get("/feed/list?friendId=" + (id + 1));
-  console.log("데이터" + response.data);
   return response.data;
 };
 

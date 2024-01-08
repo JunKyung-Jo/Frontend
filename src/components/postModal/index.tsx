@@ -69,7 +69,12 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
         </div>
       </S.Rows1>
       <S.Rows>
-        <S.BorderBox height={64} i={img}>
+        <S.BorderBox height={64}>
+          <img
+            src={URL.createObjectURL(img) ?? ""}
+            alt="Preview"
+            style={{ width: "100%", height: "100%" }}
+          />
           {/* 등록된 이미지가 없을경우 등록페이지 있을경우 예시이미지 보여주기 */}
           {img === undefined && (
             <>
@@ -91,6 +96,7 @@ const PostModal = ({ closeMyModal, id }: GenerateModalProps) => {
             </>
           )}
         </S.BorderBox>
+
         <div>
           <S.ContentsBox
             height={20.2}
