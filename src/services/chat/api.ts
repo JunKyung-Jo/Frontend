@@ -18,6 +18,6 @@ export const userChat = async (text: string, id: number) => {
 };
 
 export const userFreeChat = async (text: string, id: number) => {
-  const data = await instance.post("/chat/free", { text: text, friendId: id });
+  const data = await instance.get("/chat/free", { text: text, friendId: id });
   return { data };
 };

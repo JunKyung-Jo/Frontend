@@ -68,10 +68,12 @@ const ChatArea = ({
   //메세지보내는함수
   const sendMyMessage = () => {
     if (inputValue.text.trim()) {
-      if (selectedFriend.authority === "ROLE_FREE") {
+      if (selectedFriend.authority !== "ROLE_CUSTOM") {
         userFreeChatMutate();
+        console.log("eeeee", selectedFriend.authority);
       } else {
         userChatMutate();
+        console.log("@@@@@", selectedFriend.authority);
       }
       setMessages([...messages, inputValue]);
     }

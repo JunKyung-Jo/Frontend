@@ -7,6 +7,7 @@ export const useGetDefaultFriendQuery = () => {
     queryKey: ["getDefaultFriend"],
     queryFn: () => getDefaultFriend(),
     retry: 2,
+    refetchOnWindowFocus: false,
   });
 
   return {
@@ -21,6 +22,7 @@ export const useGetMyFriendQuery = () => {
     queryKey: ["getMyFriend"],
     queryFn: () => getMyFriend(),
     retry: 2,
+    refetchOnWindowFocus: false,
   });
 
   return { data, isMyFriendLoading: isLoading, ...restQuery };
