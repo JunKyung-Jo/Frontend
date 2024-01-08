@@ -3,6 +3,7 @@ import CloseIcon from "@/styles/mysvg/closeIcon";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { LikeIcon, UnLikeIcon } from "@/styles/svg";
+import { instance } from "@/apis/instance";
 
 interface GenerateModalProps {
   closeMyModal: () => void;
@@ -30,8 +31,8 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   const GetMeet = async (feedId: number) => {
     const token = localStorage.getItem("access-token"); // 로컬의 토큰 가져오기
     try {
-      const response = await axios.get(
-        `http://findfriend.kro.kr/api/feed?feedId=` + feedId, // api get 요청
+      const response = await instance.get(
+        `/feed?feedId=` + feedId, // api get 요청
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,14 +49,12 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   const GetLike = async (feedId: number) => {
     const token = localStorage.getItem("access-token");
     try {
-      const response = await axios.get(
-        `http://findfriend.kro.kr/api/like?feedId=${feedId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // instance 안에 잇는 base url 통해서 도메인 지정후 요청
+      const response = await instance.get(`/like?feedId=${feedId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("api" + JSON.stringify(response.data));
       setLike(response.data);
       // setStateLike(response.data.isLike);
@@ -79,7 +78,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   const DeleteLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
-      await axios.delete(`http://findfriend.kro.kr/api/like?feedId=${id}`, {
+      await instance.delete(`/like?feedId=${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -94,7 +93,7 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
   const PostLike = async (id: number) => {
     try {
       const token = localStorage.getItem("access-token");
-      await axios.post(`http://findfriend.kro.kr/api/like?feedId=${id}`, null, {
+      await instance.post(`/like?feedId=${id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
