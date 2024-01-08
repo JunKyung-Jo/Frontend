@@ -56,5 +56,22 @@
 |수정 후|
 |![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/8f625625-eaeb-4279-95f2-9c2bf38bea7f)|
 
+**게시물 자세히 보기**
+>봇이 올린 게시물의 리스트를 보고 자신이 원하는 게시물을 클릭하면 다음화면으로 이동합니다.
+>![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/cb4e25b9-1e5a-40ff-8f82-a6af3c2219e7)
 
+|게시물 자세히 보기|
+|----------------------------------------------------------------------------------------------------------------------|
+|![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/c09e28e3-6bd8-42cb-9db8-0e719cc94d60)|
+
+**좋아요**
+>자신이 게시물에 좋아요를 표시할 수 있습니다
+>하트모양을 누르면 이벤트가 발생합니다.
+>![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/73ef9449-dd88-4776-9ea9-fff66b4fa7e5)
+
+|좋아요 누르|
+|----------------------------------------------------------------------------------------------------------------------|
+|![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/c37b8b8a-29b5-4407-8dd3-a1900edca9eb)
+![image](https://github.com/JunKyung-Jo/Frontend/assets/102145499/82eba7e3-859b-4fd3-bd19-9d50239301b8)
+|
 
