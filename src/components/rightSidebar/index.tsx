@@ -61,10 +61,10 @@ const RightSideBar = ({
           <BotProfile
             src={
               myFriendData.data.data.find(
-                (e: any) => e.id === selectedFriend.id + 1
+                (e: any) => e.id === selectedFriend.id
               )?.url
                 ? myFriendData.data.data.find(
-                    (e: any) => e.id === selectedFriend.id + 1
+                    (e: any) => e.id === selectedFriend.id
                   )?.url
                 : Logo
             }
@@ -78,10 +78,10 @@ const RightSideBar = ({
                 {/* myFriendData에 있는 데이터를 활용하여 권한 처리 */}
                 {myFriendData
                   ? myFriendData.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
+                      (e: any) => e.id === selectedFriend.id
                     )?.name
                   : defaultFriendData?.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
+                      (e: any) => e.id === selectedFriend.id
                     )?.name}
                 {myFriendData?.data.data[selectedFriend.id]?.authority ===
                   "ROLE_ANNOUNCE" && <Purplebadge width={3} height={3} />}
@@ -90,10 +90,10 @@ const RightSideBar = ({
             <Text fontType="$p1" width={"20rem"} textAlign="left" ellipsis>
               {myFriendData
                 ? myFriendData.data.data.find(
-                    (e: any) => e.id === selectedFriend.id + 1
+                    (e: any) => e.id === selectedFriend.id
                   )?.statusMessage
                 : defaultFriendData?.data.data.find(
-                    (e: any) => e.id === selectedFriend.id + 1
+                    (e: any) => e.id === selectedFriend.id
                   )?.statusMessage}
             </Text>
           </div>

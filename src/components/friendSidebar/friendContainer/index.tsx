@@ -45,7 +45,7 @@ const FriendContainer = ({
       onClick={() => {
         // 눌렀을때 유저 컨테이너가 아니라면 선택된 봇 정보 변경해주기 (유저는 선택해도 게시물 모달창 & 채팅영역 정보 변경 없음.)
         if (authority !== "USER") {
-          setSelectedFriend({ id: id - 1, authority });
+          setSelectedFriend({ id: id, authority });
         }
       }}
     >

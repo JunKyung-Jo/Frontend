@@ -9,9 +9,9 @@ import {
   useUserFreeChatMutation,
 } from "@/services/chat/mutate";
 import UserChat from "./userChat";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { AImessage } from "@/store/services";
-import { selectedBotAtom } from "@/store/chat";
+import { freeChatAmountAtom, selectedBotAtom } from "@/store/chat";
 import { useGetUserchatQuery } from "@/services/chat/query";
 import { useLocalStorage } from "@/hooks/useSessionStorage";
 import useModal from "@/hooks/useModal";
@@ -43,6 +43,8 @@ const ChatArea = ({
   const AImessageResponse = useRecoilValue(AImessage);
   // 선택된 친구 정보 전역변수
   const selectedFriend = useRecoilValue(selectedBotAtom);
+  //무료 채팅 횟수 전역변수
+  const [freeChatAmount] = useRecoilState(freeChatAmountAtom);
 
   const [isOpen, setIsOpen] = useOutsideClick(chatSettingRef, false);
 
@@ -58,11 +60,9 @@ const ChatArea = ({
   //입력된채팅내용 서버로전송(로그인x)
   const { userFreeChatMutate } = useUserFreeChatMutation(inputValue.text);
   //모든 채팅내용 서버에서 가져옴
-  const { data, refetch, isLoading } = useGetUserchatQuery(
-    selectedFriend.id + 1
-  );
+  const { data, refetch, isLoading } = useGetUserchatQuery(selectedFriend.id);
   //친구 삭제
-  const { deleteFriendMutate } = useDeleteFriendMutation(selectedFriend.id + 1);
+  const { deleteFriendMutate } = useDeleteFriendMutation(selectedFriend.id);
 
   //input값 변화하였을때 state변경하는함수
   const [user, setUser] = useState();
@@ -91,12 +91,21 @@ const ChatArea = ({
   //메세지보내는함수
   const sendMyMessage = () => {
     if (inputValue.text.trim()) {
-      if (selectedFriend.authority !== "ROLE_CUSTOM") {
-        userFreeChatMutate();
-        console.log("eeeee", selectedFriend.authority);
+      if (
+        selectedFriend.authority !== "ROLE_CUSTOM" &&
+        !getStorageItem("access-token")
+      ) {
+        if (freeChatAmount >= 0) {
+          //무료채팅횟수가 존재하면 메세지 전송
+          userFreeChatMutate();
+        } else {
+          console.log(freeChatAmount);
+          //무료채팅횟수 없으면 알림띄워주기
+          alert("무료 채팅 횟수를 소진하였습니다. 로그인 하여 이용해 주세요.");
+          return;
+        }
       } else {
         userChatMutate();
-        console.log("@@@@@", selectedFriend.authority);
       }
       setMessages([...messages, inputValue]);
     }
@@ -152,7 +161,7 @@ const ChatArea = ({
   const openPost = () => {
     openMyModal({
       component: (
-        <PostModal closeMyModal={closeMyModal} id={selectedFriend.id + 1} />
+        <PostModal closeMyModal={closeMyModal} id={selectedFriend.id} />
       ),
     });
   };
@@ -206,16 +215,16 @@ const ChatArea = ({
                 fill
                 src={
                   defaultFriendData?.data.data.find(
-                    (e: any) => e.id === selectedFriend.id + 1
+                    (e: any) => e.id === selectedFriend.id
                   )?.url
                     ? defaultFriendData?.data.data.find(
-                        (e: any) => e.id === selectedFriend.id + 1
+                        (e: any) => e.id === selectedFriend.id
                       )?.url
                     : myFriendData.data.data.find(
-                        (e: any) => e.id === selectedFriend.id + 1
+                        (e: any) => e.id === selectedFriend.id
                       )?.url
                     ? myFriendData.data.data.find(
-                        (e: any) => e.id === selectedFriend.id + 1
+                        (e: any) => e.id === selectedFriend.id
                       )?.url
                     : Logo
                 }
@@ -224,21 +233,25 @@ const ChatArea = ({
             <S.ChatAiName />
             <Column alignItems="flex-start" justifyContent="space-evenly">
               <Text fontType="$H5" textAlign="left" width={"30rem"} ellipsis>
-                {myFriendData
-                  ? myFriendData.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
+                {defaultFriendData?.data.data.find(
+                  (e: any) => e.id === selectedFriend.id
+                )?.name
+                  ? defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id
                     )?.name
-                  : defaultFriendData?.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
+                  : myFriendData.data.data.find(
+                      (e: any) => e.id === selectedFriend.id
                     )?.name}
               </Text>
               <Text fontType="$p1" textAlign="left" width={"30rem"} ellipsis>
-                {myFriendData
-                  ? myFriendData.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
+                {defaultFriendData?.data.data.find(
+                  (e: any) => e.id === selectedFriend.id
+                )?.statusMessage
+                  ? defaultFriendData?.data.data.find(
+                      (e: any) => e.id === selectedFriend.id
                     )?.statusMessage
-                  : defaultFriendData?.data.data.find(
-                      (e: any) => e.id === selectedFriend.id + 1
+                  : myFriendData.data.data.find(
+                      (e: any) => e.id === selectedFriend.id
                     )?.statusMessage}
               </Text>
             </Column>
