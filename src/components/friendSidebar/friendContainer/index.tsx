@@ -42,7 +42,7 @@ const FriendContainer = ({
         }
       }}
     >
-      <ProfileImg src={url} />
+      <ProfileImg src={url !== "" ? url : "./../../../styles/svg/logo.png"} />
       <Column alignItems="flex-start" justifyContent="space-evenly">
         <Text fontType="$Button3" width="12rem" textAlign="left" ellipsis>
           {name}
@@ -52,7 +52,7 @@ const FriendContainer = ({
         </Text>
         {authority === "USER" ? (
           <EditProfileButton onClick={openUpdateModal}>
-            클릭해서 정보를 수정해보세요!
+            정보 수정
           </EditProfileButton>
         ) : (
           ""

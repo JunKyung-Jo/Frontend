@@ -30,6 +30,13 @@ const FriendSidebar = ({
 
   // 데이터가 변경될 때마다 실행되는 useEffect
   useEffect(() => {
+    console.log(
+      "친구사이드바 렌더링 : ",
+      myFriendData,
+      defaultFriendData,
+      userData
+    );
+
     if (userData && myFriendData) {
       // 사용자가 로그인한 경우, 해당 유저의 AI와 공지 봇 목록을 추출하여 state 업데이트
       const defaultAIArray = myFriendData?.data.data.filter(

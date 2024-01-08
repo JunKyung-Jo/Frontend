@@ -4,7 +4,10 @@ import * as S from "./style";
 import { Column, Row, Text } from "@/styles/ui";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
-import { useUserChatMutation } from "@/services/chat/mutate";
+import {
+  useUserChatMutation,
+  useUserFreeChatMutation,
+} from "@/services/chat/mutate";
 import UserChat from "./userChat";
 import { useRecoilValue } from "recoil";
 import { AImessage } from "@/store/services";
@@ -14,6 +17,7 @@ import { useLocalStorage } from "@/hooks/useSessionStorage";
 import useModal from "@/hooks/useModal";
 import PostModal from "../postModal";
 import axios from "axios";
+import { useDeleteFriendMutation } from "@/services/friend/mutate";
 
 const ChatArea = ({
   defaultFriendData,
@@ -22,26 +26,43 @@ const ChatArea = ({
   defaultFriendData: any;
   myFriendData: any;
 }) => {
+  //모달창 불러오는 훅
   const { openModal } = useRightbarSideModal();
+  //로컬스토리지 값 접근하는 함수
   const { getStorageItem } = useLocalStorage();
 
+  //메시지 끝나는 창 ref
   const messageEndRef = useRef<HTMLDivElement | null>(null);
+
+  //채팅 세팅 ref
   const chatSettingRef = useRef<HTMLDivElement | null>(null);
 
+  // Ai응답 전역변수
   const AImessageResponse = useRecoilValue(AImessage);
+  // 선택된 친구 정보 전역변수
   const selectedFriend = useRecoilValue(selectedBotAtom);
 
   const [isOpen, setIsOpen] = useOutsideClick(chatSettingRef, false);
+
+  //입력된텍스트
   const [inputValue, setInputValue] = useState({ text: "", isMyChat: true });
+  //모든채팅내용 담는 state
   const [messages, setMessages] = useState<any[]>([
     { text: "", isMyChat: true },
   ]);
 
+  //입력된채팅내용 서버로전송(로그인o)
   const { userChatMutate } = useUserChatMutation(inputValue.text);
+  //입력된채팅내용 서버로전송(로그인x)
+  const { userFreeChatMutate } = useUserFreeChatMutation(inputValue.text);
+  //모든 채팅내용 서버에서 가져옴
   const { data, refetch, isLoading } = useGetUserchatQuery(
     selectedFriend.id + 1
   );
+  //친구 삭제
+  const { deleteFriendMutate } = useDeleteFriendMutation(selectedFriend.id + 1);
 
+  //input값 변화하였을때 state변경하는함수
   const [user, setUser] = useState();
 
   useLayoutEffect(() => {
@@ -65,23 +86,33 @@ const ChatArea = ({
     setInputValue({ ...inputValue, text: e.target.value });
   };
 
+  //메세지보내는함수
   const sendMyMessage = () => {
     if (inputValue.text.trim()) {
-      userChatMutate();
+      if (selectedFriend.authority !== "ROLE_CUSTOM") {
+        userFreeChatMutate();
+        console.log("eeeee", selectedFriend.authority);
+      } else {
+        userChatMutate();
+        console.log("@@@@@", selectedFriend.authority);
+      }
       setMessages([...messages, inputValue]);
     }
   };
 
+  //키 누른거인식
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       sendMyMessage();
     }
   };
 
+  //응답오면 채팅배열에 값 삽입
   useEffect(() => {
     setMessages([...messages, { text: AImessageResponse, isMyChat: false }]);
   }, [AImessageResponse]);
 
+  //렌더링 시 서버에서온 메세지 배열을 채팅배열에 넣음
   useEffect(() => {
     if (!isLoading) {
       const queryMessageArray: any[] = [];
@@ -95,11 +126,13 @@ const ChatArea = ({
     }
   }, [data]);
 
+  //선택된친구가 바뀌면 채팅데이터 다시갖고옴
   useEffect(() => {
     setMessages([]);
     if (getStorageItem("access-token")) refetch();
   }, [selectedFriend]);
 
+  //채팅띄우는 애니메이션부분
   useEffect(() => {
     setTimeout(() => {
       messageEndRef.current?.scrollIntoView({
@@ -111,8 +144,7 @@ const ChatArea = ({
     }, 0);
   }, [messages]);
 
-  console.log(defaultFriendData, selectedFriend.id, "fwfewfwefewf");
-
+  //오른쪽 게시문모달 선언문
   const { openMyModal, closeMyModal } = useModal();
 
   const openPost = () => {
@@ -137,10 +169,17 @@ const ChatArea = ({
             {isOpen && (
               <>
                 <S.ChatAiOption>
-                  <div style={{ display: "flex" }}>
-                    <LeftIcon width={1.8} height={1.8} />
-                    친구 떠나기
-                  </div>
+                  {selectedFriend.authority === "ROLE_CUSTOM" && (
+                    <div
+                      style={{ display: "flex" }}
+                      onClick={() => {
+                        deleteFriendMutate();
+                      }}
+                    >
+                      <LeftIcon width={1.8} height={1.8} />
+                      친구 떠나기
+                    </div>
+                  )}
                   {user === "ROLE_ADMIN" && (
                     <div
                       style={{ color: "black" }}

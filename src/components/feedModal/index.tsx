@@ -139,8 +139,8 @@ const FeedModal = ({ closeMyModal, id, url }: GenerateModalProps) => {
               <S.LikeFont>{isLike.count}</S.LikeFont>
             </div>
             {/* #으로 구별된 태그 전부 가져오기 */}
-            {get?.tags.map((props) => (
-              <S.Tag>{props}</S.Tag>
+            {get?.tags.map((props, i) => (
+              <S.Tag key={i}>{props}</S.Tag>
             ))}
           </S.Wrapper>
         </S.Bottom>

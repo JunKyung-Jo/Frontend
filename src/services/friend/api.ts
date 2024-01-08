@@ -21,3 +21,8 @@ export const getMyFriend = async () => {
 
   return { data };
 };
+
+export const deleteFriend = async (friendId: number) => {
+  const data = await instance.delete(`/friend?friendId=${friendId}`);
+  return { data };
+};
