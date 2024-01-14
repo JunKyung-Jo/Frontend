@@ -41,27 +41,23 @@ const LoginModalForm = () => {
           </Text>
           {/* 구글 Auth 로그인 링크 */}
           <Row gap={1.5}>
-            <a
-              href={
-                "https://accounts.google.com/o/oauth2/v2/auth?client_id=89793238958-tkn3joi9p5kc0erlhaq3rbub46gbjmut.apps.googleusercontent.com&redirect_uri=http://localhost:3000/auth/google&response_type=code&scope=email profile"
-              }
-            >
+            <a href={process.env.NEXT_PUBLIC_GOOGLE_AUTH_URL}>
               <GoogleIcon />
             </a>
 
             {/* 카카오 Auth 로그인 링크 들어갈 자리 */}
 
-            <a href={process.env.KAKAO_AUTH_URL}>
+            <a
+              href={
+                "여기 생성한 카카오 OAuth 환경변수명 입력해주세요. ex) process.env.NEXT_PUBLIC_KAKAO_AUTH_URL"
+              }
+            >
               <KakaoIcon />
             </a>
 
             {/* 네이버 Auth 로그인 링크 */}
 
-            <a
-              href={
-                "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=NvG3t3O6jvliwfPn2vuP&redirect_uri=http://localhost:3000/auth/naver&state=test"
-              }
-            >
+            <a href={process.env.NEXT_PUBLIC_NAVER_AUTH_URL}>
               <NaverIcon />
             </a>
           </Row>

@@ -16,8 +16,6 @@ export const Send = styled.button`
 `;
 
 export const ProfileImg = styled(Image)`
-  width: 7rem;
-  height: 7rem;
 
   border-radius: 999rem;
 `;

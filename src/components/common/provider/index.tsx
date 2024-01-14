@@ -4,8 +4,8 @@ import { RecoilRoot } from "recoil";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 import { GlobalStyle } from "@/styles/theme";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+// 프로젝트 라이브러리에 필요한 요소들을 임포트하고 기본 설정을 해주는 컴포넌트입니다.
 interface ProviderAttribute {
   children: React.ReactNode;
 }
@@ -23,7 +23,6 @@ const Provider = ({ children }: ProviderAttribute) => {
         <GlobalStyle />
         {children}
       </RecoilRoot>
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

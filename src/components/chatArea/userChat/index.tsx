@@ -3,8 +3,6 @@ import { Color } from "@/styles/theme";
 import font from "@/styles/theme/font";
 import { UserChatAttribute } from "@/types/components/UserChatAttiribute.type";
 import styled, { css, keyframes } from "styled-components";
-import { useEffect, useLayoutEffect, useState } from "react";
-import axios from "axios";
 
 const UserChat = ({
   text,
