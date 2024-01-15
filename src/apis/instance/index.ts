@@ -2,7 +2,7 @@ import { useLocalStorage } from "@/hooks/useSessionStorage";
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "http://findfriend.kro.kr/api",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 instance.interceptors.response.use(

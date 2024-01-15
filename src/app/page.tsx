@@ -9,7 +9,6 @@ import {
 import Modal from "@/components/modal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRightbarSideModal } from "@/hooks/useRightSidebarModal";
-import { useLocalStorage } from "@/hooks/useSessionStorage";
 import { useUserdataQuery } from "@/services/auth/query";
 import {
   useGetDefaultFriendQuery,
@@ -17,14 +16,12 @@ import {
 } from "@/services/friend/query";
 import { selectedBotAtom } from "@/store/chat";
 import { useEffect, useState } from "react";
-import { flushSync } from "react-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
 export default function Home() {
   const { rightModalState } = useRightbarSideModal();
   const { modalState } = useLoginModal();
-  const { getStorageItem } = useLocalStorage();
 
   const { defaultFriendData, isDefaultFriendLoading } =
     useGetDefaultFriendQuery();
